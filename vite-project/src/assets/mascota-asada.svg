@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 560" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Mascota ASADA San Juan</title>
+  <desc id="descripcion">Mascota en forma de gota de agua con gorra, overol, caja de herramientas y pulgar arriba.</desc>
+  <defs>
+    <linearGradient id="gota" x1="160" x2="360" y1="120" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#98f2ff"/>
+      <stop offset=".55" stop-color="#38c8f2"/>
+      <stop offset="1" stop-color="#0877d9"/>
+    </linearGradient>
+    <linearGradient id="azul" x1="170" x2="380" y1="60" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1392ff"/>
+      <stop offset="1" stop-color="#073db2"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="260" cy="520" rx="150" ry="24" fill="#9edcf4" opacity=".45"/>
+  <path fill="url(#gota)" stroke="#083f9d" stroke-width="9" d="M260 55c96 100 156 190 156 282 0 112-65 176-156 176s-156-64-156-176C104 245 164 155 260 55Z"/>
+  <path fill="#fff" opacity=".45" d="M146 260c14-70 55-135 115-198-55 52-98 122-114 189-12 48-12 90-4 130 8-43 0-77 3-121Z"/>
+  <path fill="#fff" stroke="#073f9d" stroke-width="7" d="M170 72c15-32 43-48 90-48s75 16 90 48v72H170V72Z"/>
+  <rect x="235" y="15" width="50" height="28" rx="13" fill="#0b8bed" stroke="#073f9d" stroke-width="6"/>
+  <path fill="url(#azul)" stroke="#073f9d" stroke-width="7" d="M156 142c52 22 156 22 208 0 11 33-3 56-30 64-45 14-103 14-148 0-27-8-41-31-30-64Z"/>
+  <text x="260" y="103" text-anchor="middle" fill="#087de2" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900">ASADA</text>
+  <text x="260" y="135" text-anchor="middle" fill="#087de2" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="900">San Juan</text>
+  <path fill="#073f9d" d="M174 238c24-28 52-28 76 0-28-11-53-11-76 0Zm96 0c24-28 52-28 76 0-28-11-53-11-76 0Z"/>
+  <circle cx="206" cy="286" r="36" fill="#fff" stroke="#05256c" stroke-width="7"/>
+  <circle cx="314" cy="286" r="36" fill="#fff" stroke="#05256c" stroke-width="7"/>
+  <circle cx="212" cy="289" r="20" fill="#0847b7"/>
+  <circle cx="320" cy="289" r="20" fill="#0847b7"/>
+  <circle cx="222" cy="276" r="7" fill="#fff"/>
+  <circle cx="330" cy="276" r="7" fill="#fff"/>
+  <circle cx="172" cy="331" r="16" fill="#8defff" opacity=".55"/>
+  <circle cx="348" cy="331" r="16" fill="#8defff" opacity=".55"/>
+  <path fill="#061e59" d="M211 352c34 32 67 32 101 0-7 35-27 53-50 53s-44-18-51-53Z"/>
+  <path fill="#fff" d="M227 358c23 9 47 9 70 0-8 14-20 21-35 21s-27-7-35-21Z"/>
+  <path fill="#f85d65" d="M244 386c12-7 24-7 36 0-6 9-12 13-18 13s-12-4-18-13Z"/>
+  <path fill="url(#azul)" stroke="#073f9d" stroke-width="8" d="M116 320c42 34 90 51 144 51s102-17 144-51l7 70c-38 44-88 66-151 66s-113-22-151-66l7-70Z"/>
+  <rect x="205" y="395" width="112" height="66" rx="12" fill="#0d6bd7" stroke="#073f9d" stroke-width="6"/>
+  <rect x="180" y="353" width="34" height="70" rx="9" fill="#fff" stroke="#073f9d" stroke-width="6"/>
+  <rect x="306" y="353" width="34" height="70" rx="9" fill="#fff" stroke="#073f9d" stroke-width="6"/>
+  <rect x="190" y="370" width="14" height="34" rx="4" fill="#0b75d6"/>
+  <rect x="316" y="370" width="14" height="34" rx="4" fill="#0b75d6"/>
+  <path fill="#37c7f2" stroke="#073f9d" stroke-width="8" d="M112 338c-50 10-84 43-103 99l62 23c27-32 45-66 53-103l-12-19Z"/>
+  <path fill="#fff" stroke="#073f9d" stroke-width="8" d="M32 421c24 8 41 24 51 50-20 18-43 20-70 8-15-7-20-18-15-33 5-16 16-24 34-25Z"/>
+  <rect x="20" y="455" width="105" height="72" rx="12" fill="#19aee8" stroke="#073f9d" stroke-width="8"/>
+  <rect x="34" y="421" width="78" height="43" rx="12" fill="#0879dc" stroke="#073f9d" stroke-width="8"/>
+  <rect x="58" y="474" width="31" height="26" rx="5" fill="#d7eef7" stroke="#073f9d" stroke-width="5"/>
+  <path fill="#35c4f2" stroke="#073f9d" stroke-width="8" d="M405 314c36-33 68-30 91 7 15 24 8 58-20 95l-52-12c13-22 15-45 6-67l-25-23Z"/>
+  <path fill="#fff" stroke="#073f9d" stroke-width="8" d="M450 282c23 4 38 22 41 51 3 37-13 73-49 107l-42-36c27-35 44-75 50-122Z"/>
+  <path fill="#fff" stroke="#073f9d" stroke-width="8" d="M404 405c34 0 62 12 84 36-12 27-37 36-75 31-22-3-38-13-48-29l39-38Z"/>
+  <path fill="#074bc3" stroke="#073f9d" stroke-width="7" d="M186 455h70v50h-70zM267 455h70v50h-70z"/>
+  <path fill="#fff" stroke="#073f9d" stroke-width="7" d="M150 502h110v36H150c-17 0-27-6-27-17s10-19 27-19Zm116 0h110c17 0 27 8 27 19s-10 17-27 17H266v-36Z"/>
+</svg>
