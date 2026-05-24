@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIGASJ | ASADA San Juan de Santa Cruz</title>
+    <style>
+      :root {
+        --sky: #29b6f6;
+        --sky-light: #b3e5fc;
+        --navy: #0d1b2a;
+        --white: #ffffff;
+        --text-dark: #0d2137;
+        --text-muted: #4fc3f7;
+        --border: #e0f2fe;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text-dark);
+        background: var(--white);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      .contenedor {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .navbar {
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .navbar__inner {
+        min-height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 210px;
+      }
+
+      .logo__icono {
+        width: 36px;
+        height: 36px;
+        flex: 0 0 36px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: var(--sky);
+      }
+
+      .logo__texto {
+        display: grid;
+        gap: 2px;
+      }
+
+      .logo__texto strong {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+
+      .logo__texto small {
+        max-width: 120px;
+        color: var(--sky);
+        font-size: 11px;
+        line-height: 1.15;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        flex: 1;
+      }
+
+      .nav-links a {
+        color: var(--text-dark);
+        font-size: 13px;
+      }
+
+      .login-nav {
+        border: 1.5px solid var(--sky);
+        border-radius: 999px;
+        background: var(--white);
+        color: var(--sky);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 18px;
+        white-space: nowrap;
+      }
+
+      .login-nav:hover {
+        background: var(--sky);
+        color: var(--white);
+      }
+
+      .hero {
+        background: var(--sky);
+        color: var(--white);
+      }
+
+      .hero__inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 340px;
+        align-items: end;
+        gap: 64px;
+        padding: 48px 40px 0;
+      }
+
+      .hero__copy {
+        padding-bottom: 48px;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--white);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: '';
+        width: 28px;
+        height: 2px;
+        background: var(--white);
+      }
+
+      h1 {
+        max-width: 520px;
+        margin: 12px 0 0;
+        color: var(--white);
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .hero__copy p {
+        max-width: 380px;
+        margin: 16px 0 0;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .hero__acciones {
+        display: grid;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .fila-botones {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .boton-hero {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--white);
+        color: var(--text-dark);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 20px;
+      }
+
+      .boton-hero svg {
+        width: 16px;
+        height: 16px;
+        stroke: currentColor;
+      }
+
+      .meter-card {
+        width: 340px;
+        padding: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-bottom: 0;
+        border-radius: 16px 16px 0 0;
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .meter-card__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .meter-card__header strong {
+        color: var(--white);
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .pill {
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.25);
+        color: var(--white);
+        font-size: 12px;
+        padding: 4px 14px;
+      }
+
+      .gauge {
+        display: block;
+        width: 240px;
+        height: 132px;
+        margin: 26px auto 0;
+      }
+
+      .digits {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 16px;
+      }
+
+      .digits span {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 42px;
+        border-radius: 6px;
+        background: var(--navy);
+        color: var(--white);
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .meter-hint {
+        margin: 16px 0 0;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .chips {
+        background: var(--navy);
+      }
+
+      .chips__inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 16px 0;
+      }
+
+      .chip {
+        border: 1px solid var(--sky);
+        border-radius: 999px;
+        color: var(--sky-light);
+        font-size: 13px;
+        padding: 8px 14px;
+      }
+
+      .section {
+        padding: 64px 0;
+      }
+
+      .section--light {
+        background: var(--white);
+      }
+
+      .section--soft {
+        background: var(--sky-light);
+      }
+
+      .section__head {
+        max-width: 720px;
+        margin-bottom: 28px;
+      }
+
+      .section__label {
+        margin: 0 0 8px;
+        color: var(--sky);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin: 0;
+        color: var(--text-dark);
+        font-size: 28px;
+        line-height: 1.2;
+      }
+
+      .section__head p,
+      .texto-base {
+        color: var(--text-dark);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--white);
+        padding: 20px;
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        color: var(--text-dark);
+        font-size: 17px;
+      }
+
+      .card p {
+        margin: 0 0 16px;
+        color: var(--text-dark);
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .card a,
+      .card button {
+        border: 1.5px solid var(--sky);
+        border-radius: 999px;
+        background: var(--white);
+        color: var(--sky);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 9px 14px;
+      }
+
+      .meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+        color: var(--text-dark);
+        font-size: 12px;
+      }
+
+      .estado {
+        border-radius: 999px;
+        background: var(--sky-light);
+        color: var(--text-dark);
+        padding: 4px 10px;
+      }
+
+      .formularios {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        color: var(--text-dark);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--white);
+        color: var(--text-dark);
+        min-height: 42px;
+        padding: 10px 12px;
+      }
+
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 2px solid var(--sky);
+        outline-offset: 1px;
+      }
+
+      .submit {
+        border: 0;
+        border-radius: 8px;
+        background: var(--sky);
+        color: var(--white);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 12px 16px;
+      }
+
+      .error {
+        min-height: 16px;
+        color: var(--text-dark);
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+      .success {
+        display: none;
+        border-radius: 8px;
+        background: var(--sky-light);
+        color: var(--text-dark);
+        font-size: 13px;
+        font-weight: 700;
+        margin-top: 12px;
+        padding: 12px;
+      }
+
+      .consulta {
+        max-width: 560px;
+      }
+
+      .contacto {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: start;
+      }
+
+      .footer {
+        background: var(--navy);
+        color: var(--white);
+        padding: 34px 0;
+      }
+
+      .footer__inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .footer h2 {
+        color: var(--white);
+        font-size: 22px;
+      }
+
+      .footer p,
+      .footer a {
+        color: var(--text-muted);
+        font-size: 13px;
+      }
+
+      .footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+      }
+
+      @media (max-width: 900px) {
+        .navbar__inner {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 16px 0;
+        }
+
+        .logo {
+          width: auto;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          gap: 14px;
+        }
+
+        .hero__inner {
+          grid-template-columns: 1fr;
+          gap: 32px;
+          padding: 40px 20px 0;
+        }
+
+        .hero__copy {
+          padding-bottom: 0;
+        }
+
+        .meter-card {
+          width: 100%;
+          max-width: 340px;
+        }
+
+        .grid,
+        .formularios,
+        .contacto {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .contenedor {
+          width: min(100% - 24px, 1120px);
+        }
+
+        h1 {
+          font-size: 30px;
+        }
+
+        .fila-botones,
+        .footer__inner {
+          flex-direction: column;
+        }
+
+        .boton-hero,
+        .login-nav {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .footer nav {
+          justify-content: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="contenedor navbar__inner">
+        <a class="logo" href="#inicio" aria-label="Ir al inicio">
+          <span class="logo__icono" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3C8.5 7.4 6.8 10.6 6.8 13.2a5.2 5.2 0 1 0 10.4 0C17.2 10.6 15.5 7.4 12 3Z" stroke="#fff" stroke-width="2" />
+            </svg>
+          </span>
+          <span class="logo__texto">
+            <strong>SIGASJ</strong>
+            <small>ASADA San Juan de Santa Cruz</small>
+          </span>
+        </a>
+
+        <nav class="nav-links" aria-label="Navegacion principal">
+          <a href="#inicio">Inicio</a>
+          <a href="#quienes-somos">Quienes somos</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#comunicados">Comunicados</a>
+          <a href="#reportar-averia">Reportar averia</a>
+          <a href="#proyectos">Proyectos</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <a class="login-nav" href="/login">Iniciar sesion</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio">
+        <div class="contenedor hero__inner">
+          <div class="hero__copy">
+            <div class="eyebrow">Gestion publica del acueducto comunal</div>
+            <h1>Sistema de gestion del acueducto ASADA San Juan</h1>
+            <p>
+              SIGASJ mejora la atencion, la comunicacion y la gestion de tramites
+              para los abonados de la ASADA San Juan de Santa Cruz.
+            </p>
+            <div class="hero__acciones">
+              <div class="fila-botones">
+                <a class="boton-hero" href="#solicitar-servicio">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM19 8v6M16 11h6" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                  Solicitar servicio
+                </a>
+                <a class="boton-hero" href="#reportar-averia">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M14.7 6.3a4 4 0 0 0-5 5L3 18v3h3l6.7-6.7a4 4 0 0 0 5-5l-2.3 2.3-2.8-2.8 2.1-2.5Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  Reportar averia
+                </a>
+              </div>
+              <div class="fila-botones">
+                <a class="boton-hero" href="/login">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  Iniciar sesion
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <aside class="meter-card" aria-label="Medidor informativo SIGASJ">
+            <div class="meter-card__header">
+              <strong>SIGASJ</strong>
+              <span class="pill">Portal publico</span>
+            </div>
+
+            <svg class="gauge" viewBox="0 0 200 110" role="img" aria-label="Medidor de agua">
+              <path d="M25 100 A75 75 0 0 1 175 100" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="12" stroke-linecap="round" />
+              <path d="M25 100 A75 75 0 0 1 151 47" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" />
+              <line x1="100" y1="100" x2="146" y2="55" stroke="#0d1b2a" stroke-width="2.5" stroke-linecap="round" />
+              <circle cx="100" cy="100" r="6" fill="#ffffff" />
+              <text x="18" y="96" fill="#ffffff" font-size="10">0</text>
+              <text x="48" y="39" fill="#ffffff" font-size="10">25</text>
+              <text x="96" y="24" fill="#ffffff" font-size="10">50</text>
+              <text x="144" y="39" fill="#ffffff" font-size="10">75</text>
+              <text x="172" y="96" fill="#ffffff" font-size="10">100</text>
+            </svg>
+
+            <div class="digits" aria-label="Lectura del medidor 01842">
+              <span>0</span>
+              <span>1</span>
+              <span>8</span>
+              <span>4</span>
+              <span>2</span>
+            </div>
+            <p class="meter-hint">Gestion comunal del agua potable</p>
+          </aside>
+        </div>
+      </section>
+
+      <div class="chips">
+        <div class="contenedor chips__inner">
+          <a class="chip" href="#solicitar-servicio">Solicitar servicio</a>
+          <a class="chip" href="#reportar-averia">Reportar averia</a>
+          <a class="chip" href="#consulta-publica">Consulta publica</a>
+          <a class="chip" href="#comunicados">Comunicados oficiales</a>
+          <a class="chip" href="#proyectos">Proyectos</a>
+        </div>
+      </div>
+
+      <section class="section section--light" id="quienes-somos">
+        <div class="contenedor">
+          <div class="section__head">
+            <p class="section__label">Quienes somos</p>
+            <h2>ASADA San Juan de Santa Cruz</h2>
+            <p>
+              La ASADA San Juan administra, opera y mantiene el sistema de acueducto
+              comunal, garantizando el suministro de agua potable a sus abonados.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--soft" id="servicios">
+        <div class="contenedor">
+          <div class="section__head">
+            <p class="section__label">Servicios disponibles</p>
+            <h2>Opciones publicas para abonados y visitantes</h2>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <h3>Solicitud de nuevo servicio</h3>
+              <p>Inicie tramites para nueva conexion o disponibilidad de agua.</p>
+              <a href="#solicitar-servicio">Solicitar</a>
+            </article>
+            <article class="card">
+              <h3>Reporte de averias</h3>
+              <p>Informe fugas, baja presion, rupturas de tuberia o falta de agua.</p>
+              <a href="#reportar-averia">Reportar</a>
+            </article>
+            <article class="card">
+              <h3>Consulta publica</h3>
+              <p>Revise el estado de una solicitud con su numero de seguimiento.</p>
+              <a href="#consulta-publica">Consultar</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--light" id="comunicados">
+        <div class="contenedor">
+          <div class="section__head">
+            <p class="section__label">Comunicados oficiales</p>
+            <h2>Informacion reciente para la comunidad</h2>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <div class="meta"><span>20 mayo 2026</span><span class="estado">Programado</span></div>
+              <h3>Aviso de mantenimiento programado</h3>
+              <p>Revision preventiva de valvulas y lineas principales durante la manana.</p>
+            </article>
+            <article class="card">
+              <div class="meta"><span>18 mayo 2026</span><span class="estado">Informativo</span></div>
+              <h3>Interrupcion temporal del servicio</h3>
+              <p>Corte temporal por reparacion de tuberia en el sector central.</p>
+            </article>
+            <article class="card">
+              <div class="meta"><span>15 mayo 2026</span><span class="estado">Recomendacion</span></div>
+              <h3>Uso responsable del agua</h3>
+              <p>Se recomienda evitar desperdicios y reportar fugas visibles oportunamente.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--soft">
+        <div class="contenedor formularios">
+          <article class="card" id="reportar-averia">
+            <h2>Reportar averia</h2>
+            <p class="texto-base">Complete los datos para registrar un incidente del servicio de agua.</p>
+            <form data-form="averia" novalidate>
+              <label>Nombre completo <input name="nombre" /></label><small class="error" data-error="nombre"></small>
+              <label>Telefono <input name="telefono" /></label><small class="error" data-error="telefono"></small>
+              <label>Correo electronico opcional <input name="correo" type="email" /></label><small class="error" data-error="correo"></small>
+              <label>Direccion o ubicacion <input name="direccion" /></label><small class="error" data-error="direccion"></small>
+              <label>Tipo de averia
+                <select name="tipo">
+                  <option value="">Seleccione una opcion</option>
+                  <option>Fuga</option>
+                  <option>Baja presion</option>
+                  <option>Ruptura de tuberia</option>
+                  <option>Falta de agua</option>
+                  <option>Otro</option>
+                </select>
+              </label><small class="error" data-error="tipo"></small>
+              <label>Descripcion <textarea name="descripcion"></textarea></label><small class="error" data-error="descripcion"></small>
+              <button class="submit" type="submit">Enviar reporte</button>
+            </form>
+            <div class="success" data-success="averia"></div>
+          </article>
+
+          <article class="card" id="solicitar-servicio">
+            <h2>Solicitar servicio</h2>
+            <p class="texto-base">Registre solicitudes de conexion, disponibilidad, suspension o cambios.</p>
+            <form data-form="solicitud" novalidate>
+              <label>Nombre completo <input name="nombre" /></label><small class="error" data-error="nombre"></small>
+              <label>Cedula <input name="cedula" /></label><small class="error" data-error="cedula"></small>
+              <label>Telefono <input name="telefono" /></label><small class="error" data-error="telefono"></small>
+              <label>Correo electronico <input name="correo" type="email" /></label><small class="error" data-error="correo"></small>
+              <label>Direccion <input name="direccion" /></label><small class="error" data-error="direccion"></small>
+              <label>Tipo de solicitud
+                <select name="tipo">
+                  <option value="">Seleccione una opcion</option>
+                  <option>Nueva conexion</option>
+                  <option>Disponibilidad de agua</option>
+                  <option>Suspension temporal</option>
+                  <option>Cancelacion del servicio</option>
+                  <option>Cambio de titular</option>
+                </select>
+              </label><small class="error" data-error="tipo"></small>
+              <label>Detalle <textarea name="descripcion"></textarea></label><small class="error" data-error="descripcion"></small>
+              <button class="submit" type="submit">Enviar solicitud</button>
+            </form>
+            <div class="success" data-success="solicitud"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--light" id="consulta-publica">
+        <div class="contenedor consulta">
+          <div class="section__head">
+            <p class="section__label">Consulta publica</p>
+            <h2>Seguimiento de solicitudes</h2>
+          </div>
+          <article class="card">
+            <form data-form="consulta" novalidate>
+              <label>Numero de seguimiento <input name="seguimiento" placeholder="SOL-0001" /></label>
+              <small class="error" data-error="seguimiento"></small>
+              <button class="submit" type="submit">Consultar</button>
+            </form>
+            <div class="success" data-success="consulta"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--soft" id="proyectos">
+        <div class="contenedor">
+          <div class="section__head">
+            <p class="section__label">Proyectos a futuro</p>
+            <h2>Mejoras previstas para el acueducto</h2>
+          </div>
+          <div class="grid">
+            <article class="card"><h3>Mejora de redes</h3><p>Sustitucion progresiva de tuberias antiguas.</p></article>
+            <article class="card"><h3>Nuevos tanques</h3><p>Evaluacion tecnica para aumentar capacidad de reserva.</p></article>
+            <article class="card"><h3>Colocacion de hidrantes</h3><p>Instalacion en puntos estrategicos de la comunidad.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--light" id="contacto">
+        <div class="contenedor contacto">
+          <div>
+            <p class="section__label">Contacto</p>
+            <h2>ASADA San Juan de Santa Cruz</h2>
+            <p class="texto-base">Canales oficiales para consultas administrativas y reportes del servicio.</p>
+          </div>
+          <article class="card">
+            <p><strong>Telefono:</strong> 0000-0000</p>
+            <p><strong>Correo:</strong> contacto@asadasanjuan.cr</p>
+            <p><strong>Horario:</strong> Lunes a viernes, 8:00 a.m. a 4:00 p.m.</p>
+            <p><strong>Direccion:</strong> San Juan de Santa Cruz, Guanacaste.</p>
+            <a href="https://wa.me/50600000000" target="_blank" rel="noreferrer">WhatsApp</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="contenedor footer__inner">
+        <div>
+          <h2>SIGASJ</h2>
+          <p>ASADA San Juan de Santa Cruz</p>
+          <p>Sistema desarrollado para mejorar la gestion del acueducto comunal.</p>
+        </div>
+        <nav aria-label="Enlaces rapidos">
+          <a href="#servicios">Servicios</a>
+          <a href="#comunicados">Comunicados</a>
+          <a href="#consulta-publica">Consulta publica</a>
+          <a href="#contacto">Contacto</a>
+          <a href="/login">Iniciar sesion</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      const correoValido = (valor) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)
+
+      function limpiarErrores(formulario) {
+        formulario.querySelectorAll('.error').forEach((error) => {
+          error.textContent = ''
+        })
+      }
+
+      function asignarError(formulario, campo, mensaje) {
+        const error = formulario.querySelector(`[data-error="${campo}"]`)
+        if (error) error.textContent = mensaje
+      }
+
+      function obtenerDatos(formulario) {
+        return Object.fromEntries(new FormData(formulario).entries())
+      }
+
+      function validarCampos(formulario, campos) {
+        const datos = obtenerDatos(formulario)
+        let valido = true
+
+        campos.forEach((campo) => {
+          if (!String(datos[campo] || '').trim()) {
+            asignarError(formulario, campo, 'Este campo es obligatorio.')
+            valido = false
+          }
+        })
+
+        if (datos.correo && !correoValido(datos.correo)) {
+          asignarError(formulario, 'correo', 'Ingrese un correo valido.')
+          valido = false
+        }
+
+        return valido
+      }
+
+      document.querySelectorAll('form[data-form]').forEach((formulario) => {
+        formulario.addEventListener('submit', (evento) => {
+          evento.preventDefault()
+          limpiarErrores(formulario)
+
+          const tipo = formulario.dataset.form
+          const success = document.querySelector(`[data-success="${tipo}"]`)
+          if (success) success.style.display = 'none'
+
+          if (tipo === 'averia') {
+            const valido = validarCampos(formulario, ['nombre', 'telefono', 'direccion', 'tipo', 'descripcion'])
+            if (!valido) return
+            success.textContent = 'Reporte registrado correctamente. Numero de seguimiento: AV-0001'
+          }
+
+          if (tipo === 'solicitud') {
+            const valido = validarCampos(formulario, ['nombre', 'cedula', 'telefono', 'correo', 'direccion', 'tipo', 'descripcion'])
+            if (!valido) return
+            success.textContent = 'Solicitud registrada correctamente. Numero de seguimiento: SOL-0001'
+          }
+
+          if (tipo === 'consulta') {
+            const valido = validarCampos(formulario, ['seguimiento'])
+            if (!valido) return
+            success.textContent = 'Estado: En revision por la Secretaria Ejecutiva'
+          }
+
+          if (success) success.style.display = 'block'
+          formulario.reset()
+        })
+      })
+    </script>
+  </body>
+</html>
