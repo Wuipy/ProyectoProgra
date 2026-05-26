@@ -1990,3 +1990,318 @@ textarea:hover {
     justify-content: flex-start;
   }
 }
+
+.reporte-averias-page {
+  min-height: 100svh;
+  background: #f4f7fb;
+  color: #172033;
+  padding: 32px;
+}
+
+.reporte-averias-hero {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #dbe5f1;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 24px;
+  max-width: 1320px;
+  padding: 24px;
+}
+
+.reporte-averias-hero p,
+.reporte-averias-hero h1 {
+  margin: 0;
+}
+
+.reporte-averias-hero p {
+  color: #2f7d6d;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.reporte-averias-hero h1 {
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.reporte-averias-hero strong {
+  border: 1px solid #c6e7df;
+  border-radius: 8px;
+  color: #176152;
+  padding: 10px 14px;
+}
+
+.reporte-averias-layout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  margin: 0 auto;
+  max-width: 1320px;
+}
+
+.reporte-formulario,
+.reporte-listado {
+  background: #ffffff;
+  border: 1px solid #dbe5f1;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.reporte-formulario {
+  align-self: start;
+  display: grid;
+  gap: 14px;
+}
+
+.reporte-formulario__encabezado,
+.reporte-listado__encabezado {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.reporte-formulario h2,
+.reporte-listado h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.reporte-formulario label {
+  color: #46556c;
+  display: grid;
+  font-size: 13px;
+  font-weight: 750;
+  gap: 7px;
+}
+
+.reporte-formulario input,
+.reporte-formulario select,
+.reporte-formulario textarea,
+.reporte-listado input,
+.reporte-tabla select {
+  border: 1px solid #cfd9e6;
+  border-radius: 8px;
+  color: #172033;
+  font: inherit;
+  padding: 10px 12px;
+}
+
+.reporte-formulario textarea {
+  resize: vertical;
+}
+
+.reporte-formulario__error {
+  color: #b42318;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.boton-principal,
+.boton-secundario,
+.reporte-tabla button {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 800;
+  padding: 10px 12px;
+}
+
+.boton-principal {
+  background: #176152;
+  color: #ffffff;
+}
+
+.boton-principal:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.boton-secundario,
+.reporte-tabla button {
+  background: #ffffff;
+  border-color: #cfd9e6;
+  color: #172033;
+}
+
+.reporte-listado {
+  min-width: 0;
+}
+
+.reporte-listado__encabezado {
+  margin-bottom: 16px;
+}
+
+.reporte-listado__encabezado input {
+  min-width: min(360px, 100%);
+}
+
+.reporte-tabla-contenedor {
+  overflow-x: auto;
+}
+
+.reporte-tabla {
+  border-collapse: collapse;
+  min-width: 860px;
+  width: 100%;
+}
+
+.reporte-tabla th,
+.reporte-tabla td {
+  border-bottom: 1px solid #e6edf5;
+  padding: 13px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.reporte-tabla th {
+  color: #526176;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.reporte-tabla td span {
+  color: #637188;
+  display: block;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.reporte-tabla td .prioridad {
+  border-radius: 999px;
+  display: inline-flex;
+  font-weight: 800;
+  margin-top: 0;
+  padding: 5px 10px;
+}
+
+.prioridad--baja {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.prioridad--media {
+  background: #fff8e1;
+  color: #8a5a00;
+}
+
+.prioridad--alta {
+  background: #ffebee;
+  color: #b42318;
+}
+
+.reporte-tabla__acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.reporte-tabla-vacia {
+  border: 1px dashed #cfd9e6;
+  border-radius: 8px;
+  color: #637188;
+  margin: 0;
+  padding: 28px;
+  text-align: center;
+}
+
+.reporte-alerta {
+  background: #fff4e5;
+  border: 1px solid #ffd8a8;
+  border-radius: 8px;
+  color: #8a4b0f;
+  margin: 0 0 14px;
+  padding: 12px;
+}
+
+.consulta-seguimiento {
+  background: #ffffff;
+  border: 1px solid #dbe5f1;
+  border-radius: 8px;
+  display: grid;
+  gap: 16px;
+  margin: 20px auto 0;
+  max-width: 1320px;
+  padding: 20px;
+}
+
+.consulta-seguimiento p,
+.consulta-seguimiento h2 {
+  margin: 0;
+}
+
+.consulta-seguimiento p {
+  color: #2f7d6d;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.consulta-seguimiento h2 {
+  font-size: 22px;
+}
+
+.consulta-seguimiento__formulario {
+  align-items: end;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(240px, 420px) auto;
+}
+
+.consulta-seguimiento__formulario label {
+  color: #46556c;
+  display: grid;
+  font-size: 13px;
+  font-weight: 750;
+  gap: 7px;
+}
+
+.consulta-seguimiento__formulario input {
+  border: 1px solid #cfd9e6;
+  border-radius: 8px;
+  color: #172033;
+  font: inherit;
+  padding: 10px 12px;
+}
+
+.consulta-seguimiento__resultado {
+  background: #eefaf6;
+  border: 1px solid #c6e7df;
+  border-radius: 8px;
+  color: #176152;
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+}
+
+@media (max-width: 980px) {
+  .reporte-averias-page {
+    padding: 16px;
+  }
+
+  .reporte-averias-layout,
+  .reporte-listado__encabezado {
+    grid-template-columns: 1fr;
+  }
+
+  .reporte-averias-layout {
+    display: grid;
+  }
+
+  .reporte-averias-hero,
+  .reporte-listado__encabezado {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .reporte-listado__encabezado input {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .consulta-seguimiento__formulario {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,8 +1,8 @@
-import { PaginaInicio } from './paginas/PaginaInicio'
+import { ReporteAveriasPage } from './modules/reporteAverias/pages/ReporteAveriasPage'
 import './App.css'
 
 function App() {
-  return <PaginaInicio />
+  return <ReporteAveriasPage />
 }
 
 export default App
