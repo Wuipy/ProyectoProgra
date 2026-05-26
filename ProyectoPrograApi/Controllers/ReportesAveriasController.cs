@@ -108,7 +108,13 @@ public class ReportesAveriasController : ControllerBase
 
     private static string CrearId()
     {
-        var siguiente = Reportes.Count + 1;
+        var ultimoNumero = Reportes
+            .Select(reporte => reporte.Id.Replace("AV-", string.Empty))
+            .Select(numero => int.TryParse(numero, out var valor) ? valor : 0)
+            .DefaultIfEmpty(0)
+            .Max();
+        var siguiente = ultimoNumero + 1;
+
         return $"AV-{siguiente.ToString().PadLeft(4, '0')}";
     }
 }
