@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Logo ASADA San Juan</title>
+  <desc id="descripcion">Sello circular ASADA San Juan Santa Cruz Guanacaste con gota y ondas de agua.</desc>
+  <defs>
+    <path id="textoSuperior" d="M94 300a206 206 0 0 1 412 0" />
+    <path id="textoInferior" d="M500 342a206 206 0 0 1-400 0" />
+  </defs>
+
+  <rect width="600" height="600" fill="#ffffff" />
+  <circle cx="300" cy="300" r="286" fill="#ffffff" stroke="#256c95" stroke-width="16" />
+  <circle cx="300" cy="300" r="178" fill="#59aef2" />
+
+  <text fill="#17679f" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="900" letter-spacing="8">
+    <textPath href="#textoSuperior" startOffset="50%" text-anchor="middle">ASADA SAN JUAN</textPath>
+  </text>
+
+  <text fill="#17679f" font-family="Arial, Helvetica, sans-serif" font-size="45" font-weight="900" letter-spacing="9">
+    <textPath href="#textoInferior" startOffset="50%" text-anchor="middle">SANTA CRUZ GTE.</textPath>
+  </text>
+
+  <circle cx="88" cy="306" r="13" fill="#59aef2" />
+  <circle cx="512" cy="306" r="13" fill="#59aef2" />
+
+  <path fill="#ffffff" d="M300 150c43 59 65 98 65 128 0 39-27 66-65 66s-65-27-65-66c0-30 22-69 65-128Z" />
+  <circle cx="300" cy="365" r="11" fill="#ffffff" />
+  <circle cx="300" cy="394" r="5" fill="#ffffff" />
+
+  <path fill="#ffffff" d="M132 389c47-36 103-54 168-54s121 18 168 54c-52-20-108-30-168-30s-116 10-168 30Z" />
+  <ellipse cx="300" cy="408" rx="146" ry="35" fill="none" stroke="#ffffff" stroke-width="18" />
+  <ellipse cx="300" cy="409" rx="77" ry="16" fill="none" stroke="#ffffff" stroke-width="9" />
+  <path fill="#17679f" d="M132 423c31 84 87 126 168 126s137-42 168-126c-52 28-108 43-168 43s-116-15-168-43Z" />
+</svg>
