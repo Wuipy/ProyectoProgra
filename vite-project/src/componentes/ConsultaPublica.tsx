@@ -40,41 +40,63 @@ export function ConsultaPublica({ reportesAveria = [] }: ConsultaPublicaProps) {
 
   return (
     <section className="seccion consulta-publica" id="consulta-publica">
-      <div className="contenedor consulta-contenido">
-        <div>
+      <div className="contenedor">
+        <div className="encabezado-seccion">
           <p className="etiqueta">Consulta publica</p>
           <h2>Seguimiento de solicitudes</h2>
           <p>Consulte el estado de un tramite o reporte usando el numero de seguimiento asignado.</p>
         </div>
 
-        <form className="formulario-consulta" onSubmit={consultar} noValidate>
-          <label className="campo" htmlFor="numero-seguimiento">
-            <span>Numero de seguimiento</span>
-            <input
-              id="numero-seguimiento"
-              value={numeroSeguimiento}
-              placeholder="Ejemplo: AV-0001 o SOL-0001"
-              onChange={(evento) => {
-                setNumeroSeguimiento(evento.target.value)
-                setError('')
-              }}
-            />
-            {error && <small className="error">{error}</small>}
-          </label>
-          <button className="boton primario" type="submit">
-            Consultar
-          </button>
-          {resultado && (
-            <div className="mensaje-exito resultado-consulta" role="status">
-              <strong>{resultado}</strong>
-              {detalleReporte && (
-                <span>
-                  {detalleReporte.tipo} en {detalleReporte.direccion}. Reportado por {detalleReporte.nombre}.
-                </span>
-              )}
+        <div className="consulta-contenido">
+          <div className="consulta-resumen" aria-label="Tipos de seguimiento disponibles">
+            <span>Reportes AV</span>
+            <span>Solicitudes SOL</span>
+            <span>Respuesta en linea</span>
+          </div>
+
+          <form className="formulario-consulta" onSubmit={consultar} noValidate>
+            <label className="campo" htmlFor="numero-seguimiento">
+              <span>Numero de seguimiento</span>
+              <input
+                id="numero-seguimiento"
+                value={numeroSeguimiento}
+                placeholder="Ejemplo: AV-0001 o SOL-0001"
+                onChange={(evento) => {
+                  setNumeroSeguimiento(evento.target.value)
+                  setError('')
+                }}
+              />
+              {error && <small className="error">{error}</small>}
+            </label>
+            <div className="consulta-ejemplos" aria-label="Ejemplos de busqueda">
+              {['AV-0001', 'SOL-0001'].map((ejemplo) => (
+                <button
+                  key={ejemplo}
+                  type="button"
+                  onClick={() => {
+                    setNumeroSeguimiento(ejemplo)
+                    setError('')
+                  }}
+                >
+                  {ejemplo}
+                </button>
+              ))}
             </div>
-          )}
-        </form>
+            <button className="boton primario" type="submit">
+              Consultar
+            </button>
+            {resultado && (
+              <div className="mensaje-exito resultado-consulta" role="status">
+                <strong>{resultado}</strong>
+                {detalleReporte && (
+                  <span>
+                    {detalleReporte.tipo} en {detalleReporte.direccion}. Reportado por {detalleReporte.nombre}.
+                  </span>
+                )}
+              </div>
+            )}
+          </form>
+        </div>
       </div>
     </section>
   )
