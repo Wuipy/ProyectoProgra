@@ -1355,7 +1355,7 @@ textarea:focus {
     width: min(100%, 330px);
     justify-self: start;
   }
-
+ 
   .mascota-asada {
     width: 122px;
     margin-left: -14px;
@@ -3412,5 +3412,766 @@ textarea:focus {
 
   .filtros-reportes {
     justify-content: flex-start;
+  }
+}
+
+/* Consulta publica: panel alineado con la landing. */
+.consulta-publica {
+  overflow: hidden;
+  background:
+    radial-gradient(900px 520px at 50% 0%, color-mix(in srgb, var(--accent-strong) 18%, transparent), transparent 66%),
+    linear-gradient(145deg, color-mix(in srgb, var(--surface-0) 88%, var(--accent) 12%), color-mix(in srgb, var(--surface-0) 82%, var(--accent-warm) 18%));
+}
+
+.consulta-contenido {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.45fr) minmax(320px, 1fr);
+  gap: clamp(18px, 3vw, 32px);
+  align-items: stretch;
+  border: 1px solid rgba(87, 215, 255, 0.28);
+  border-radius: 18px;
+  background:
+    radial-gradient(620px 260px at 100% 0%, rgba(87, 215, 255, 0.2), transparent 68%),
+    rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 64px rgba(6, 47, 58, 0.2);
+  padding: clamp(20px, 3vw, 34px);
+  backdrop-filter: blur(22px) saturate(140%);
+}
+
+.consulta-resumen,
+.consulta-ejemplos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.consulta-resumen span,
+.consulta-ejemplos button {
+  border: 1px solid rgba(87, 215, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1;
+  padding: 10px 12px;
+}
+
+.consulta-resumen {
+  align-content: start;
+}
+
+.consulta-resumen span {
+  width: fit-content;
+}
+
+.formulario-consulta {
+  display: grid;
+  gap: 16px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  backdrop-filter: none;
+}
+
+.formulario-consulta::before {
+  content: none;
+}
+
+.formulario-consulta .campo {
+  gap: 10px;
+}
+
+.formulario-consulta input {
+  min-height: 64px;
+  border: 1px solid rgba(87, 215, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1.05rem;
+  padding-inline: 18px;
+}
+
+.formulario-consulta input::placeholder {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.consulta-ejemplos button {
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.consulta-ejemplos button:hover {
+  border-color: #57d7ff;
+  background: rgba(87, 215, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.formulario-consulta .boton {
+  min-height: 58px;
+  border-radius: 999px;
+  font-size: 1rem;
+  box-shadow: 0 16px 34px color-mix(in srgb, var(--accent-strong) 22%, transparent);
+}
+
+.resultado-consulta {
+  border: 1px solid rgba(87, 215, 255, 0.28);
+  border-left: 4px solid #57d7ff;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .consulta-contenido {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Refinamiento final de consulta publica: una tarjeta compacta, sin columna vacia. */
+.consulta-publica .encabezado-seccion {
+  margin-bottom: 28px;
+}
+
+.consulta-contenido {
+  grid-template-columns: 1fr;
+  max-width: 980px;
+  margin-inline: auto;
+  gap: 22px;
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.consulta-resumen {
+  order: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.consulta-resumen span {
+  display: grid;
+  min-height: 74px;
+  width: 100%;
+  place-items: center;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(87, 215, 255, 0.16), rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.formulario-consulta {
+  order: 1;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 220px);
+  align-items: end;
+  gap: 14px;
+}
+
+.formulario-consulta .campo {
+  margin: 0;
+}
+
+.formulario-consulta input {
+  min-height: 58px;
+}
+
+.consulta-ejemplos {
+  grid-column: 1 / -1;
+  order: 3;
+}
+
+.formulario-consulta .boton {
+  align-self: end;
+  min-height: 58px;
+  width: 100%;
+}
+
+.resultado-consulta {
+  grid-column: 1 / -1;
+  order: 4;
+  padding: 18px 20px;
+}
+
+@media (max-width: 760px) {
+  .formulario-consulta,
+  .consulta-resumen {
+    grid-template-columns: 1fr;
+  }
+
+  .formulario-consulta .boton {
+    width: 100%;
+  }
+}
+
+/* Quienes somos: modelo de dos paneles, mas institucional y legible. */
+#quienes-somos {
+  background:
+    linear-gradient(90deg, rgba(87, 215, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(87, 215, 255, 0.05) 1px, transparent 1px),
+    radial-gradient(760px 380px at 22% 38%, rgba(87, 215, 255, 0.18), transparent 70%),
+    linear-gradient(145deg, #073946 0%, #0a4b5b 46%, #073641 100%);
+  background-size: 42px 42px, 42px 42px, auto, auto;
+}
+
+.bloque-quienes {
+  grid-template-columns: minmax(300px, 0.62fr) minmax(520px, 1fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+
+.bloque-quienes > div:first-child,
+.bloque-quienes > div:last-child {
+  border: 1px solid rgba(129, 225, 255, 0.26);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.07)),
+    rgba(7, 57, 70, 0.74);
+  box-shadow: 0 28px 72px rgba(0, 22, 30, 0.24);
+  backdrop-filter: blur(22px) saturate(140%);
+}
+
+.quienes-titulo {
+  position: relative;
+  display: grid;
+  align-content: end;
+  min-height: 330px;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 42px);
+}
+
+.quienes-titulo::after {
+  content: '';
+  position: absolute;
+  right: -44px;
+  top: -44px;
+  width: 180px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(129, 225, 255, 0.28);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(87, 215, 255, 0.22), transparent 66%);
+}
+
+.quienes-titulo::before {
+  content: '';
+  position: absolute;
+  left: clamp(28px, 4vw, 42px);
+  top: clamp(28px, 4vw, 42px);
+  width: 58px;
+  height: 58px;
+  border: 1px solid rgba(129, 225, 255, 0.34);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(87, 215, 255, 0.95) 0 5px, transparent 6px),
+    linear-gradient(180deg, transparent 30%, rgba(87, 215, 255, 0.22) 31% 100%);
+}
+
+.quienes-titulo .etiqueta {
+  color: #57d7ff;
+  margin: 0;
+}
+
+.quienes-titulo h2 {
+  max-width: 520px;
+  margin: 14px 0 18px;
+  color: #ffffff;
+  font-size: clamp(2.4rem, 4.1vw, 4.25rem);
+  line-height: 1.03;
+  text-wrap: balance;
+}
+
+.quienes-titulo > span {
+  width: fit-content;
+  border: 1px solid rgba(129, 225, 255, 0.34);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.86rem;
+  font-weight: 800;
+  padding: 9px 12px;
+}
+
+.quienes-detalle {
+  display: grid;
+  align-content: center;
+  gap: 28px;
+  min-height: 360px;
+  padding: clamp(30px, 4vw, 46px);
+}
+
+.quienes-detalle > p {
+  max-width: 940px;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(1.08rem, 1.45vw, 1.28rem);
+  font-weight: 600;
+  line-height: 1.82;
+}
+
+.indicadores-asada {
+  gap: 16px;
+  margin-top: 0;
+}
+
+.indicadores-asada div {
+  position: relative;
+  display: grid;
+  align-content: start;
+  min-height: 168px;
+  overflow: hidden;
+  border: 1px solid rgba(129, 225, 255, 0.28);
+  border-left: 0;
+  border-radius: 12px;
+  background:
+    radial-gradient(180px 110px at 100% 0%, rgba(87, 215, 255, 0.16), transparent 72%),
+    rgba(255, 255, 255, 0.09);
+  padding: 22px 20px;
+}
+
+.indicadores-asada div::before {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(129, 225, 255, 0.34);
+  border-radius: 12px;
+  background: rgba(87, 215, 255, 0.15);
+  color: #ffffff;
+  font-size: 1.12rem;
+  font-weight: 900;
+  margin-bottom: 18px;
+}
+
+.indicadores-asada div:nth-child(1)::before {
+  content: '01';
+}
+
+.indicadores-asada div:nth-child(2)::before {
+  content: '02';
+}
+
+.indicadores-asada div:nth-child(3)::before {
+  content: '03';
+}
+
+.indicadores-asada strong {
+  color: #ffffff;
+  font-size: 1.14rem;
+  margin-bottom: 10px;
+}
+
+.indicadores-asada span {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 980px) {
+  .bloque-quienes {
+    grid-template-columns: 1fr;
+  }
+
+  .quienes-titulo {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 760px) {
+  .indicadores-asada {
+    grid-template-columns: 1fr;
+  }
+
+  .quienes-titulo,
+  .quienes-detalle {
+    min-height: auto;
+  }
+}
+
+/* Quienes somos: version minimalista y elegante. */
+#quienes-somos {
+  background: linear-gradient(180deg, #073641 0%, #083d49 100%);
+}
+
+.bloque-quienes {
+  grid-template-columns: minmax(280px, 0.58fr) minmax(520px, 1fr);
+  gap: clamp(22px, 4vw, 48px);
+  align-items: stretch;
+}
+
+.bloque-quienes > div:first-child,
+.bloque-quienes > div:last-child {
+  border: 1px solid rgba(203, 241, 250, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.065);
+  box-shadow: none;
+  backdrop-filter: blur(14px);
+}
+
+.quienes-titulo {
+  min-height: 300px;
+  padding: clamp(28px, 4vw, 42px);
+}
+
+.quienes-titulo::before,
+.quienes-titulo::after {
+  content: none;
+}
+
+.quienes-titulo .etiqueta {
+  color: rgba(129, 225, 255, 0.9);
+  letter-spacing: 0.2em;
+}
+
+.quienes-titulo h2 {
+  max-width: 500px;
+  margin: 18px 0 22px;
+  color: #ffffff;
+  font-size: clamp(2.35rem, 3.8vw, 4rem);
+  font-weight: 900;
+  line-height: 1.04;
+}
+
+.quienes-titulo > span {
+  border-color: rgba(203, 241, 250, 0.22);
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  padding: 8px 10px;
+}
+
+.quienes-detalle {
+  gap: clamp(24px, 3vw, 34px);
+  min-height: 300px;
+  padding: clamp(28px, 4vw, 42px);
+}
+
+.quienes-detalle > p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(1.03rem, 1.35vw, 1.22rem);
+  font-weight: 500;
+  line-height: 1.85;
+}
+
+.indicadores-asada {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.indicadores-asada div {
+  min-height: 132px;
+  border: 1px solid rgba(203, 241, 250, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+  padding: 20px;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.indicadores-asada div:hover {
+  border-color: rgba(129, 225, 255, 0.42);
+  background: rgba(255, 255, 255, 0.085);
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+
+.indicadores-asada div::before {
+  display: block;
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(129, 225, 255, 0.86);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  margin-bottom: 18px;
+}
+
+.indicadores-asada strong {
+  color: #ffffff;
+  font-size: 1.02rem;
+  margin-bottom: 8px;
+}
+
+.indicadores-asada span {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 980px) {
+  .bloque-quienes {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .indicadores-asada {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Quienes somos: coherente con servicios, formularios y contacto. */
+#quienes-somos.seccion-dividida {
+  background:
+    radial-gradient(780px 300px at 18% 0%, rgba(41, 182, 246, 0.14), transparent 70%),
+    linear-gradient(180deg, #ffffff 0%, #f5fbff 100%);
+  border-bottom: 1px solid #d7eef7;
+}
+
+#quienes-somos .bloque-quienes {
+  grid-template-columns: minmax(300px, 0.68fr) minmax(520px, 1fr);
+  gap: clamp(22px, 4vw, 42px);
+  align-items: stretch;
+}
+
+#quienes-somos .quienes-titulo,
+#quienes-somos .quienes-detalle {
+  border: 1px solid #d7eef7;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 42px rgba(13, 33, 55, 0.07);
+  backdrop-filter: none;
+}
+
+#quienes-somos .quienes-titulo {
+  position: relative;
+  display: grid;
+  align-content: end;
+  min-height: 330px;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 42px);
+}
+
+#quienes-somos .quienes-titulo::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, #0a74d9, #39c9f4);
+}
+
+#quienes-somos .quienes-titulo::after {
+  content: '';
+  position: absolute;
+  right: clamp(24px, 4vw, 42px);
+  top: clamp(24px, 4vw, 42px);
+  width: 74px;
+  height: 74px;
+  border: 1px solid #b3e5fc;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 38%, #39c9f4 0 7px, transparent 8px),
+    linear-gradient(180deg, transparent 44%, #e0f2fe 45%);
+  opacity: 0.92;
+}
+
+#quienes-somos .quienes-titulo .etiqueta {
+  margin: 0 0 14px;
+  color: #0a74d9;
+  letter-spacing: 0.16em;
+}
+
+#quienes-somos .quienes-titulo h2 {
+  max-width: 520px;
+  margin: 0 0 18px;
+  color: #062f3a;
+  font-size: clamp(2.35rem, 4vw, 4.1rem);
+  font-weight: 900;
+  line-height: 1.04;
+}
+
+#quienes-somos .quienes-titulo > span {
+  width: fit-content;
+  border: 1px solid #b3e5fc;
+  border-radius: 999px;
+  background: #eef9ff;
+  color: #0a5f75;
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  padding: 8px 12px;
+}
+
+#quienes-somos .quienes-detalle {
+  display: grid;
+  align-content: center;
+  gap: 28px;
+  min-height: 330px;
+  padding: clamp(28px, 4vw, 42px);
+}
+
+#quienes-somos .quienes-detalle > p {
+  max-width: 920px;
+  margin: 0;
+  color: #234e5b;
+  font-size: clamp(1.05rem, 1.35vw, 1.22rem);
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+#quienes-somos .indicadores-asada {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+}
+
+#quienes-somos .indicadores-asada div {
+  min-height: 150px;
+  border: 1px solid #d7eef7;
+  border-left: 4px solid #29b6f6;
+  border-radius: 8px;
+  background: #f7fcff;
+  padding: 20px;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+#quienes-somos .indicadores-asada div:hover {
+  border-color: #29b6f6;
+  background: #eef9ff;
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+
+#quienes-somos .indicadores-asada div::before {
+  content: none;
+}
+
+#quienes-somos .indicadores-asada strong {
+  color: #062f3a;
+  font-size: 1.08rem;
+  margin-bottom: 8px;
+}
+
+#quienes-somos .indicadores-asada span {
+  color: #4b6b80;
+  font-size: 0.94rem;
+  line-height: 1.62;
+}
+
+@media (max-width: 980px) {
+  #quienes-somos .bloque-quienes {
+    grid-template-columns: 1fr;
+  }
+
+  #quienes-somos .quienes-titulo,
+  #quienes-somos .quienes-detalle {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  #quienes-somos .indicadores-asada {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Quienes somos: ajuste final al estilo visual actual de la pagina. */
+#quienes-somos.seccion-dividida {
+  background:
+    radial-gradient(760px 320px at 18% 18%, rgba(87, 215, 255, 0.12), transparent 70%),
+    linear-gradient(180deg, #073641 0%, #083d49 100%);
+  border-bottom: 1px solid rgba(87, 215, 255, 0.18);
+}
+
+#quienes-somos .bloque-quienes {
+  grid-template-columns: minmax(300px, 0.62fr) minmax(520px, 1fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: stretch;
+}
+
+#quienes-somos .quienes-titulo,
+#quienes-somos .quienes-detalle {
+  border: 1px solid rgba(87, 215, 255, 0.24);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.06)),
+    rgba(8, 64, 78, 0.72);
+  box-shadow: 0 24px 64px rgba(1, 22, 28, 0.28);
+  backdrop-filter: blur(18px) saturate(135%);
+}
+
+#quienes-somos .quienes-titulo {
+  min-height: 320px;
+  align-content: end;
+  padding-top: 132px;
+}
+
+#quienes-somos .quienes-titulo::before {
+  height: 4px;
+  background: linear-gradient(90deg, #57d7ff, rgba(87, 215, 255, 0.08));
+}
+
+#quienes-somos .quienes-titulo::after {
+  content: none;
+}
+
+#quienes-somos .quienes-logo {
+  position: absolute;
+  top: clamp(24px, 4vw, 42px);
+  right: clamp(24px, 4vw, 42px);
+  width: clamp(82px, 10vw, 118px);
+  height: clamp(82px, 10vw, 118px);
+  border: 1px solid rgba(87, 215, 255, 0.28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 16px 34px rgba(1, 22, 28, 0.24);
+  object-fit: contain;
+  padding: 6px;
+}
+
+#quienes-somos .quienes-titulo .etiqueta {
+  color: #57d7ff;
+}
+
+#quienes-somos .quienes-titulo h2 {
+  color: #ffffff;
+}
+
+#quienes-somos .quienes-titulo > span {
+  border-color: rgba(87, 215, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.84);
+}
+
+#quienes-somos .quienes-detalle {
+  min-height: 320px;
+}
+
+#quienes-somos .quienes-detalle > p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#quienes-somos .indicadores-asada div {
+  min-height: 144px;
+  border: 1px solid rgba(87, 215, 255, 0.2);
+  border-left: 4px solid #57d7ff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+#quienes-somos .indicadores-asada div:hover {
+  border-color: rgba(87, 215, 255, 0.44);
+  background: rgba(87, 215, 255, 0.12);
+}
+
+#quienes-somos .indicadores-asada strong {
+  color: #ffffff;
+}
+
+#quienes-somos .indicadores-asada span {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+@media (max-width: 760px) {
+  #quienes-somos .quienes-titulo {
+    padding-top: 118px;
+  }
+
+  #quienes-somos .quienes-logo {
+    left: clamp(24px, 4vw, 42px);
+    right: auto;
   }
 }
