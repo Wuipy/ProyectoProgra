@@ -10,7 +10,6 @@ import { SeccionContacto } from '../componentes/SeccionContacto'
 import { SeccionProyectos } from '../componentes/SeccionProyectos'
 import { SeccionQuienesSomos } from '../componentes/SeccionQuienesSomos'
 import { SeccionReportesAveria } from '../componentes/SeccionReportesAveria'
-import { RegistroActividadesPlomeria } from '../componentes/RegistroActividadesPlomeria'
 import { SeccionServicios } from '../componentes/SeccionServicios'
 
 const CLAVE_REPORTES_AVERIA = 'sigasj-reportes-averia'
@@ -51,7 +50,6 @@ export function PaginaInicio() {
           </div>
         </section>
         <SeccionReportesAveria reportes={reportesAveria} />
-        <RegistroActividadesPlomeria />
         <ConsultaPublica reportesAveria={reportesAveria} />
         <SeccionProyectos />
         <SeccionContacto />

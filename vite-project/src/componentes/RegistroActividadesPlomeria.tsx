@@ -4,7 +4,7 @@ const STORAGE_KEY = 'sigasj-actividades-plomeria'
 
 const ACTIVIDADES = [
   'Control de Fugas',
-  'Toma de presión',
+  'Toma de presion',
   'Visita de Campo',
   'Control de Aforos',
   'Control Operativo',
@@ -66,6 +66,7 @@ export function RegistroActividadesPlomeria() {
       total: registros.length,
       completados: registros.filter((registro) => registro.estado === 'Completado').length,
       enProceso: registros.filter((registro) => registro.estado === 'En progreso').length,
+      pendientes: registros.filter((registro) => registro.estado === 'Pendiente').length,
     }),
     [registros],
   )
@@ -79,8 +80,8 @@ export function RegistroActividadesPlomeria() {
     const nuevosErrores: ErroresActividad = {}
 
     if (!formulario.cliente.trim()) nuevosErrores.cliente = 'El nombre del cliente es obligatorio.'
-    if (!formulario.ubicacion.trim()) nuevosErrores.ubicacion = 'La ubicación es obligatoria.'
-    if (!formulario.descripcion.trim()) nuevosErrores.descripcion = 'La descripción es obligatoria.'
+    if (!formulario.ubicacion.trim()) nuevosErrores.ubicacion = 'La ubicacion es obligatoria.'
+    if (!formulario.descripcion.trim()) nuevosErrores.descripcion = 'La descripcion es obligatoria.'
 
     setErrores(nuevosErrores)
     return Object.keys(nuevosErrores).length === 0
@@ -133,7 +134,7 @@ export function RegistroActividadesPlomeria() {
     setFormulario(valoresIniciales)
     setEditarId(null)
     setErrores({})
-    setMensaje('Edición cancelada.')
+    setMensaje('Edicion cancelada.')
   }
 
   const eliminarRegistro = (id: string) => {
@@ -151,8 +152,8 @@ export function RegistroActividadesPlomeria() {
           registro.estado === 'Pendiente'
             ? 'En progreso'
             : registro.estado === 'En progreso'
-            ? 'Completado'
-            : 'Pendiente'
+              ? 'Completado'
+              : 'Pendiente'
         return { ...registro, estado: siguienteEstado }
       }),
     )
@@ -162,9 +163,28 @@ export function RegistroActividadesPlomeria() {
     <section className="seccion banda-actividades" id="registro-actividades">
       <div className="contenedor">
         <div className="encabezado-seccion">
-          <p className="etiqueta">Gestión de actividades</p>
-          <h2>Registro de actividades de plomería</h2>
-          <p>Registra y administra las tareas de control de fugas, toma de presión, visitas de campo y más.</p>
+          <p className="etiqueta">Gestion de actividades</p>
+          <h2>Control operativo de plomeria</h2>
+          <p>Registra y administra las tareas de control de fugas, toma de presion, visitas de campo y mas.</p>
+        </div>
+
+        <div className="panel-metricas-actividades" aria-label="Resumen de actividades de plomeria">
+          <div>
+            <span>Total</span>
+            <strong>{estadisticas.total}</strong>
+          </div>
+          <div>
+            <span>Pendientes</span>
+            <strong>{estadisticas.pendientes}</strong>
+          </div>
+          <div>
+            <span>En progreso</span>
+            <strong>{estadisticas.enProceso}</strong>
+          </div>
+          <div>
+            <span>Completadas</span>
+            <strong>{estadisticas.completados}</strong>
+          </div>
         </div>
 
         <div className="grilla-actividades">
@@ -196,16 +216,16 @@ export function RegistroActividadesPlomeria() {
 
               <CampoTexto
                 id="actividad-ubicacion"
-                label="Ubicación"
+                label="Ubicacion"
                 value={formulario.ubicacion}
                 error={errores.ubicacion}
                 onChange={(valor) => actualizarCampo('ubicacion', valor)}
               />
 
               <label className="campo">
-                <span>Descripción de la actividad</span>
+                <span>Descripcion de la actividad</span>
                 <textarea
-                  placeholder="Describe lo que se debe hacer o lo que se revisó."
+                  placeholder="Describe lo que se debe hacer o lo que se reviso."
                   value={formulario.descripcion}
                   onChange={(evento) => actualizarCampo('descripcion', evento.target.value)}
                 />
@@ -229,7 +249,7 @@ export function RegistroActividadesPlomeria() {
                 </button>
                 {editarId && (
                   <button className="boton secundario ancho" type="button" onClick={cancelarEdicion}>
-                    Cancelar edición
+                    Cancelar edicion
                   </button>
                 )}
               </div>
@@ -246,22 +266,7 @@ export function RegistroActividadesPlomeria() {
             <div className="encabezado-formulario">
               <p className="etiqueta">Historial</p>
               <h3>Actividades guardadas</h3>
-              <p>Verifica las tareas registradas y actualiza su estado según avance el trabajo.</p>
-            </div>
-
-            <div className="metricas-reportes" aria-label="Resumen de actividades de plomería">
-              <div>
-                <strong>{estadisticas.total}</strong>
-                <span>Total de actividades</span>
-              </div>
-              <div>
-                <strong>{estadisticas.enProceso}</strong>
-                <span>En progreso</span>
-              </div>
-              <div>
-                <strong>{estadisticas.completados}</strong>
-                <span>Completadas</span>
-              </div>
+              <p>Verifica las tareas registradas y actualiza su estado segun avance el trabajo.</p>
             </div>
 
             {registros.length === 0 ? (
