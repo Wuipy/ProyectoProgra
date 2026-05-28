@@ -26,7 +26,7 @@ export function HeroPrincipal() {
               Reportar averia
             </a>
             <a className="boton claro boton-ingresar" href="/login">
-              Iniciar sesion
+              Panel administrativo
             </a>
           </div>
         </div>

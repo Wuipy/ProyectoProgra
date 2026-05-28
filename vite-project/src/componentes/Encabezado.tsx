@@ -31,7 +31,7 @@ export function Encabezado() {
             ))}
           </div>
           <a className="boton-login" href="/login">
-            Iniciar sesion
+            Panel admin
           </a>
         </div>
       </nav>

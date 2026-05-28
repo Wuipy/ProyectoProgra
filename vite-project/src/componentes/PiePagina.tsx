@@ -5,7 +5,7 @@ const enlacesRapidos = [
   { texto: 'Comunicados', destino: '#comunicados' },
   { texto: 'Consulta publica', destino: '#consulta-publica' },
   { texto: 'Contacto', destino: '#contacto' },
-  { texto: 'Iniciar sesion', destino: '/login' },
+  { texto: 'Panel administrativo', destino: '/login' },
 ]
 
 export function PiePagina() {
