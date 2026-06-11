@@ -5196,3 +5196,33 @@ textarea:focus {
 .pagina-reportar-averia {
   padding: 48px 0 72px;
 }
+
+.formulario-especifico-actividad {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #d7eef7;
+}
+
+.titulo-formulario-especifico {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  color: #17679f;
+}
+
+.grilla-formulario-especifico {
+  display: grid;
+  gap: 12px;
+}
+
+.detalle-formulario-especifico {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #d7eef7;
+  border-radius: 8px;
+  background: #f5fbff;
+}
+
+.detalle-formulario-especifico h4 {
+  margin: 0 0 0.75rem;
+  color: #17679f;
+}
