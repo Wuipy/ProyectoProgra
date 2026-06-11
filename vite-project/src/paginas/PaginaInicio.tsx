@@ -11,25 +11,38 @@ import { SeccionProyectos } from '../componentes/SeccionProyectos'
 import { SeccionQuienesSomos } from '../componentes/SeccionQuienesSomos'
 import { SeccionReportesAveria } from '../componentes/SeccionReportesAveria'
 import { SeccionServicios } from '../componentes/SeccionServicios'
-
-const CLAVE_REPORTES_AVERIA = 'sigasj-reportes-averia'
+import { listarAverias } from '../servicios/landingService'
 
 export function PaginaInicio() {
-  const [reportesAveria, setReportesAveria] = useState<ReporteAveria[]>(() => {
-    const reportesGuardados = window.localStorage.getItem(CLAVE_REPORTES_AVERIA)
-
-    if (!reportesGuardados) return []
-
-    try {
-      return JSON.parse(reportesGuardados) as ReporteAveria[]
-    } catch {
-      return []
-    }
-  })
+  const [reportesAveria, setReportesAveria] = useState<ReporteAveria[]>([])
+  const [cargandoReportes, setCargandoReportes] = useState(true)
 
   useEffect(() => {
-    window.localStorage.setItem(CLAVE_REPORTES_AVERIA, JSON.stringify(reportesAveria))
-  }, [reportesAveria])
+    let activo = true
+
+    const cargarReportes = async () => {
+      try {
+        const reportes = await listarAverias()
+        if (activo) {
+          setReportesAveria(reportes)
+        }
+      } catch {
+        if (activo) {
+          setReportesAveria([])
+        }
+      } finally {
+        if (activo) {
+          setCargandoReportes(false)
+        }
+      }
+    }
+
+    cargarReportes()
+
+    return () => {
+      activo = false
+    }
+  }, [])
 
   const registrarReporteVisible = (reporte: ReporteAveria) => {
     setReportesAveria((actuales) => [reporte, ...actuales])
@@ -49,7 +62,7 @@ export function PaginaInicio() {
             <FormularioSolicitud />
           </div>
         </section>
-        <SeccionReportesAveria reportes={reportesAveria} />
+        <SeccionReportesAveria reportes={reportesAveria} cargando={cargandoReportes} />
         <ConsultaPublica reportesAveria={reportesAveria} />
         <SeccionProyectos />
         <SeccionContacto />

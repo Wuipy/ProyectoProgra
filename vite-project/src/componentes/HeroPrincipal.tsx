@@ -22,11 +22,11 @@ export function HeroPrincipal() {
             <a className="boton primario boton-solicitar" href="#solicitar-servicio">
               Solicitar servicio
             </a>
-            <a className="boton secundario boton-averia" href="#reportar-averia">
+            <a className="boton secundario boton-averia" href="/reportar-averia">
               Reportar averia
             </a>
             <a className="boton claro boton-ingresar" href="/login">
-              Panel administrativo
+              Iniciar sesion
             </a>
           </div>
         </div>

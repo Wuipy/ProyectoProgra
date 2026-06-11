@@ -51,16 +51,21 @@ export function FormularioSolicitud() {
     return Object.keys(nuevosErrores).length === 0
   }
 
-  const enviarFormulario = (evento: FormEvent<HTMLFormElement>) => {
+  const enviarFormulario = async (evento: FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
     setConfirmacion('')
 
     if (!validar()) return
 
-    const resultado = registrarSolicitud(datos)
-    setConfirmacion(resultado.mensaje)
-    setUltimoSeguimiento(resultado.numeroSeguimiento)
-    setDatos(valoresIniciales)
+    try {
+      const resultado = await registrarSolicitud(datos)
+      setConfirmacion(resultado.mensaje)
+      setUltimoSeguimiento(resultado.numeroSeguimiento)
+      setDatos(valoresIniciales)
+    } catch (error) {
+      setConfirmacion('')
+      setErrores({ descripcion: error instanceof Error ? error.message : 'No se pudo registrar la solicitud.' })
+    }
   }
 
   return (

@@ -1,0 +1,897 @@
+/* SIGASJ — Sistema visual blanco y negro para modulos internos */
+
+.pagina-panel-interno,
+.pagina-login-admin {
+  --bn-bg: #ffffff;
+  --bn-bg-soft: #f8f8f8;
+  --bn-bg-muted: #f0f0f0;
+  --bn-bg-strong: #111111;
+  --bn-text: #111111;
+  --bn-text-soft: #444444;
+  --bn-text-muted: #777777;
+  --bn-border: #dddddd;
+  --bn-border-strong: #111111;
+  --bn-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+  --bn-radius: 10px;
+  color-scheme: light;
+  color: var(--bn-text);
+  background: var(--bn-bg-soft);
+}
+
+/* —— Layout general —— */
+.pagina-panel-interno.pagina-admin,
+.pagina-panel-interno.pagina-fontanero {
+  background: var(--bn-bg-soft);
+}
+
+.pagina-panel-interno .encabezado-admin {
+  border-bottom: 1px solid var(--bn-border);
+  background: var(--bn-bg);
+  backdrop-filter: none;
+}
+
+.pagina-panel-interno .barra-admin .marca strong,
+.pagina-panel-interno .barra-admin .marca small {
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .badge-rol-usuario,
+.pagina-panel-interno .badge-usuario-interno {
+  background: var(--bn-bg-muted);
+  color: var(--bn-text);
+  border: 1px solid var(--bn-border);
+}
+
+.pagina-panel-interno .boton-login,
+.pagina-panel-interno .boton-cerrar-sesion {
+  border: 1px solid var(--bn-border-strong);
+  background: var(--bn-bg-strong);
+  color: #ffffff;
+}
+
+.pagina-panel-interno .boton-login:hover,
+.pagina-panel-interno .boton-cerrar-sesion:hover {
+  background: #333333;
+  border-color: #333333;
+}
+
+/* —— Sidebar —— */
+.pagina-panel-interno .sidebar-panel {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg);
+  box-shadow: var(--bn-shadow);
+}
+
+.pagina-panel-interno .sidebar-panel-etiqueta {
+  color: var(--bn-text-muted);
+}
+
+.pagina-panel-interno .sidebar-panel-nav a {
+  color: var(--bn-text-soft);
+  border: 1px solid transparent;
+}
+
+.pagina-panel-interno .sidebar-panel-nav a small {
+  color: var(--bn-text-muted);
+}
+
+.pagina-panel-interno .sidebar-panel-nav a:hover,
+.pagina-panel-interno .sidebar-panel-nav a.activo {
+  border-color: var(--bn-border-strong);
+  background: var(--bn-bg-muted);
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .sidebar-panel-grupo + .sidebar-panel-grupo {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--bn-border);
+}
+
+.pagina-panel-interno .sidebar-panel-seccion {
+  margin: 0 0 0.35rem;
+  padding: 0 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bn-text-muted);
+}
+
+.pagina-panel-interno .aviso-separacion-modulos {
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--bn-border);
+  border-left: 3px solid var(--bn-border-strong);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg);
+  color: var(--bn-text-soft);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.pagina-panel-interno .dashboard-grupo-modulos + .dashboard-grupo-modulos {
+  margin-top: 2rem;
+}
+
+.pagina-panel-interno .dashboard-grupo-titulo {
+  margin: 0 0 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bn-text-muted);
+}
+
+.pagina-panel-interno .tarjeta-modulo-dashboard h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+/* —— Hero de modulo (antes oscuro) —— */
+.pagina-panel-interno .hero-admin {
+  background: var(--bn-bg);
+  border-bottom: 1px solid var(--bn-border);
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .hero-admin-contenido {
+  min-height: auto;
+  padding-block: clamp(28px, 4vw, 40px);
+  align-items: center;
+}
+
+.pagina-panel-interno .hero-admin .etiqueta {
+  color: var(--bn-text-muted);
+  letter-spacing: 0.14em;
+}
+
+.pagina-panel-interno .hero-admin h1 {
+  color: var(--bn-text);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  margin-bottom: 10px;
+}
+
+.pagina-panel-interno .hero-admin p:not(.etiqueta) {
+  color: var(--bn-text-soft);
+  font-size: 1rem;
+}
+
+.pagina-panel-interno .tarjeta-admin-resumen {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg-soft);
+  box-shadow: none;
+}
+
+.pagina-panel-interno .tarjeta-admin-resumen span {
+  color: var(--bn-text-muted);
+}
+
+.pagina-panel-interno .tarjeta-admin-resumen strong {
+  color: var(--bn-text);
+  font-size: 1.4rem;
+}
+
+.pagina-panel-interno .tarjeta-admin-resumen p {
+  color: var(--bn-text-soft);
+}
+
+/* —— Dashboard —— */
+.pagina-panel-interno .dashboard-interno-encabezado {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg);
+  box-shadow: var(--bn-shadow);
+}
+
+.pagina-panel-interno .dashboard-interno-encabezado .etiqueta,
+.pagina-panel-interno .tarjeta-modulo-etiqueta {
+  color: var(--bn-text-muted);
+}
+
+.pagina-panel-interno .dashboard-interno-encabezado h1,
+.pagina-panel-interno .tarjeta-modulo-dashboard h2 {
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .dashboard-interno-encabezado p,
+.pagina-panel-interno .tarjeta-modulo-dashboard p {
+  color: var(--bn-text-soft);
+}
+
+.pagina-panel-interno .tarjeta-modulo-dashboard {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg);
+  box-shadow: var(--bn-shadow);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.pagina-panel-interno .tarjeta-modulo-dashboard:hover {
+  border-color: var(--bn-border-strong);
+  transform: translateY(-2px);
+}
+
+/* —— Bandas de contenido / modulos —— */
+.pagina-panel-interno .banda-actividades,
+.pagina-panel-interno .banda-averias-fontanero {
+  background: var(--bn-bg-soft);
+  border-top: 1px solid var(--bn-border);
+  border-bottom: none;
+  padding: clamp(28px, 4vw, 48px) 0 64px;
+}
+
+.pagina-panel-interno .encabezado-seccion .etiqueta,
+.pagina-panel-interno .modulo-encabezado-interno .etiqueta,
+.pagina-panel-interno .banda-actividades .etiqueta {
+  color: var(--bn-text-muted);
+}
+
+.pagina-panel-interno .encabezado-seccion h2,
+.pagina-panel-interno .modulo-encabezado-interno h2,
+.pagina-panel-interno .banda-actividades h2,
+.pagina-panel-interno .encabezado-formulario h2,
+.pagina-panel-interno .encabezado-formulario h3 {
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .encabezado-seccion p,
+.pagina-panel-interno .modulo-encabezado-interno p,
+.pagina-panel-interno .encabezado-formulario p {
+  color: var(--bn-text-soft);
+}
+
+/* —— Formularios —— */
+.pagina-panel-interno .grilla-actividades,
+.pagina-panel-interno .grilla-gestion-modulo {
+  gap: 24px;
+  align-items: start;
+}
+
+.pagina-panel-interno .panel-formulario,
+.pagina-panel-interno .panel-detalle-modulo,
+.pagina-panel-interno .panel-actividades,
+.pagina-panel-interno .panel-gestion-averias,
+.pagina-panel-interno .panel-reportes {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg);
+  box-shadow: var(--bn-shadow);
+  padding: clamp(20px, 3vw, 28px);
+}
+
+.pagina-panel-interno .panel-formulario {
+  border-top: 3px solid var(--bn-border-strong);
+}
+
+.pagina-panel-interno .campo span {
+  color: var(--bn-text);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.pagina-panel-interno input,
+.pagina-panel-interno select,
+.pagina-panel-interno textarea {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid var(--bn-border);
+  border-radius: 8px;
+  background: var(--bn-bg);
+  color: var(--bn-text);
+  padding: 10px 14px;
+  font: inherit;
+}
+
+.pagina-panel-interno textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.pagina-panel-interno input:hover,
+.pagina-panel-interno select:hover,
+.pagina-panel-interno textarea:hover {
+  border-color: #aaaaaa;
+}
+
+.pagina-panel-interno input:focus,
+.pagina-panel-interno select:focus,
+.pagina-panel-interno textarea:focus {
+  outline: none;
+  border-color: var(--bn-border-strong);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+.pagina-panel-interno input::placeholder,
+.pagina-panel-interno textarea::placeholder {
+  color: var(--bn-text-muted);
+}
+
+/* —— Botones —— */
+.pagina-panel-interno .boton.primario,
+.pagina-panel-interno .boton-login-admin {
+  border: 1px solid var(--bn-border-strong);
+  background: var(--bn-bg-strong);
+  color: #ffffff;
+}
+
+.pagina-panel-interno .boton.primario:hover,
+.pagina-panel-interno .boton-login-admin:hover {
+  background: #333333;
+}
+
+.pagina-panel-interno .boton.secundario,
+.pagina-panel-interno .boton.claro {
+  border: 1px solid var(--bn-border-strong);
+  background: var(--bn-bg);
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .boton.secundario:hover,
+.pagina-panel-interno .boton.claro:hover {
+  background: var(--bn-bg-muted);
+}
+
+.pagina-panel-interno .panel-actividades .boton {
+  border: 1px solid var(--bn-border-strong);
+  background: var(--bn-bg-strong);
+  color: #ffffff;
+}
+
+.pagina-panel-interno .panel-actividades .boton.secundario,
+.pagina-panel-interno .panel-actividades .boton.claro {
+  background: var(--bn-bg);
+  color: var(--bn-text);
+}
+
+/* —— Tarjetas de actividad / listas —— */
+.pagina-panel-interno .tarjeta-actividad {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg-soft);
+}
+
+.pagina-panel-interno .actividad-meta strong,
+.pagina-panel-interno .tarjeta-actividad p,
+.pagina-panel-interno .ficha-detalle dt,
+.pagina-panel-interno .ficha-detalle dd {
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .ficha-detalle dt {
+  color: var(--bn-text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.pagina-panel-interno .tabs-modulo button {
+  border: 1px solid var(--bn-border);
+  background: var(--bn-bg);
+  color: var(--bn-text-soft);
+  border-radius: 999px;
+}
+
+.pagina-panel-interno .tabs-modulo button.activo,
+.pagina-panel-interno .tabs-modulo button:hover {
+  border-color: var(--bn-border-strong);
+  background: var(--bn-bg-strong);
+  color: #ffffff;
+}
+
+.pagina-panel-interno .item-lista-modulo {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg);
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .item-lista-modulo.activo,
+.pagina-panel-interno .item-lista-modulo:hover {
+  border-color: var(--bn-border-strong);
+  background: var(--bn-bg-muted);
+}
+
+.pagina-panel-interno .panel-metricas-actividades div {
+  border: 1px solid var(--bn-border);
+  border-left: 4px solid var(--bn-border-strong);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg);
+  box-shadow: var(--bn-shadow);
+}
+
+.pagina-panel-interno .panel-metricas-actividades span {
+  color: var(--bn-text-muted);
+}
+
+.pagina-panel-interno .panel-metricas-actividades strong {
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .barra-filtros-modulo .campo span {
+  font-size: 0.78rem;
+  color: var(--bn-text-muted);
+}
+
+/* —— Etiquetas de estado (escala de grises) —— */
+.pagina-panel-interno .etiqueta-estado,
+.pagina-panel-interno .etiqueta-prioridad {
+  border: 1px solid var(--bn-border);
+  background: var(--bn-bg-muted);
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .etiqueta-finalizada,
+.pagina-panel-interno .etiqueta-validada,
+.pagina-panel-interno .etiqueta-registrada {
+  background: var(--bn-bg-strong);
+  color: #ffffff;
+  border-color: var(--bn-bg-strong);
+}
+
+.pagina-panel-interno .etiqueta-cancelada,
+.pagina-panel-interno .etiqueta-rechazada,
+.pagina-panel-interno .etiqueta-con-inconsistencia,
+.pagina-panel-interno .etiqueta-no-se-pudo-atender {
+  background: #ffffff;
+  color: var(--bn-text);
+  border-color: var(--bn-border-strong);
+  font-weight: 900;
+}
+
+.pagina-panel-interno .etiqueta-prioridad-urgente {
+  background: var(--bn-bg-strong);
+  color: #ffffff;
+  border-color: var(--bn-bg-strong);
+}
+
+/* —— Mensajes —— */
+.pagina-panel-interno .mensaje-exito {
+  border: 1px solid var(--bn-border);
+  border-left: 4px solid var(--bn-border-strong);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg);
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .mensaje-error {
+  border: 1px solid var(--bn-border-strong);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg-muted);
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .panel-consumo-calculado {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg-soft);
+}
+
+.pagina-panel-interno .panel-consumo-calculado.alerta {
+  border-color: var(--bn-border-strong);
+  background: var(--bn-bg-muted);
+}
+
+.pagina-panel-interno .panel-consumo-calculado span {
+  color: var(--bn-text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.pagina-panel-interno .panel-consumo-calculado strong {
+  color: var(--bn-text);
+  font-size: 1.8rem;
+}
+
+.pagina-panel-interno .alerta-consumo {
+  color: var(--bn-text);
+  font-weight: 800;
+}
+
+.pagina-panel-interno .panel-historial {
+  border-top: 1px solid var(--bn-border);
+}
+
+.pagina-panel-interno .lista-historial li {
+  border: 1px solid var(--bn-border);
+  background: var(--bn-bg-soft);
+}
+
+.pagina-panel-interno .sin-reportes,
+.pagina-panel-interno .detalle-vacio p {
+  color: var(--bn-text-muted);
+}
+
+.pagina-panel-interno .paginacion-modulo span {
+  color: var(--bn-text-soft);
+  font-weight: 700;
+}
+
+.pagina-panel-interno .panel-modulo-placeholder {
+  border: 1px dashed var(--bn-border-strong);
+  background: var(--bn-bg);
+}
+
+.pagina-panel-interno .evidencia-detalle {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius);
+}
+
+/* —— Login B&N —— */
+.pagina-login-admin {
+  background: var(--bn-bg-soft);
+}
+
+.pagina-login-admin .login-admin-panel {
+  border: 1px solid var(--bn-border);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg);
+  box-shadow: var(--bn-shadow);
+  backdrop-filter: none;
+}
+
+.pagina-login-admin .login-admin-marca .marca,
+.pagina-login-admin .login-admin-marca .marca strong,
+.pagina-login-admin .login-admin-copy h1,
+.pagina-login-admin .login-admin-formulario .campo span {
+  color: var(--bn-text);
+}
+
+.pagina-login-admin .login-admin-copy .etiqueta,
+.pagina-login-admin .login-admin-marca .marca small {
+  color: var(--bn-text-muted);
+}
+
+.pagina-login-admin .login-admin-copy p:not(.etiqueta) {
+  color: var(--bn-text-soft);
+}
+
+.pagina-login-admin .login-admin-formulario input {
+  border: 1px solid var(--bn-border);
+  background: var(--bn-bg);
+  color: var(--bn-text);
+}
+
+.pagina-login-admin .boton-login-admin {
+  background: var(--bn-bg-strong);
+  border-color: var(--bn-border-strong);
+  color: #ffffff;
+}
+
+.pagina-login-admin .login-admin-volver {
+  color: var(--bn-text-soft);
+}
+
+.pagina-login-admin .login-admin-volver:hover {
+  color: var(--bn-text);
+}
+
+.pagina-login-admin .login-admin-error {
+  border: 1px solid var(--bn-border-strong);
+  background: var(--bn-bg-muted);
+  color: var(--bn-text);
+}
+
+.pagina-panel-interno .encabezado-listado-modulo {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.pagina-panel-interno .encabezado-listado-modulo h3 {
+  margin: 0;
+}
+
+.pagina-panel-interno .busqueda-modulo input {
+  max-width: 100%;
+}
+
+.pagina-panel-interno .modulo-formulario .encabezado-formulario {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--bn-border);
+}
+
+.pagina-panel-interno .modulo-formulario .encabezado-formulario h2 {
+  margin: 8px 0;
+}
+
+/* Panel fontanero: cuadros compactos, sin estirarse hacia abajo */
+.pagina-fontanero .tarjeta-admin-resumen {
+  display: none;
+}
+
+.pagina-fontanero .hero-admin-contenido {
+  grid-template-columns: 1fr;
+  padding-block: clamp(20px, 3vw, 32px);
+}
+
+.pagina-fontanero .modulo-formulario,
+.pagina-fontanero .modulo-listado,
+.pagina-fontanero .panel-gestion-averias,
+.pagina-fontanero .panel-detalle-modulo {
+  align-self: start;
+  height: auto;
+}
+
+.pagina-fontanero .modulo-listado:not(.modulo-listado-horizontal),
+.pagina-fontanero .grilla-gestion-modulo .panel-gestion-averias:not(.panel-lista-averias-horizontal) {
+  max-height: min(680px, calc(100dvh - 240px));
+  overflow-y: auto;
+}
+
+.pagina-fontanero .modulo-bitacora .grilla-formulario-modulo .campo {
+  align-self: start;
+}
+
+.pagina-fontanero .modulo-bitacora .grilla-formulario-modulo textarea {
+  min-height: 72px;
+  resize: vertical;
+}
+
+/* Modulos fontanero: layout horizontal a ancho completo */
+.modulo-layout-horizontal .modulo-layout-horizontal-contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.modulo-layout-horizontal .encabezado-formulario-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--bn-border);
+}
+
+.modulo-layout-horizontal .encabezado-formulario-horizontal h2,
+.modulo-layout-horizontal .encabezado-formulario-horizontal h3 {
+  margin: 8px 0 0;
+}
+
+.modulo-layout-horizontal .encabezado-formulario-horizontal > p {
+  flex: 1 1 220px;
+  max-width: 420px;
+  margin: 0;
+  text-align: right;
+  color: var(--bn-text-soft);
+}
+
+.modulo-layout-horizontal .grilla-formulario-horizontal {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.modulo-layout-horizontal .campo-span-2 {
+  grid-column: span 2;
+}
+
+.modulo-layout-horizontal .fila-accion-formulario-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.modulo-layout-horizontal .modulo-listado-horizontal,
+.modulo-layout-horizontal .panel-lista-averias-horizontal,
+.modulo-layout-horizontal .panel-detalle-horizontal {
+  max-height: none;
+  overflow: visible;
+}
+
+.modulo-layout-horizontal .modulo-listado-horizontal .tarjeta-actividad {
+  margin-bottom: 12px;
+}
+
+.modulo-layout-horizontal .barra-filtros-horizontal {
+  margin-bottom: 0;
+}
+
+.modulo-layout-horizontal .lista-modulo-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-height: none;
+  overflow: visible;
+}
+
+.modulo-layout-horizontal .lista-modulo-horizontal .item-lista-modulo {
+  flex: 1 1 220px;
+  max-width: 320px;
+}
+
+.modulo-layout-horizontal .panel-detalle-horizontal {
+  position: static;
+}
+
+.modulo-layout-horizontal .encabezado-detalle-averia h3 {
+  font-size: 1.35rem;
+}
+
+.modulo-layout-horizontal .evidencia-detalle-inline {
+  max-width: 280px;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: var(--bn-radius);
+  border: 1px solid var(--bn-border);
+  margin-bottom: 12px;
+}
+
+/* Lecturas: fila de consumo */
+.modulo-lecturas .grilla-lecturas-horizontal {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.modulo-lecturas .grilla-lecturas-consumo {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(140px, 0.85fr);
+  align-items: end;
+}
+
+.modulo-lecturas .panel-consumo-inline {
+  margin-top: 0;
+  min-height: 46px;
+  justify-content: center;
+}
+
+@media (max-width: 1080px) {
+  .modulo-layout-horizontal .grilla-formulario-horizontal,
+  .modulo-lecturas .grilla-lecturas-horizontal {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .modulo-layout-horizontal .campo-span-2 {
+    grid-column: span 2;
+  }
+
+  .modulo-layout-horizontal .encabezado-formulario-horizontal > p {
+    text-align: left;
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .modulo-layout-horizontal .grilla-formulario-horizontal,
+  .modulo-lecturas .grilla-lecturas-horizontal,
+  .modulo-lecturas .grilla-lecturas-consumo {
+    grid-template-columns: 1fr;
+  }
+
+  .modulo-layout-horizontal .campo-span-2 {
+    grid-column: span 1;
+  }
+
+  .modulo-layout-horizontal .fila-accion-formulario-horizontal {
+    justify-content: stretch;
+  }
+
+  .modulo-layout-horizontal .fila-accion-formulario-horizontal .boton {
+    width: 100%;
+  }
+
+  .modulo-layout-horizontal .lista-modulo-horizontal .item-lista-modulo {
+    max-width: none;
+  }
+}
+
+/* Formulario en cuadricula: menos scroll vertical */
+.pagina-panel-interno .modulo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pagina-panel-interno .grilla-formulario-modulo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+  align-items: start;
+}
+
+.pagina-panel-interno .grilla-formulario-modulo .campo-ancho-completo {
+  grid-column: 1 / -1;
+}
+
+.pagina-panel-interno .grilla-lecturas-consumo {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr minmax(120px, 0.75fr);
+  gap: 14px 16px;
+  align-items: stretch;
+}
+
+.pagina-panel-interno .panel-consumo-inline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  min-height: 46px;
+  margin-top: 24px;
+  padding: 12px 16px;
+}
+
+.pagina-panel-interno .panel-consumo-inline strong {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.pagina-panel-interno .panel-consumo-inline small {
+  color: var(--bn-text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.pagina-panel-interno .aviso-formulario-modulo {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--bn-border-strong);
+  border-radius: 8px;
+  background: var(--bn-bg-muted);
+  color: var(--bn-text-soft);
+  font-size: 0.88rem;
+}
+
+.pagina-panel-interno .campo span::before {
+  display: none;
+}
+
+.pagina-panel-interno .campo span {
+  display: block;
+  gap: 0;
+}
+
+.pagina-panel-interno .modulo-formulario textarea {
+  min-height: 80px;
+}
+
+.pagina-panel-interno .modulo-formulario .mensaje-exito,
+.pagina-panel-interno .modulo-formulario .mensaje-error {
+  margin-top: 4px;
+}
+
+.pagina-panel-interno .modulo-formulario > .boton.ancho {
+  margin-top: 16px;
+}
+
+.pagina-panel-interno .grilla-campos-doble {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.pagina-panel-interno .grupo-botones {
+  margin-top: 8px;
+}
+
+@media (max-width: 720px) {
+  .pagina-panel-interno .grilla-formulario-modulo,
+  .pagina-panel-interno .grilla-lecturas-consumo,
+  .pagina-panel-interno .grilla-campos-doble {
+    grid-template-columns: 1fr;
+  }
+
+  .pagina-panel-interno .panel-consumo-inline {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 960px) {
+  .pagina-panel-interno .hero-admin-contenido {
+    grid-template-columns: 1fr;
+  }
+
+  .pagina-panel-interno .grilla-actividades,
+  .pagina-panel-interno .grilla-gestion-modulo {
+    grid-template-columns: 1fr;
+  }
+
+  .pagina-panel-interno .panel-detalle-modulo {
+    position: static;
+  }
+}

@@ -11,8 +11,9 @@ export function ConsultaPublica({ reportesAveria = [] }: ConsultaPublicaProps) {
   const [error, setError] = useState('')
   const [resultado, setResultado] = useState('')
   const [detalleReporte, setDetalleReporte] = useState<ReporteAveria | null>(null)
+  const [consultando, setConsultando] = useState(false)
 
-  const consultar = (evento: FormEvent<HTMLFormElement>) => {
+  const consultar = async (evento: FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
     setResultado('')
     setDetalleReporte(null)
@@ -35,7 +36,30 @@ export function ConsultaPublica({ reportesAveria = [] }: ConsultaPublicaProps) {
       return
     }
 
-    setResultado(consultarSeguimiento(numeroSeguimiento))
+    setConsultando(true)
+
+    try {
+      const respuesta = await consultarSeguimiento(numeroSeguimiento)
+      setResultado(respuesta.mensajeEstado)
+
+      if (respuesta.detalleAveria) {
+        setDetalleReporte({
+          nombre: respuesta.detalleAveria.nombre,
+          telefono: respuesta.detalleAveria.telefono,
+          correo: respuesta.detalleAveria.correo,
+          direccion: respuesta.detalleAveria.direccion,
+          tipo: respuesta.detalleAveria.tipo,
+          descripcion: respuesta.detalleAveria.descripcion,
+          numeroSeguimiento: respuesta.detalleAveria.numeroSeguimiento,
+          fecha: respuesta.detalleAveria.fecha,
+          foto: respuesta.detalleAveria.foto,
+        })
+      }
+    } catch (consultaError) {
+      setError(consultaError instanceof Error ? consultaError.message : 'No se pudo consultar el seguimiento.')
+    } finally {
+      setConsultando(false)
+    }
   }
 
   return (
@@ -82,8 +106,8 @@ export function ConsultaPublica({ reportesAveria = [] }: ConsultaPublicaProps) {
                 </button>
               ))}
             </div>
-            <button className="boton primario" type="submit">
-              Consultar
+            <button className="boton primario" type="submit" disabled={consultando}>
+              {consultando ? 'Consultando...' : 'Consultar'}
             </button>
             {resultado && (
               <div className="mensaje-exito resultado-consulta" role="status">

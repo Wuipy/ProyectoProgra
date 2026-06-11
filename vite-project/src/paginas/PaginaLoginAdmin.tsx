@@ -1,22 +1,36 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import logoAsada from '../assets/logo-asada.svg'
-import { iniciarSesionAdmin } from '../servicios/authAdmin'
-
+import {
+  iniciarSesionAdmin,
+  obtenerRutaInicioSesion,
+  tieneSesionActiva,
+} from '../servicios/authAdmin'
 export function PaginaLoginAdmin() {
   const [usuario, setUsuario] = useState('')
   const [contrasena, setContrasena] = useState('')
   const [error, setError] = useState('')
+  const [enviando, setEnviando] = useState(false)
 
-  const enviarLogin = (evento: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (tieneSesionActiva()) {
+      window.location.replace(obtenerRutaInicioSesion())
+    }
+  }, [])
+
+  const enviarLogin = async (evento: FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
     setError('')
+    setEnviando(true)
 
-    if (!iniciarSesionAdmin(usuario, contrasena)) {
+    const sesionValida = await iniciarSesionAdmin(usuario, contrasena)
+    setEnviando(false)
+
+    if (!sesionValida) {
       setError('Usuario o contrasena incorrectos.')
       return
     }
 
-    window.location.href = '/admin/plomeria'
+    window.location.href = obtenerRutaInicioSesion()
   }
 
   return (
@@ -33,9 +47,9 @@ export function PaginaLoginAdmin() {
         </div>
 
         <div className="login-admin-copy">
-          <p className="etiqueta">Acceso administrativo</p>
+          <p className="etiqueta">Acceso al sistema</p>
           <h1 id="titulo-login-admin">Iniciar sesion</h1>
-          <p>Ingrese sus credenciales para administrar el registro de actividades de plomeria.</p>
+          <p>Ingrese sus credenciales para acceder al sistema operativo de la ASADA.</p>
         </div>
 
         <form className="login-admin-formulario" onSubmit={enviarLogin} noValidate>
@@ -66,8 +80,8 @@ export function PaginaLoginAdmin() {
             </div>
           )}
 
-          <button className="boton-login-admin" type="submit">
-            Entrar al dashboard
+          <button className="boton-login-admin" type="submit" disabled={enviando}>
+            {enviando ? 'Validando...' : 'Iniciar sesion'}
           </button>
         </form>
 
