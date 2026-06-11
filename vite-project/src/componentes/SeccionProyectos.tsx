@@ -1,6 +1,31 @@
-import { proyectosFuturos } from '../datos/landingDatos'
+import { useEffect, useState } from 'react'
+import { proyectosFuturos as proyectosLocales } from '../datos/landingDatos'
+import { listarProyectos, Proyecto } from '../servicios/landingService'
 
 export function SeccionProyectos() {
+  const [proyectos, setProyectos] = useState<Proyecto[]>(proyectosLocales)
+
+  useEffect(() => {
+    let activo = true
+
+    const cargarProyectos = async () => {
+      try {
+        const datos = await listarProyectos()
+        if (activo && datos.length > 0) {
+          setProyectos(datos)
+        }
+      } catch {
+        // Mantiene datos locales como respaldo si el backend no esta disponible.
+      }
+    }
+
+    cargarProyectos()
+
+    return () => {
+      activo = false
+    }
+  }, [])
+
   return (
     <section className="seccion seccion-suave" id="proyectos">
       <div className="contenedor">
@@ -9,7 +34,7 @@ export function SeccionProyectos() {
           <h2>Mejoras previstas para el acueducto</h2>
         </div>
         <div className="grilla-tarjetas proyectos">
-          {proyectosFuturos.map((proyecto) => (
+          {proyectos.map((proyecto) => (
             <article className="tarjeta" key={proyecto.titulo}>
               <div className="meta-tarjeta">
                 <strong>{proyecto.estado}</strong>

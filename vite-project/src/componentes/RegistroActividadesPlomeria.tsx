@@ -1,6 +1,14 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react'
-
-const STORAGE_KEY = 'sigasj-actividades-plomeria'
+import {
+  ActividadForm,
+  cambiarEstadoActividadPlomeria,
+  crearActividadPlomeria,
+  eliminarActividadPlomeria,
+  listarActividadesPlomeria,
+  PrioridadActividad,
+  RegistroActividad,
+  actualizarActividadPlomeria,
+} from '../servicios/landingService'
 
 const ACTIVIDADES = [
   'Control de Fugas',
@@ -11,22 +19,9 @@ const ACTIVIDADES = [
 ] as const
 
 const ESTADOS = ['Pendiente', 'En progreso', 'Completado'] as const
+const PRIORIDADES: PrioridadActividad[] = ['Baja', 'Media', 'Alta']
 
-type TipoActividad = (typeof ACTIVIDADES)[number]
-type EstadoActividad = (typeof ESTADOS)[number]
-
-type RegistroActividad = {
-  id: string
-  tipo: TipoActividad
-  cliente: string
-  ubicacion: string
-  descripcion: string
-  fecha: string
-  estado: EstadoActividad
-}
-
-type ActividadForm = Omit<RegistroActividad, 'id' | 'fecha'>
-
+type VistaTab = 'todas' | 'pendientes' | 'en-progreso' | 'completadas'
 type ErroresActividad = Partial<Record<keyof ActividadForm, string>>
 
 const valoresIniciales: ActividadForm = {
@@ -35,41 +30,84 @@ const valoresIniciales: ActividadForm = {
   ubicacion: '',
   descripcion: '',
   estado: 'Pendiente',
+  prioridad: 'Media',
+  notasSeguimiento: '',
+  numeroAveriaVinculada: '',
 }
 
-function generarId() {
-  return `ACT-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`
+const SIGUIENTE_ESTADO: Record<string, string> = {
+  Pendiente: 'En progreso',
+  'En progreso': 'Completado',
+  Completado: 'Pendiente',
 }
 
 export function RegistroActividadesPlomeria() {
   const [formulario, setFormulario] = useState<ActividadForm>(valoresIniciales)
   const [errores, setErrores] = useState<ErroresActividad>({})
-  const [registros, setRegistros] = useState<RegistroActividad[]>(() => {
-    const almacenado = window.localStorage.getItem(STORAGE_KEY)
-    if (!almacenado) return []
-
-    try {
-      return JSON.parse(almacenado) as RegistroActividad[]
-    } catch {
-      return []
-    }
-  })
+  const [registros, setRegistros] = useState<RegistroActividad[]>([])
   const [editarId, setEditarId] = useState<string | null>(null)
   const [mensaje, setMensaje] = useState('')
+  const [cargando, setCargando] = useState(true)
+  const [procesando, setProcesando] = useState(false)
+  const [vistaActiva, setVistaActiva] = useState<VistaTab>('todas')
+  const [busqueda, setBusqueda] = useState('')
+  const [filtroTipo, setFiltroTipo] = useState('Todos')
+  const [filtroPrioridad, setFiltroPrioridad] = useState('Todos')
+
+  const cargarActividades = async () => {
+    setCargando(true)
+    try {
+      const actividades = await listarActividadesPlomeria()
+      setRegistros(actividades)
+    } catch (error) {
+      setMensaje(error instanceof Error ? error.message : 'No se pudieron cargar las actividades.')
+    } finally {
+      setCargando(false)
+    }
+  }
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(registros))
-  }, [registros])
+    cargarActividades()
+  }, [])
 
   const estadisticas = useMemo(
     () => ({
       total: registros.length,
-      completados: registros.filter((registro) => registro.estado === 'Completado').length,
-      enProceso: registros.filter((registro) => registro.estado === 'En progreso').length,
-      pendientes: registros.filter((registro) => registro.estado === 'Pendiente').length,
+      completados: registros.filter((r) => r.estado === 'Completado').length,
+      enProceso: registros.filter((r) => r.estado === 'En progreso').length,
+      pendientes: registros.filter((r) => r.estado === 'Pendiente').length,
+      altaPrioridad: registros.filter((r) => r.prioridad === 'Alta' && r.estado !== 'Completado').length,
     }),
     [registros],
   )
+
+  const registrosFiltrados = useMemo(() => {
+    const termino = busqueda.trim().toLowerCase()
+
+    return registros
+      .filter((registro) => {
+        const coincideVista =
+          vistaActiva === 'todas' ||
+          (vistaActiva === 'pendientes' && registro.estado === 'Pendiente') ||
+          (vistaActiva === 'en-progreso' && registro.estado === 'En progreso') ||
+          (vistaActiva === 'completadas' && registro.estado === 'Completado')
+
+        const coincideTipo = filtroTipo === 'Todos' || registro.tipo === filtroTipo
+        const coincidePrioridad = filtroPrioridad === 'Todos' || registro.prioridad === filtroPrioridad
+        const coincideBusqueda =
+          !termino ||
+          registro.cliente.toLowerCase().includes(termino) ||
+          registro.ubicacion.toLowerCase().includes(termino) ||
+          registro.descripcion.toLowerCase().includes(termino) ||
+          (registro.numeroAveriaVinculada ?? '').toLowerCase().includes(termino)
+
+        return coincideVista && coincideTipo && coincidePrioridad && coincideBusqueda
+      })
+      .sort((a, b) => {
+        const peso = (p: PrioridadActividad) => (p === 'Alta' ? 3 : p === 'Media' ? 2 : 1)
+        return peso(b.prioridad) - peso(a.prioridad)
+      })
+  }, [busqueda, filtroPrioridad, filtroTipo, registros, vistaActiva])
 
   const actualizarCampo = (campo: keyof ActividadForm, valor: string) => {
     setFormulario((actual) => ({ ...actual, [campo]: valor }))
@@ -78,44 +116,51 @@ export function RegistroActividadesPlomeria() {
 
   const validarFormulario = () => {
     const nuevosErrores: ErroresActividad = {}
-
     if (!formulario.cliente.trim()) nuevosErrores.cliente = 'El nombre del cliente es obligatorio.'
     if (!formulario.ubicacion.trim()) nuevosErrores.ubicacion = 'La ubicacion es obligatoria.'
     if (!formulario.descripcion.trim()) nuevosErrores.descripcion = 'La descripcion es obligatoria.'
-
+    if (formulario.numeroAveriaVinculada?.trim() && !/^AV-\d{4}$/i.test(formulario.numeroAveriaVinculada.trim())) {
+      nuevosErrores.numeroAveriaVinculada = 'Use el formato AV-0001.'
+    }
     setErrores(nuevosErrores)
     return Object.keys(nuevosErrores).length === 0
   }
 
-  const enviarFormulario = (evento: FormEvent<HTMLFormElement>) => {
+  const construirPayload = (): ActividadForm => ({
+    tipo: formulario.tipo,
+    cliente: formulario.cliente.trim(),
+    ubicacion: formulario.ubicacion.trim(),
+    descripcion: formulario.descripcion.trim(),
+    estado: formulario.estado,
+    prioridad: formulario.prioridad,
+    notasSeguimiento: formulario.notasSeguimiento?.trim() || undefined,
+    numeroAveriaVinculada: formulario.numeroAveriaVinculada?.trim().toUpperCase() || undefined,
+  })
+
+  const enviarFormulario = async (evento: FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
     setMensaje('')
-
     if (!validarFormulario()) return
 
-    const registroNuevo: RegistroActividad = {
-      id: editarId ?? generarId(),
-      tipo: formulario.tipo,
-      cliente: formulario.cliente.trim(),
-      ubicacion: formulario.ubicacion.trim(),
-      descripcion: formulario.descripcion.trim(),
-      estado: formulario.estado,
-      fecha: new Date().toLocaleString('es-CR', {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      }),
-    }
-
-    setRegistros((actuales) => {
+    setProcesando(true)
+    try {
+      const payload = construirPayload()
       if (editarId) {
-        return actuales.map((registro) => (registro.id === editarId ? registroNuevo : registro))
+        const actualizado = await actualizarActividadPlomeria(editarId, payload)
+        setRegistros((actuales) => actuales.map((r) => (r.id === editarId ? actualizado : r)))
+        setMensaje('Actividad actualizada correctamente.')
+      } else {
+        const creado = await crearActividadPlomeria(payload)
+        setRegistros((actuales) => [creado, ...actuales])
+        setMensaje('Actividad registrada correctamente.')
       }
-      return [registroNuevo, ...actuales]
-    })
-
-    setMensaje(editarId ? 'Registro actualizado correctamente.' : 'Actividad registrada correctamente.')
-    setEditarId(null)
-    setFormulario(valoresIniciales)
+      setEditarId(null)
+      setFormulario(valoresIniciales)
+    } catch (error) {
+      setMensaje(error instanceof Error ? error.message : 'No se pudo guardar la actividad.')
+    } finally {
+      setProcesando(false)
+    }
   }
 
   const comenzarEdicion = (registro: RegistroActividad) => {
@@ -125,9 +170,13 @@ export function RegistroActividadesPlomeria() {
       ubicacion: registro.ubicacion,
       descripcion: registro.descripcion,
       estado: registro.estado,
+      prioridad: registro.prioridad,
+      notasSeguimiento: registro.notasSeguimiento ?? '',
+      numeroAveriaVinculada: registro.numeroAveriaVinculada ?? '',
     })
     setEditarId(registro.id)
     setMensaje('')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const cancelarEdicion = () => {
@@ -137,38 +186,50 @@ export function RegistroActividadesPlomeria() {
     setMensaje('Edicion cancelada.')
   }
 
-  const eliminarRegistro = (id: string) => {
-    setRegistros((actuales) => actuales.filter((registro) => registro.id !== id))
-    if (editarId === id) {
-      cancelarEdicion()
+  const eliminarRegistro = async (id: string) => {
+    if (!window.confirm('¿Eliminar esta actividad de forma permanente?')) return
+
+    setProcesando(true)
+    try {
+      await eliminarActividadPlomeria(id)
+      setRegistros((actuales) => actuales.filter((r) => r.id !== id))
+      if (editarId === id) cancelarEdicion()
+      setMensaje('Actividad eliminada.')
+    } catch (error) {
+      setMensaje(error instanceof Error ? error.message : 'No se pudo eliminar la actividad.')
+    } finally {
+      setProcesando(false)
     }
   }
 
-  const cambiarEstado = (id: string) => {
-    setRegistros((actuales) =>
-      actuales.map((registro) => {
-        if (registro.id !== id) return registro
-        const siguienteEstado: EstadoActividad =
-          registro.estado === 'Pendiente'
-            ? 'En progreso'
-            : registro.estado === 'En progreso'
-              ? 'Completado'
-              : 'Pendiente'
-        return { ...registro, estado: siguienteEstado }
-      }),
-    )
+  const cambiarEstado = async (registro: RegistroActividad) => {
+    setProcesando(true)
+    try {
+      const siguiente = SIGUIENTE_ESTADO[registro.estado]
+      const actualizado = await cambiarEstadoActividadPlomeria(registro.id, siguiente)
+      setRegistros((actuales) => actuales.map((r) => (r.id === registro.id ? actualizado : r)))
+    } catch (error) {
+      setMensaje(error instanceof Error ? error.message : 'No se pudo cambiar el estado.')
+    } finally {
+      setProcesando(false)
+    }
   }
 
   return (
-    <section className="seccion banda-actividades" id="registro-actividades">
+    <section className="seccion modulo-plomeria-interna" id="registro-actividades">
       <div className="contenedor">
         <div className="encabezado-seccion">
-          <p className="etiqueta">Gestion de actividades</p>
-          <h2>Control operativo de plomeria</h2>
-          <p>Registra y administra las tareas de control de fugas, toma de presion, visitas de campo y mas.</p>
+          <p className="etiqueta">Gestion interna</p>
+          <h2>Trabajos internos ASADA</h2>
+          <p>Planifique tareas de oficina, vincule reportes AV, priorice trabajos y lleve seguimiento interno.</p>
         </div>
 
-        <div className="panel-metricas-actividades" aria-label="Resumen de actividades de plomeria">
+        <p className="aviso-separacion-modulos" role="note">
+          Registro exclusivo de la administracion. La bitacora del fontanero se crea en su panel y
+          se valida en <strong>Validacion de bitacora</strong>.
+        </p>
+
+        <div className="panel-metricas-actividades panel-metricas-mejorado" aria-label="Resumen de actividades">
           <div>
             <span>Total</span>
             <strong>{estadisticas.total}</strong>
@@ -182,121 +243,149 @@ export function RegistroActividadesPlomeria() {
             <strong>{estadisticas.enProceso}</strong>
           </div>
           <div>
-            <span>Completadas</span>
-            <strong>{estadisticas.completados}</strong>
+            <span>Alta prioridad</span>
+            <strong>{estadisticas.altaPrioridad}</strong>
           </div>
+        </div>
+
+        <div className="barra-modulo-superior">
+          <div className="tabs-modulo" role="tablist">
+            {[
+              { id: 'todas' as VistaTab, label: 'Todas' },
+              { id: 'pendientes' as VistaTab, label: 'Pendientes' },
+              { id: 'en-progreso' as VistaTab, label: 'En progreso' },
+              { id: 'completadas' as VistaTab, label: 'Completadas' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                className={vistaActiva === tab.id ? 'activo' : ''}
+                onClick={() => setVistaActiva(tab.id)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          <button className="boton secundario boton-refrescar" type="button" onClick={cargarActividades} disabled={cargando}>
+            {cargando ? 'Actualizando...' : 'Actualizar lista'}
+          </button>
         </div>
 
         <div className="grilla-actividades">
           <section className="panel-formulario panel-actividades">
             <div className="encabezado-formulario">
-              <p className="etiqueta">Nueva actividad</p>
+              <p className="etiqueta">{editarId ? 'Edicion' : 'Nueva actividad'}</p>
               <h3>{editarId ? 'Editar actividad' : 'Registrar actividad'}</h3>
             </div>
 
             <form onSubmit={enviarFormulario} noValidate>
               <label className="campo">
                 <span>Tipo de actividad</span>
-                <select value={formulario.tipo} onChange={(evento) => actualizarCampo('tipo', evento.target.value)}>
+                <select value={formulario.tipo} onChange={(e) => actualizarCampo('tipo', e.target.value)}>
                   {ACTIVIDADES.map((tipo) => (
-                    <option key={tipo} value={tipo}>
-                      {tipo}
-                    </option>
+                    <option key={tipo} value={tipo}>{tipo}</option>
                   ))}
                 </select>
               </label>
 
-              <CampoTexto
-                id="actividad-cliente"
-                label="Nombre del cliente"
-                value={formulario.cliente}
-                error={errores.cliente}
-                onChange={(valor) => actualizarCampo('cliente', valor)}
-              />
+              <div className="grilla-campos-doble">
+                <label className="campo">
+                  <span>Prioridad</span>
+                  <select value={formulario.prioridad} onChange={(e) => actualizarCampo('prioridad', e.target.value)}>
+                    {PRIORIDADES.map((p) => (
+                      <option key={p} value={p}>{p}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="campo">
+                  <span>Estado</span>
+                  <select value={formulario.estado} onChange={(e) => actualizarCampo('estado', e.target.value)}>
+                    {ESTADOS.map((estado) => (
+                      <option key={estado} value={estado}>{estado}</option>
+                    ))}
+                  </select>
+                </label>
+              </div>
 
-              <CampoTexto
-                id="actividad-ubicacion"
-                label="Ubicacion"
-                value={formulario.ubicacion}
-                error={errores.ubicacion}
-                onChange={(valor) => actualizarCampo('ubicacion', valor)}
-              />
+              <CampoTexto id="actividad-cliente" label="Nombre del cliente" value={formulario.cliente} error={errores.cliente} onChange={(v) => actualizarCampo('cliente', v)} />
+              <CampoTexto id="actividad-ubicacion" label="Ubicacion" value={formulario.ubicacion} error={errores.ubicacion} onChange={(v) => actualizarCampo('ubicacion', v)} />
+              <CampoTexto id="actividad-averia" label="Reporte AV vinculado (opcional)" value={formulario.numeroAveriaVinculada ?? ''} error={errores.numeroAveriaVinculada} placeholder="AV-0001" onChange={(v) => actualizarCampo('numeroAveriaVinculada', v)} />
 
               <label className="campo">
                 <span>Descripcion de la actividad</span>
-                <textarea
-                  placeholder="Describe lo que se debe hacer o lo que se reviso."
-                  value={formulario.descripcion}
-                  onChange={(evento) => actualizarCampo('descripcion', evento.target.value)}
-                />
+                <textarea value={formulario.descripcion} onChange={(e) => actualizarCampo('descripcion', e.target.value)} placeholder="Detalle del trabajo a realizar o realizado." />
                 {errores.descripcion && <small className="error">{errores.descripcion}</small>}
               </label>
 
               <label className="campo">
-                <span>Estado</span>
-                <select value={formulario.estado} onChange={(evento) => actualizarCampo('estado', evento.target.value)}>
-                  {ESTADOS.map((estado) => (
-                    <option key={estado} value={estado}>
-                      {estado}
-                    </option>
-                  ))}
-                </select>
+                <span>Notas de seguimiento (opcional)</span>
+                <textarea value={formulario.notasSeguimiento ?? ''} onChange={(e) => actualizarCampo('notasSeguimiento', e.target.value)} placeholder="Observaciones internas, materiales, horarios..." />
               </label>
 
               <div className="grupo-botones">
-                <button className="boton primario ancho" type="submit">
-                  {editarId ? 'Guardar cambios' : 'Registrar actividad'}
+                <button className="boton primario ancho" type="submit" disabled={procesando}>
+                  {procesando ? 'Guardando...' : editarId ? 'Guardar cambios' : 'Registrar actividad'}
                 </button>
                 {editarId && (
-                  <button className="boton secundario ancho" type="button" onClick={cancelarEdicion}>
+                  <button className="boton secundario ancho" type="button" onClick={cancelarEdicion} disabled={procesando}>
                     Cancelar edicion
                   </button>
                 )}
               </div>
             </form>
 
-            {mensaje && (
-              <div className="mensaje-exito" role="status">
-                <strong>{mensaje}</strong>
-              </div>
-            )}
+            {mensaje && <div className="mensaje-exito" role="status"><strong>{mensaje}</strong></div>}
           </section>
 
           <section className="panel-formulario panel-actividades resumen-actividades">
             <div className="encabezado-formulario">
               <p className="etiqueta">Historial</p>
-              <h3>Actividades guardadas</h3>
-              <p>Verifica las tareas registradas y actualiza su estado segun avance el trabajo.</p>
+              <h3>Actividades ({registrosFiltrados.length})</h3>
             </div>
 
-            {registros.length === 0 ? (
-              <p className="sin-reportes">No hay actividades registradas. Crea una desde el formulario.</p>
+            <div className="barra-filtros-inline">
+              <input placeholder="Buscar cliente, ubicacion, AV..." value={busqueda} onChange={(e) => setBusqueda(e.target.value)} />
+              <select value={filtroTipo} onChange={(e) => setFiltroTipo(e.target.value)}>
+                <option value="Todos">Todos los tipos</option>
+                {ACTIVIDADES.map((t) => <option key={t} value={t}>{t}</option>)}
+              </select>
+              <select value={filtroPrioridad} onChange={(e) => setFiltroPrioridad(e.target.value)}>
+                <option value="Todos">Todas las prioridades</option>
+                {PRIORIDADES.map((p) => <option key={p} value={p}>{p}</option>)}
+              </select>
+            </div>
+
+            {cargando ? (
+              <p className="sin-reportes">Cargando actividades...</p>
+            ) : registrosFiltrados.length === 0 ? (
+              <p className="sin-reportes">No hay actividades en esta vista.</p>
             ) : (
               <div className="tarjetas-actividades">
-                {registros.map((registro) => (
+                {registrosFiltrados.map((registro) => (
                   <article className="tarjeta-actividad" key={registro.id}>
                     <div className="actividad-meta">
                       <strong>{registro.tipo}</strong>
-                      <span>{registro.fecha}</span>
+                      <span className={`prioridad prioridad-${registro.prioridad.toLowerCase()}`}>{registro.prioridad}</span>
                     </div>
                     <p>{registro.descripcion}</p>
                     <div className="actividad-detalle">
                       <span>{registro.cliente}</span>
                       <span>{registro.ubicacion}</span>
-                      <strong className={`estado estado-${registro.estado.replace(' ', '-').toLowerCase()}`}>
-                        {registro.estado}
-                      </strong>
+                      <span>{registro.fecha}</span>
+                      <strong className={`estado estado-${registro.estado.replace(' ', '-').toLowerCase()}`}>{registro.estado}</strong>
                     </div>
+                    {registro.numeroAveriaVinculada && (
+                      <p className="vinculo-averia">
+                        Vinculado a: <a href="/fontanero/averias">{registro.numeroAveriaVinculada}</a>
+                      </p>
+                    )}
+                    {registro.notasSeguimiento && <p className="notas-seguimiento">{registro.notasSeguimiento}</p>}
                     <div className="acciones-actividad">
-                      <button className="boton claro" type="button" onClick={() => cambiarEstado(registro.id)}>
-                        Cambiar estado
+                      <button className="boton claro" type="button" onClick={() => cambiarEstado(registro)} disabled={procesando}>
+                        → {SIGUIENTE_ESTADO[registro.estado]}
                       </button>
-                      <button className="boton secundario" type="button" onClick={() => comenzarEdicion(registro)}>
-                        Editar
-                      </button>
-                      <button className="boton claro" type="button" onClick={() => eliminarRegistro(registro.id)}>
-                        Eliminar
-                      </button>
+                      <button className="boton secundario" type="button" onClick={() => comenzarEdicion(registro)} disabled={procesando}>Editar</button>
+                      <button className="boton claro" type="button" onClick={() => eliminarRegistro(registro.id)} disabled={procesando}>Eliminar</button>
                     </div>
                   </article>
                 ))}
@@ -314,14 +403,15 @@ type CampoTextoProps = {
   label: string
   value: string
   error?: string
+  placeholder?: string
   onChange: (valor: string) => void
 }
 
-function CampoTexto({ id, label, value, error, onChange }: CampoTextoProps) {
+function CampoTexto({ id, label, value, error, placeholder, onChange }: CampoTextoProps) {
   return (
     <label className="campo" htmlFor={id}>
       <span>{label}</span>
-      <input id={id} type="text" value={value} onChange={(evento) => onChange(evento.target.value)} />
+      <input id={id} type="text" value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} />
       {error && <small className="error">{error}</small>}
     </label>
   )

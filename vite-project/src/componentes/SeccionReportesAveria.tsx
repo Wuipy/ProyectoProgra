@@ -3,9 +3,10 @@ import { ReporteAveria } from './FormularioAveria'
 
 type SeccionReportesAveriaProps = {
   reportes: ReporteAveria[]
+  cargando?: boolean
 }
 
-export function SeccionReportesAveria({ reportes }: SeccionReportesAveriaProps) {
+export function SeccionReportesAveria({ reportes, cargando = false }: SeccionReportesAveriaProps) {
   const [filtroTipo, setFiltroTipo] = useState('Todos')
   const [busqueda, setBusqueda] = useState('')
 
@@ -87,7 +88,9 @@ export function SeccionReportesAveria({ reportes }: SeccionReportesAveriaProps) 
               <span>{reportesFiltrados.length} visibles</span>
             </div>
 
-            {reportes.length === 0 ? (
+            {cargando ? (
+              <p className="sin-reportes">Cargando reportes desde el servidor...</p>
+            ) : reportes.length === 0 ? (
               <p className="sin-reportes">Cuando alguien envie el formulario de averias, su comentario aparecera aqui.</p>
             ) : reportesFiltrados.length === 0 ? (
               <p className="sin-reportes">No hay reportes que coincidan con la busqueda seleccionada.</p>

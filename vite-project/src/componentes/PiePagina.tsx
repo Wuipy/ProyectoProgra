@@ -1,11 +1,10 @@
 import logoAsada from '../assets/logo-asada.svg'
-
 const enlacesRapidos = [
   { texto: 'Servicios', destino: '#servicios' },
   { texto: 'Comunicados', destino: '#comunicados' },
   { texto: 'Consulta publica', destino: '#consulta-publica' },
   { texto: 'Contacto', destino: '#contacto' },
-  { texto: 'Panel administrativo', destino: '/login' },
+  { texto: 'Iniciar sesion', destino: '/login' },
 ]
 
 export function PiePagina() {

@@ -23,7 +23,7 @@ const valoresIniciales: DatosAveria = {
   descripcion: '',
 }
 
-const tiposAveria = ['Fuga', 'Baja presion', 'Ruptura de tuberia', 'Falta de agua', 'Otro']
+const tiposAveria = ['Fuga de agua', 'Tuberia dañada', 'Falta de agua', 'Medidor dañado', 'Otro']
 
 type FormularioAveriaProps = {
   onReporteCreado?: (reporte: ReporteAveria) => void
@@ -75,29 +75,34 @@ export function FormularioAveria({ onReporteCreado }: FormularioAveriaProps) {
     return Object.keys(nuevosErrores).length === 0
   }
 
-  const enviarFormulario = (evento: FormEvent<HTMLFormElement>) => {
+  const enviarFormulario = async (evento: FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
     setConfirmacion('')
 
     if (!validar()) return
 
-    const resultado = registrarAveria(datos)
-    const nuevoReporte: ReporteAveria = {
-      ...datos,
-      numeroSeguimiento: resultado.numeroSeguimiento,
-      fecha: new Date().toLocaleString('es-CR', {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      }),
-      foto,
-    }
+    try {
+      const resultado = await registrarAveria(datos, foto)
+      const nuevoReporte: ReporteAveria = {
+        ...datos,
+        numeroSeguimiento: resultado.numeroSeguimiento,
+        fecha: new Date().toLocaleString('es-CR', {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+        }),
+        foto,
+      }
 
-    onReporteCreado?.(nuevoReporte)
-    setConfirmacion(resultado.mensaje)
-    setUltimoSeguimiento(resultado.numeroSeguimiento)
-    setDatos(valoresIniciales)
-    setFoto(undefined)
-    evento.currentTarget.reset()
+      onReporteCreado?.(nuevoReporte)
+      setConfirmacion(resultado.mensaje)
+      setUltimoSeguimiento(resultado.numeroSeguimiento)
+      setDatos(valoresIniciales)
+      setFoto(undefined)
+      evento.currentTarget.reset()
+    } catch (error) {
+      setConfirmacion('')
+      setErrores({ descripcion: error instanceof Error ? error.message : 'No se pudo registrar el reporte.' })
+    }
   }
 
   return (
@@ -178,9 +183,11 @@ export function FormularioAveria({ onReporteCreado }: FormularioAveriaProps) {
       </form>
 
       {confirmacion && (
-        <div className="mensaje-exito" role="status">
-          <strong>{confirmacion}</strong>
-          <span>Ultimo reporte visible: {ultimoSeguimiento}</span>
+        <div className="mensaje-exito mensaje-confirmacion-averia" role="status">
+          <strong>Reporte registrado correctamente</strong>
+          <span>Su averia quedo en estado <strong>Pendiente</strong>.</span>
+          <span>Numero de seguimiento: <strong>{ultimoSeguimiento}</strong></span>
+          <span>{confirmacion}</span>
         </div>
       )}
     </section>
