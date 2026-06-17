@@ -41,14 +41,6 @@ export function esFontanero() {
   return obtenerRolUsuario() === 'fontanero'
 }
 
-export function puedeEliminarActividades() {
-  return esAdmin()
-}
-
-export function puedeAccederPlomeria() {
-  return esAdmin()
-}
-
 export function puedeAccederAverias() {
   return esAdmin() || esFontanero()
 }

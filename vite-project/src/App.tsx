@@ -14,8 +14,6 @@ import { FontaneroDashboard } from './paginas/fontanero/FontaneroDashboard'
 
 import { PaginaModuloFontaneroPlaceholder } from './paginas/fontanero/PaginaModuloFontaneroPlaceholder'
 
-import { PaginaAdminPlomeria } from './paginas/PaginaAdminPlomeria'
-
 import { PaginaFontaneroActividades } from './paginas/PaginaFontaneroActividades'
 
 import { PaginaFontaneroAverias } from './paginas/PaginaFontaneroAverias'
@@ -70,22 +68,6 @@ function App() {
       <RoleRoute rolesPermitidos={['admin']}>
 
         <AdminDashboard />
-
-      </RoleRoute>
-
-    )
-
-  }
-
-
-
-  if (ruta === '/admin/plomeria') {
-
-    return (
-
-      <RoleRoute rolesPermitidos={['admin']}>
-
-        <PaginaAdminPlomeria />
 
       </RoleRoute>
 
