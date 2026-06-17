@@ -50,9 +50,9 @@ export const MODULOS_ADMIN: ModuloInterno[] = [
   },
   {
     id: 'actividades-fontanero',
-    titulo: 'Validacion de bitacora',
+    titulo: 'Actividades de campo',
     ruta: '/admin/actividades-fontanero',
-    descripcion: 'Revise y valide los registros enviados por el fontanero en su panel.',
+    descripcion: 'Revise y valide las actividades registradas por el fontanero en terreno.',
     disponible: true,
     seccion: 'Supervision de campo',
   },
@@ -63,14 +63,6 @@ export const MODULOS_ADMIN: ModuloInterno[] = [
     descripcion: 'Consulta de lecturas registradas por el fontanero, inconsistencias e historial.',
     disponible: true,
     seccion: 'Supervision de campo',
-  },
-  {
-    id: 'plomeria',
-    titulo: 'Trabajos internos ASADA',
-    ruta: '/admin/plomeria',
-    descripcion: 'Planificacion y seguimiento interno de la oficina. Independiente de la bitacora del fontanero.',
-    disponible: true,
-    seccion: 'Gestion interna',
   },
   {
     id: 'proyectos',

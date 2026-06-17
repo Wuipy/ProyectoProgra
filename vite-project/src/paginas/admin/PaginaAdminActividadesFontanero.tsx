@@ -13,11 +13,11 @@ export function PaginaAdminActividadesFontanero() {
     >
       <HeroModuloInterno
         etiqueta="Supervision de campo"
-        titulo="Validacion de bitacora"
-        descripcion="Consulte los registros que el fontanero envia desde su panel. Solo puede validar o rechazar; no crear actividades aqui."
+        titulo="Actividades de campo"
+        descripcion="Consulte y valide las actividades que el fontanero registra en terreno con los formularios de bitacora."
         resumenEtiqueta="Modulo activo"
-        resumenTitulo="Bitacora fontanero"
-        resumenDescripcion="Reparaciones, lecturas, mantenimiento y otros trabajos registrados en terreno."
+        resumenTitulo="Bitacora unificada"
+        resumenDescripcion="Visita de campo, toma de presion, control operativo y actividades generales."
       />
       <GestionActividadesFontaneroAdmin />
     </LayoutPanelInterno>
