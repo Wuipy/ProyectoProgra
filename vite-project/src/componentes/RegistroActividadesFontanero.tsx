@@ -1,10 +1,17 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react'
 import {
-  ESTADOS_ACTIVIDAD_FONTANERO,
   PAGINA_TAMANIO,
   TIPOS_ACTIVIDAD_FONTANERO,
   claseEtiquetaEstado,
 } from '../config/constantesModulos'
+import {
+  actividadItemAFormulario,
+  formularioInicialActividad,
+  obtenerCategoriaFormulario,
+  prepararPayloadActividad,
+  tituloFormularioEspecifico,
+  validarFormularioActividad,
+} from '../config/formulariosActividadFontanero'
 import {
   ActividadFontaneroForm,
   ActividadFontaneroItem,
@@ -12,23 +19,14 @@ import {
   crearActividadFontanero,
   listarMisActividadesFontanero,
 } from '../servicios/landingService'
-
-const formularioInicial = (): ActividadFontaneroForm => ({
-  fechaActividad: new Date().toISOString().slice(0, 10),
-  horaInicio: '',
-  horaFin: '',
-  tipo: '',
-  descripcion: '',
-  ubicacion: '',
-  numeroAveriaVinculada: '',
-  materialesUtilizados: '',
-  observaciones: '',
-  estado: 'Pendiente',
-})
+import { FormularioActividadGeneral } from './actividadesFontanero/FormularioActividadGeneral'
+import { FormularioControlOperativo } from './actividadesFontanero/FormularioControlOperativo'
+import { FormularioTomaPresion } from './actividadesFontanero/FormularioTomaPresion'
+import { FormularioVisitaCampo } from './actividadesFontanero/FormularioVisitaCampo'
 
 export function RegistroActividadesFontanero() {
   const [actividades, setActividades] = useState<ActividadFontaneroItem[]>([])
-  const [formulario, setFormulario] = useState<ActividadFontaneroForm>(formularioInicial())
+  const [formulario, setFormulario] = useState<ActividadFontaneroForm>(formularioInicialActividad())
   const [editandoId, setEditandoId] = useState<string | null>(null)
   const [cargando, setCargando] = useState(true)
   const [enviando, setEnviando] = useState(false)
@@ -36,6 +34,9 @@ export function RegistroActividadesFontanero() {
   const [error, setError] = useState('')
   const [busqueda, setBusqueda] = useState('')
   const [pagina, setPagina] = useState(1)
+
+  const categoriaFormulario = obtenerCategoriaFormulario(formulario.tipo)
+  const tipoSeleccionado = Boolean(categoriaFormulario)
 
   const cargar = async () => {
     setCargando(true)
@@ -66,20 +67,35 @@ export function RegistroActividadesFontanero() {
   const totalPaginas = Math.max(1, Math.ceil(filtradas.length / PAGINA_TAMANIO))
   const paginadas = filtradas.slice((pagina - 1) * PAGINA_TAMANIO, pagina * PAGINA_TAMANIO)
 
+  const cambiarTipo = (tipo: string) => {
+    setFormulario(formularioInicialActividad(tipo))
+    setError('')
+  }
+
   const enviar = async (evento: FormEvent) => {
     evento.preventDefault()
     setEnviando(true)
     setMensaje('')
     setError('')
+
+    const errorValidacion = validarFormularioActividad(formulario)
+    if (errorValidacion) {
+      setError(errorValidacion)
+      setEnviando(false)
+      return
+    }
+
+    const payload = prepararPayloadActividad(formulario)
+
     try {
       if (editandoId) {
-        await actualizarActividadFontanero(editandoId, formulario)
+        await actualizarActividadFontanero(editandoId, payload)
         setMensaje('Actividad actualizada.')
       } else {
-        await crearActividadFontanero(formulario)
+        await crearActividadFontanero(payload)
         setMensaje('Actividad registrada en su bitacora.')
       }
-      setFormulario(formularioInicial())
+      setFormulario(formularioInicialActividad())
       setEditandoId(null)
       await cargar()
     } catch (e) {
@@ -95,19 +111,26 @@ export function RegistroActividadesFontanero() {
       return
     }
     setEditandoId(actividad.id)
-    setFormulario({
-      fechaActividad: actividad.fechaActividadIso ?? actividad.fechaActividad.slice(0, 10),
-      horaInicio: actividad.horaInicio ?? '',
-      horaFin: actividad.horaFin ?? '',
-      tipo: actividad.tipo,
-      descripcion: actividad.descripcion,
-      ubicacion: actividad.ubicacion,
-      numeroAveriaVinculada: actividad.numeroAveriaVinculada ?? '',
-      lecturaMedidorId: actividad.lecturaMedidorId ?? undefined,
-      materialesUtilizados: actividad.materialesUtilizados ?? '',
-      observaciones: actividad.observaciones ?? '',
-      estado: actividad.estado,
-    })
+    setFormulario(actividadItemAFormulario(actividad))
+    setError('')
+  }
+
+  const renderFormulario = () => {
+    if (!categoriaFormulario) return null
+
+    const props = { formulario, onChange: setFormulario }
+
+    return (
+      <section className="formulario-especifico-actividad" aria-live="polite">
+        <h3 className="titulo-formulario-especifico">{tituloFormularioEspecifico(categoriaFormulario)}</h3>
+        <div className="grilla-formulario-modulo grilla-formulario-especifico">
+          {categoriaFormulario === 'visita-campo' && <FormularioVisitaCampo {...props} />}
+          {categoriaFormulario === 'toma-presion' && <FormularioTomaPresion {...props} />}
+          {categoriaFormulario === 'control-operativo' && <FormularioControlOperativo {...props} />}
+          {categoriaFormulario === 'actividad-general' && <FormularioActividadGeneral {...props} />}
+        </div>
+      </section>
+    )
   }
 
   return (
@@ -119,114 +142,41 @@ export function RegistroActividadesFontanero() {
               <p className="etiqueta">Bitacora diaria</p>
               <h2>{editandoId ? 'Editar actividad' : 'Registrar actividad'}</h2>
             </div>
-            <p>Documente trabajos de campo, materiales y vinculos con averias o lecturas.</p>
+            <p>Seleccione el tipo y complete unicamente el formulario correspondiente.</p>
           </div>
 
-          <div className="grilla-formulario-modulo grilla-formulario-horizontal">
-            <label className="campo">
-              <span>Fecha</span>
-              <input
-                type="date"
-                required
-                value={formulario.fechaActividad}
-                onChange={(e) => setFormulario({ ...formulario, fechaActividad: e.target.value })}
-              />
-            </label>
-            <label className="campo">
+          <div className="selector-tipo-actividad">
+            <label className="campo campo-tipo-actividad">
               <span>Tipo de actividad</span>
               <select
                 required
                 value={formulario.tipo}
-                onChange={(e) => setFormulario({ ...formulario, tipo: e.target.value })}
+                onChange={(e) => cambiarTipo(e.target.value)}
               >
-                <option value="">Seleccione</option>
-                {TIPOS_ACTIVIDAD_FONTANERO.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
+                <option value="">Seleccione el tipo de actividad</option>
+                {TIPOS_ACTIVIDAD_FONTANERO.map((tipo) => (
+                  <option key={tipo} value={tipo}>
+                    {tipo}
                   </option>
                 ))}
               </select>
-            </label>
-            <label className="campo">
-              <span>Hora inicio</span>
-              <input
-                type="time"
-                value={formulario.horaInicio}
-                onChange={(e) => setFormulario({ ...formulario, horaInicio: e.target.value })}
-              />
-            </label>
-            <label className="campo">
-              <span>Hora fin</span>
-              <input
-                type="time"
-                value={formulario.horaFin}
-                onChange={(e) => setFormulario({ ...formulario, horaFin: e.target.value })}
-              />
-            </label>
-            <label className="campo">
-              <span>Ubicacion</span>
-              <input
-                required
-                value={formulario.ubicacion}
-                onChange={(e) => setFormulario({ ...formulario, ubicacion: e.target.value })}
-              />
-            </label>
-            <label className="campo">
-              <span>Estado</span>
-              <select
-                value={formulario.estado}
-                onChange={(e) => setFormulario({ ...formulario, estado: e.target.value })}
-              >
-                {ESTADOS_ACTIVIDAD_FONTANERO.map((e) => (
-                  <option key={e} value={e}>
-                    {e}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="campo campo-ancho-completo">
-              <span>Descripcion del trabajo</span>
-              <textarea
-                rows={3}
-                required
-                value={formulario.descripcion}
-                onChange={(e) => setFormulario({ ...formulario, descripcion: e.target.value })}
-              />
-            </label>
-            <label className="campo">
-              <span>Averia vinculada (AV-XXXX)</span>
-              <input
-                value={formulario.numeroAveriaVinculada}
-                onChange={(e) =>
-                  setFormulario({ ...formulario, numeroAveriaVinculada: e.target.value })
-                }
-              />
-            </label>
-            <label className="campo campo-span-2">
-              <span>Materiales utilizados</span>
-              <textarea
-                rows={2}
-                value={formulario.materialesUtilizados}
-                onChange={(e) =>
-                  setFormulario({ ...formulario, materialesUtilizados: e.target.value })
-                }
-              />
-            </label>
-            <label className="campo campo-span-2">
-              <span>Observaciones</span>
-              <textarea
-                rows={2}
-                value={formulario.observaciones}
-                onChange={(e) => setFormulario({ ...formulario, observaciones: e.target.value })}
-              />
             </label>
           </div>
+
+          {!tipoSeleccionado ? (
+            <p className="aviso-formulario-modulo aviso-seleccion-tipo" role="status">
+              Elija un tipo para abrir la bitacora de visita de campo, toma de presion, control operativo
+              o actividad general.
+            </p>
+          ) : (
+            renderFormulario()
+          )}
 
           {mensaje && <div className="mensaje-exito" role="status">{mensaje}</div>}
           {error && <div className="mensaje-error" role="alert">{error}</div>}
 
           <div className="fila-accion-formulario-horizontal">
-            <button className="boton primario" type="submit" disabled={enviando}>
+            <button className="boton primario" type="submit" disabled={enviando || !tipoSeleccionado}>
               {enviando ? 'Guardando...' : editandoId ? 'Actualizar' : 'Registrar'}
             </button>
             {editandoId && (
@@ -235,7 +185,8 @@ export function RegistroActividadesFontanero() {
                 type="button"
                 onClick={() => {
                   setEditandoId(null)
-                  setFormulario(formularioInicial())
+                  setFormulario(formularioInicialActividad())
+                  setError('')
                 }}
               >
                 Cancelar

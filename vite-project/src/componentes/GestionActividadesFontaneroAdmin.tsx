@@ -11,6 +11,7 @@ import {
   listarActividadesFontaneroAdmin,
   validarActividadFontanero,
 } from '../servicios/landingService'
+import { DetalleCamposEspecificosAdmin } from './actividadesFontanero/DetalleCamposEspecificosAdmin'
 
 export function GestionActividadesFontaneroAdmin() {
   const [actividades, setActividades] = useState<ActividadFontaneroItem[]>([])
@@ -150,10 +151,8 @@ export function GestionActividadesFontaneroAdmin() {
               <>
                 <h3>{seleccionada.tipo}</h3>
                 <p><strong>Fontanero:</strong> {seleccionada.fontanero}</p>
-                <p><strong>Ubicacion:</strong> {seleccionada.ubicacion}</p>
-                <p><strong>Descripcion:</strong> {seleccionada.descripcion}</p>
-                {seleccionada.numeroAveriaVinculada && <p><strong>Averia:</strong> {seleccionada.numeroAveriaVinculada}</p>}
-                {seleccionada.materialesUtilizados && <p><strong>Materiales:</strong> {seleccionada.materialesUtilizados}</p>}
+                <p><strong>Tipo:</strong> {seleccionada.tipo}</p>
+                <DetalleCamposEspecificosAdmin actividad={seleccionada} />
                 <label className="campo">
                   <span>Observacion de validacion</span>
                   <textarea value={observacionValidacion} onChange={(e) => setObservacionValidacion(e.target.value)} />
