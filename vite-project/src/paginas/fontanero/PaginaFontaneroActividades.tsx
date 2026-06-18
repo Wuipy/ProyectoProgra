@@ -1,7 +1,7 @@
-import { RegistroActividadesFontanero } from '../componentes/RegistroActividadesFontanero'
-import { HeroModuloInterno } from '../componentes/layout/HeroModuloInterno'
-import { LayoutPanelInterno } from '../componentes/layout/LayoutPanelInterno'
-import { MODULOS_FONTANERO } from '../config/navegacionInterna'
+import { RegistroActividadesFontanero } from '../../componentes/RegistroActividadesFontanero'
+import { HeroModuloInterno } from '../../componentes/layout/HeroModuloInterno'
+import { LayoutPanelInterno } from '../../componentes/layout/LayoutPanelInterno'
+import { MODULOS_FONTANERO } from '../../config/navegacionInterna'
 
 export function PaginaFontaneroActividades() {
   return (

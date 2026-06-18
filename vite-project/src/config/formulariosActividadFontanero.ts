@@ -1,4 +1,4 @@
-import type { ActividadFontaneroForm, ActividadFontaneroItem } from '../servicios/landingService'
+import type { ActividadFontaneroForm, ActividadFontaneroItem } from '../types/actividades'
 
 export type CategoriaFormularioActividad =
   | 'visita-campo'

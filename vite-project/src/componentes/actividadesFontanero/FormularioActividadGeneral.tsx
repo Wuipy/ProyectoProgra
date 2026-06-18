@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react'
 import { OPCIONES_SI_NO, PRIORIDADES_SEGUIMIENTO } from '../../config/constantesModulos'
-import type { ActividadFontaneroForm } from '../../servicios/landingService'
+import type { ActividadFontaneroForm } from '../../types/actividades'
 
 type Props = {
   formulario: ActividadFontaneroForm

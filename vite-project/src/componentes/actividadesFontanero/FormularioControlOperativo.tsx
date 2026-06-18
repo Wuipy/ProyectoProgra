@@ -1,4 +1,4 @@
-import type { ActividadFontaneroForm } from '../../servicios/landingService'
+import type { ActividadFontaneroForm } from '../../types/actividades'
 import { OPCIONES_OLOR_SABOR } from '../../config/constantesModulos'
 
 type Props = {

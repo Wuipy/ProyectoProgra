@@ -2,7 +2,7 @@ import {
   obtenerCategoriaFormulario,
   tituloFormularioEspecifico,
 } from '../../config/formulariosActividadFontanero'
-import type { ActividadFontaneroItem } from '../../servicios/landingService'
+import type { ActividadFontaneroItem } from '../../types/actividades'
 
 type Props = {
   actividad: ActividadFontaneroItem

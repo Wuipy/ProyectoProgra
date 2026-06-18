@@ -1,12 +1,8 @@
 import { ReactNode } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logoAsada from '../../assets/logo-asada.svg'
 import { ModuloInterno } from '../../config/navegacionInterna'
-import {
-  cerrarSesionAdmin,
-  esAdmin,
-  obtenerNombreUsuario,
-  RolUsuario,
-} from '../../servicios/authAdmin'
+import { cerrarSesionAdmin, esAdmin, obtenerNombreUsuario, RolUsuario } from '../../lib/auth'
 
 type LayoutPanelInternoProps = {
   rol: RolUsuario
@@ -23,26 +19,27 @@ export function LayoutPanelInterno({
   rutaDashboard,
   children,
 }: LayoutPanelInternoProps) {
-  const rutaActual = window.location.pathname
+  const { pathname: rutaActual } = useLocation()
+  const navigate = useNavigate()
   const nombreUsuario = obtenerNombreUsuario()
   const etiquetaRol = esAdmin() ? 'Administradora' : 'Fontanero'
 
   const cerrarSesion = () => {
     cerrarSesionAdmin()
-    window.location.href = '/'
+    navigate('/')
   }
 
   return (
     <div className={`pagina pagina-admin pagina-panel-interno pagina-${rol}`}>
       <header className="encabezado-admin">
         <nav className="contenedor barra-admin" aria-label={`Navegacion ${tituloPanel}`}>
-          <a className="marca" href={rutaDashboard} aria-label={`Ir al dashboard ${tituloPanel}`}>
+          <Link className="marca" to={rutaDashboard} aria-label={`Ir al dashboard ${tituloPanel}`}>
             <img src={logoAsada} alt="Logo ASADA San Juan" />
             <span className="marca-copy">
               <strong>SIGASJ</strong>
               <small>ASADA San Juan de Santa Cruz</small>
             </span>
-          </a>
+          </Link>
 
           <div className="acciones-admin">
             <span className="badge-rol-usuario" aria-label={`Rol: ${etiquetaRol}`}>
@@ -64,12 +61,12 @@ export function LayoutPanelInterno({
         <aside className="sidebar-panel" aria-label={`Menu ${tituloPanel}`}>
           <p className="sidebar-panel-etiqueta">{tituloPanel}</p>
           <nav className="sidebar-panel-nav">
-            <a
+            <Link
               className={rutaActual === rutaDashboard ? 'activo' : undefined}
-              href={rutaDashboard}
+              to={rutaDashboard}
             >
               Inicio del panel
-            </a>
+            </Link>
             {modulos.reduce<{ seccion?: string; items: ModuloInterno[] }[]>((grupos, modulo) => {
               const ultimo = grupos[grupos.length - 1]
               if (ultimo && ultimo.seccion === modulo.seccion) {
@@ -82,15 +79,15 @@ export function LayoutPanelInterno({
               <div key={grupo.seccion ?? grupo.items[0]?.id} className="sidebar-panel-grupo">
                 {grupo.seccion && <p className="sidebar-panel-seccion">{grupo.seccion}</p>}
                 {grupo.items.map((modulo) => (
-                  <a
+                  <Link
                     key={modulo.id}
                     className={rutaActual === modulo.ruta ? 'activo' : undefined}
-                    href={modulo.ruta}
+                    to={modulo.ruta}
                     aria-disabled={!modulo.disponible}
                   >
                     {modulo.titulo}
                     {!modulo.disponible && <small>Proximamente</small>}
-                  </a>
+                  </Link>
                 ))}
               </div>
             ))}

@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react'
 import { ESTADOS_MEDIDOR_VISITA, OPCIONES_SI_NO } from '../../config/constantesModulos'
-import type { ActividadFontaneroForm } from '../../servicios/landingService'
+import type { ActividadFontaneroForm } from '../../types/actividades'
 
 type Props = {
   formulario: ActividadFontaneroForm

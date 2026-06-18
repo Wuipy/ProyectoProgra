@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { obtenerTokenAdmin } from './authAdmin'
+import { obtenerTokenAdmin } from '../lib/auth'
 
 const baseURL = import.meta.env.VITE_API_BASE_URL ?? '/api'
 

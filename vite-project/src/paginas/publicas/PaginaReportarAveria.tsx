@@ -1,6 +1,6 @@
-import { Encabezado } from '../componentes/Encabezado'
-import { FormularioAveria } from '../componentes/FormularioAveria'
-import { PiePagina } from '../componentes/PiePagina'
+import { Encabezado } from '../../componentes/Encabezado'
+import { FormularioAveria } from '../../componentes/FormularioAveria'
+import { PiePagina } from '../../componentes/PiePagina'
 
 export function PaginaReportarAveria() {
   return (

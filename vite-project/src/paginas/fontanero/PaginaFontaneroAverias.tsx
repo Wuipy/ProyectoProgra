@@ -1,7 +1,7 @@
-import { GestionAveriasFontanero } from '../componentes/GestionAveriasFontanero'
-import { HeroModuloInterno } from '../componentes/layout/HeroModuloInterno'
-import { LayoutPanelInterno } from '../componentes/layout/LayoutPanelInterno'
-import { MODULOS_FONTANERO } from '../config/navegacionInterna'
+import { GestionAveriasFontanero } from '../../componentes/GestionAveriasFontanero'
+import { HeroModuloInterno } from '../../componentes/layout/HeroModuloInterno'
+import { LayoutPanelInterno } from '../../componentes/layout/LayoutPanelInterno'
+import { MODULOS_FONTANERO } from '../../config/navegacionInterna'
 
 export function PaginaFontaneroAverias() {
   return (

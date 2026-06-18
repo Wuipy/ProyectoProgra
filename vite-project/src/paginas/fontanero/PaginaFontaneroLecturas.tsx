@@ -1,7 +1,7 @@
-import { RegistroLecturasMedidor } from '../componentes/RegistroLecturasMedidor'
-import { HeroModuloInterno } from '../componentes/layout/HeroModuloInterno'
-import { LayoutPanelInterno } from '../componentes/layout/LayoutPanelInterno'
-import { MODULOS_FONTANERO } from '../config/navegacionInterna'
+import { RegistroLecturasMedidor } from '../../componentes/RegistroLecturasMedidor'
+import { HeroModuloInterno } from '../../componentes/layout/HeroModuloInterno'
+import { LayoutPanelInterno } from '../../componentes/layout/LayoutPanelInterno'
+import { MODULOS_FONTANERO } from '../../config/navegacionInterna'
 
 export function PaginaFontaneroLecturas() {
   return (

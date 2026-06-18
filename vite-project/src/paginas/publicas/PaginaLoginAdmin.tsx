@@ -1,11 +1,14 @@
-import { FormEvent, useEffect, useState } from 'react'
-import logoAsada from '../assets/logo-asada.svg'
+import logoAsada from '../../assets/logo-asada.svg'
 import {
   iniciarSesionAdmin,
   obtenerRutaInicioSesion,
   tieneSesionActiva,
-} from '../servicios/authAdmin'
+} from '../../lib/auth'
+import { FormEvent, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
 export function PaginaLoginAdmin() {
+  const navigate = useNavigate()
   const [usuario, setUsuario] = useState('')
   const [contrasena, setContrasena] = useState('')
   const [error, setError] = useState('')
@@ -13,9 +16,9 @@ export function PaginaLoginAdmin() {
 
   useEffect(() => {
     if (tieneSesionActiva()) {
-      window.location.replace(obtenerRutaInicioSesion())
+      navigate(obtenerRutaInicioSesion(), { replace: true })
     }
-  }, [])
+  }, [navigate])
 
   const enviarLogin = async (evento: FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
@@ -30,20 +33,20 @@ export function PaginaLoginAdmin() {
       return
     }
 
-    window.location.href = obtenerRutaInicioSesion()
+    navigate(obtenerRutaInicioSesion())
   }
 
   return (
     <main className="pagina-login-admin">
       <section className="login-admin-panel" aria-labelledby="titulo-login-admin">
         <div className="login-admin-marca">
-          <a className="marca" href="/" aria-label="Volver al inicio de SIGASJ">
+          <Link className="marca" to="/" aria-label="Volver al inicio de SIGASJ">
             <img src={logoAsada} alt="Logo ASADA San Juan" />
             <span className="marca-copy">
               <strong>SIGASJ</strong>
               <small>ASADA San Juan de Santa Cruz</small>
             </span>
-          </a>
+          </Link>
         </div>
 
         <div className="login-admin-copy">
@@ -85,9 +88,9 @@ export function PaginaLoginAdmin() {
           </button>
         </form>
 
-        <a className="login-admin-volver" href="/">
+        <Link className="login-admin-volver" to="/">
           Volver al portal publico
-        </a>
+        </Link>
       </section>
     </main>
   )
