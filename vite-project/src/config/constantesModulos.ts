@@ -45,7 +45,42 @@ export const ESTADOS_ACTIVIDAD_FONTANERO = ['Pendiente', 'En proceso', 'Finaliza
 
 export const ESTADOS_VALIDACION_ACTIVIDAD = ['Pendiente', 'Validada', 'Rechazada'] as const
 
-export const ESTADOS_LECTURA = ['Pendiente', 'Registrada', 'Con inconsistencia', 'Revisada'] as const
+export const ESTADOS_LECTURA = [
+  'Pendiente',
+  'Registrada',
+  'Con inconsistencia',
+  'Revisada',
+  'Validada',
+  'Rechazada',
+] as const
+
+export const ESTADOS_MEDIDOR_LECTURA = [
+  'Bueno',
+  'Dañado',
+  'Inaccesible',
+  'Con posible fuga',
+  'Cambiado',
+  'No encontrado',
+] as const
+
+export const MOTIVOS_VISITA_LECTURA = [
+  'Lectura mensual',
+  'Inspeccion por consumo alto',
+  'Revision por fuga',
+  'Verificacion de medidor',
+  'Otro',
+] as const
+
+export const RESULTADOS_INSPECCION_LECTURA = [
+  'Medidor en buen estado',
+  'Medidor no presenta fuga',
+  'Se detecto posible fuga',
+  'Medidor dañado',
+  'Medidor inaccesible',
+  'Se recomienda revision administrativa',
+] as const
+
+export const LIMITE_CONSUMO_ALTO_M3 = 50
 
 export function claseEtiquetaEstado(valor: string) {
   return `etiqueta-estado etiqueta-${valor.replace(/\s+/g, '-').toLowerCase()}`

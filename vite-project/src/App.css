@@ -5226,3 +5226,31 @@ textarea:focus {
   margin: 0 0 0.75rem;
   color: #17679f;
 }
+
+/* Ajustes moderados: legibilidad sin alterar la proporción general */
+.encabezado .marca img {
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
+}
+
+.encabezado .enlaces-navegacion a {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.encabezado .boton-login {
+  font-size: 14px;
+  padding: 11px 18px;
+}
+
+.hero-principal .acciones-hero .boton {
+  font-size: 14px;
+  min-height: 42px;
+  padding: 10px 18px;
+}
+
+.hero-principal .hero-puntos span {
+  font-size: 0.78rem;
+  padding: 7px 12px;
+}

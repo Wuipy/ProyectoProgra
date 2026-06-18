@@ -9,5 +9,6 @@ export type FotoAveriaPayload = {
 }
 
 export type FontaneroResumen = {
+  id: number
   usuario: string
 }

@@ -964,3 +964,39 @@
     grid-template-columns: 1fr;
   }
 }
+
+.barra-reportes-modulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.barra-reportes-modulo span {
+  font-weight: 600;
+  color: var(--bn-text-muted, #64748b);
+}
+
+.panel-asignacion-lectura {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid var(--bn-border, #e2e8f0);
+  border-radius: var(--bn-radius, 12px);
+  background: var(--bn-surface, #fff);
+}
+
+.panel-historial-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.campo-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+}
