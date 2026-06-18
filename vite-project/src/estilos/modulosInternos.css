@@ -1,19 +1,39 @@
-/* SIGASJ — Sistema visual blanco y negro para modulos internos */
+/* SIGASJ — Modulos internos con paleta ASADA (blanco / celeste / azul) */
 
 .pagina-panel-interno,
 .pagina-login-admin {
   --bn-bg: #ffffff;
-  --bn-bg-soft: #f8f8f8;
-  --bn-bg-muted: #f0f0f0;
-  --bn-bg-strong: #111111;
+  --bn-bg-soft: #f8fbfd;
+  --bn-bg-muted: #eef6fc;
+  --bn-bg-strong: #17679f;
+  --bn-accent: #59aef2;
+  --bn-accent-soft: #d9ecfb;
   --bn-text: #111111;
   --bn-text-soft: #444444;
-  --bn-text-muted: #777777;
+  --bn-text-muted: #667788;
   --bn-border: #dddddd;
-  --bn-border-strong: #111111;
-  --bn-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+  --bn-border-strong: #17679f;
+  --bn-border-accent: rgba(89, 174, 242, 0.45);
+  --bn-shadow: 0 4px 18px rgba(23, 103, 159, 0.07);
   --bn-radius: 10px;
-  color-scheme: light;
+
+  /* Anular prefers-color-scheme: dark dentro del area administrativa */
+  --surface-0: #ffffff;
+  --surface-1: #ffffff;
+  --surface-2: #f4f9fd;
+  --surface-3: #eef6fc;
+  --text-0: #17679f;
+  --text-1: #256c95;
+  --text-2: #4a7f9e;
+  --line: rgba(37, 108, 149, 0.18);
+  --line-strong: rgba(89, 174, 242, 0.45);
+  --shadow-soft: var(--bn-shadow);
+  --accent: #59aef2;
+  --accent-strong: #59aef2;
+  --accent-soft: #d9ecfb;
+  --accent-warm: #256c95;
+
+  color-scheme: only light;
   color: var(--bn-text);
   background: var(--bn-bg-soft);
 }
@@ -30,9 +50,12 @@
   backdrop-filter: none;
 }
 
-.pagina-panel-interno .barra-admin .marca strong,
-.pagina-panel-interno .barra-admin .marca small {
+.pagina-panel-interno .barra-admin .marca strong {
   color: var(--bn-text);
+}
+
+.pagina-panel-interno .barra-admin .marca small {
+  color: var(--bn-accent);
 }
 
 .pagina-panel-interno .badge-rol-usuario,
@@ -51,8 +74,8 @@
 
 .pagina-panel-interno .boton-login:hover,
 .pagina-panel-interno .boton-cerrar-sesion:hover {
-  background: #333333;
-  border-color: #333333;
+  background: var(--bn-accent);
+  border-color: var(--bn-accent);
 }
 
 /* —— Sidebar —— */
@@ -78,9 +101,9 @@
 
 .pagina-panel-interno .sidebar-panel-nav a:hover,
 .pagina-panel-interno .sidebar-panel-nav a.activo {
-  border-color: var(--bn-border-strong);
-  background: var(--bn-bg-muted);
-  color: var(--bn-text);
+  border-color: var(--bn-border-accent);
+  background: var(--bn-accent-soft);
+  color: var(--bn-bg-strong);
 }
 
 .pagina-panel-interno .sidebar-panel-grupo + .sidebar-panel-grupo {
@@ -103,7 +126,7 @@
   margin: 0 0 1.25rem;
   padding: 0.85rem 1rem;
   border: 1px solid var(--bn-border);
-  border-left: 3px solid var(--bn-border-strong);
+  border-left: 3px solid var(--bn-accent);
   border-radius: var(--bn-radius);
   background: var(--bn-bg);
   color: var(--bn-text-soft);
@@ -129,11 +152,11 @@
   font-size: 1.15rem;
 }
 
-/* —— Hero de modulo (antes oscuro) —— */
+/* —— Hero de modulo —— */
 .pagina-panel-interno .hero-admin {
-  background: var(--bn-bg);
-  border-bottom: 1px solid var(--bn-border);
-  color: var(--bn-text);
+  background: linear-gradient(135deg, var(--bn-accent) 0%, #4a9de8 100%);
+  border-bottom: 1px solid var(--bn-border-accent);
+  color: #ffffff;
 }
 
 .pagina-panel-interno .hero-admin-contenido {
@@ -143,39 +166,39 @@
 }
 
 .pagina-panel-interno .hero-admin .etiqueta {
-  color: var(--bn-text-muted);
+  color: rgba(255, 255, 255, 0.92);
   letter-spacing: 0.14em;
 }
 
 .pagina-panel-interno .hero-admin h1 {
-  color: var(--bn-text);
+  color: #ffffff;
   font-size: clamp(1.6rem, 3vw, 2.4rem);
   margin-bottom: 10px;
 }
 
 .pagina-panel-interno .hero-admin p:not(.etiqueta) {
-  color: var(--bn-text-soft);
+  color: rgba(255, 255, 255, 0.88);
   font-size: 1rem;
 }
 
 .pagina-panel-interno .tarjeta-admin-resumen {
-  border: 1px solid var(--bn-border);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: var(--bn-radius);
-  background: var(--bn-bg-soft);
+  background: rgba(255, 255, 255, 0.18);
   box-shadow: none;
 }
 
 .pagina-panel-interno .tarjeta-admin-resumen span {
-  color: var(--bn-text-muted);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .pagina-panel-interno .tarjeta-admin-resumen strong {
-  color: var(--bn-text);
+  color: #ffffff;
   font-size: 1.4rem;
 }
 
 .pagina-panel-interno .tarjeta-admin-resumen p {
-  color: var(--bn-text-soft);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* —— Dashboard —— */
@@ -187,8 +210,9 @@
 }
 
 .pagina-panel-interno .dashboard-interno-encabezado .etiqueta,
-.pagina-panel-interno .tarjeta-modulo-etiqueta {
-  color: var(--bn-text-muted);
+.pagina-panel-interno .tarjeta-modulo-etiqueta,
+.pagina-panel-interno .sidebar-panel-etiqueta {
+  color: var(--bn-accent);
 }
 
 .pagina-panel-interno .dashboard-interno-encabezado h1,
@@ -210,7 +234,8 @@
 }
 
 .pagina-panel-interno .tarjeta-modulo-dashboard:hover {
-  border-color: var(--bn-border-strong);
+  border-color: var(--bn-accent);
+  box-shadow: 0 6px 20px rgba(89, 174, 242, 0.15);
   transform: translateY(-2px);
 }
 
@@ -225,8 +250,15 @@
 
 .pagina-panel-interno .encabezado-seccion .etiqueta,
 .pagina-panel-interno .modulo-encabezado-interno .etiqueta,
-.pagina-panel-interno .banda-actividades .etiqueta {
-  color: var(--bn-text-muted);
+.pagina-panel-interno .banda-actividades .etiqueta,
+.pagina-panel-interno .encabezado-formulario .etiqueta {
+  color: var(--bn-accent);
+}
+
+.pagina-panel-interno .encabezado-seccion,
+.pagina-panel-interno .modulo-encabezado-interno {
+  border-left: 3px solid var(--bn-accent);
+  padding-left: 16px;
 }
 
 .pagina-panel-interno .encabezado-seccion h2,
@@ -263,7 +295,7 @@
 }
 
 .pagina-panel-interno .panel-formulario {
-  border-top: 3px solid var(--bn-border-strong);
+  border-top: 3px solid var(--bn-accent);
 }
 
 .pagina-panel-interno .campo span {
@@ -293,15 +325,15 @@
 .pagina-panel-interno input:hover,
 .pagina-panel-interno select:hover,
 .pagina-panel-interno textarea:hover {
-  border-color: #aaaaaa;
+  border-color: var(--bn-accent);
 }
 
 .pagina-panel-interno input:focus,
 .pagina-panel-interno select:focus,
 .pagina-panel-interno textarea:focus {
   outline: none;
-  border-color: var(--bn-border-strong);
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+  border-color: var(--bn-accent);
+  box-shadow: 0 0 0 3px rgba(89, 174, 242, 0.2);
 }
 
 .pagina-panel-interno input::placeholder,
@@ -319,19 +351,21 @@
 
 .pagina-panel-interno .boton.primario:hover,
 .pagina-panel-interno .boton-login-admin:hover {
-  background: #333333;
+  background: var(--bn-accent);
+  border-color: var(--bn-accent);
 }
 
 .pagina-panel-interno .boton.secundario,
 .pagina-panel-interno .boton.claro {
-  border: 1px solid var(--bn-border-strong);
+  border: 1px solid var(--bn-border-accent);
   background: var(--bn-bg);
-  color: var(--bn-text);
+  color: var(--bn-bg-strong);
 }
 
 .pagina-panel-interno .boton.secundario:hover,
 .pagina-panel-interno .boton.claro:hover {
-  background: var(--bn-bg-muted);
+  background: var(--bn-accent-soft);
+  border-color: var(--bn-accent);
 }
 
 .pagina-panel-interno .panel-actividades .boton {
@@ -376,7 +410,7 @@
 
 .pagina-panel-interno .tabs-modulo button.activo,
 .pagina-panel-interno .tabs-modulo button:hover {
-  border-color: var(--bn-border-strong);
+  border-color: var(--bn-accent);
   background: var(--bn-bg-strong);
   color: #ffffff;
 }
@@ -390,13 +424,13 @@
 
 .pagina-panel-interno .item-lista-modulo.activo,
 .pagina-panel-interno .item-lista-modulo:hover {
-  border-color: var(--bn-border-strong);
-  background: var(--bn-bg-muted);
+  border-color: var(--bn-accent);
+  background: var(--bn-accent-soft);
 }
 
 .pagina-panel-interno .panel-metricas-actividades div {
   border: 1px solid var(--bn-border);
-  border-left: 4px solid var(--bn-border-strong);
+  border-left: 4px solid var(--bn-accent);
   border-radius: var(--bn-radius);
   background: var(--bn-bg);
   box-shadow: var(--bn-shadow);
@@ -449,10 +483,10 @@
 
 /* —— Mensajes —— */
 .pagina-panel-interno .mensaje-exito {
-  border: 1px solid var(--bn-border);
-  border-left: 4px solid var(--bn-border-strong);
+  border: 1px solid var(--bn-border-accent);
+  border-left: 4px solid var(--bn-accent);
   border-radius: var(--bn-radius);
-  background: var(--bn-bg);
+  background: var(--bn-bg-muted);
   color: var(--bn-text);
 }
 
@@ -519,13 +553,14 @@
   border-radius: var(--bn-radius);
 }
 
-/* —— Login B&N —— */
+/* —— Login administrativo —— */
 .pagina-login-admin {
   background: var(--bn-bg-soft);
 }
 
 .pagina-login-admin .login-admin-panel {
   border: 1px solid var(--bn-border);
+  border-top: 3px solid var(--bn-accent);
   border-radius: var(--bn-radius);
   background: var(--bn-bg);
   box-shadow: var(--bn-shadow);
@@ -541,7 +576,7 @@
 
 .pagina-login-admin .login-admin-copy .etiqueta,
 .pagina-login-admin .login-admin-marca .marca small {
-  color: var(--bn-text-muted);
+  color: var(--bn-accent);
 }
 
 .pagina-login-admin .login-admin-copy p:not(.etiqueta) {
@@ -556,8 +591,13 @@
 
 .pagina-login-admin .boton-login-admin {
   background: var(--bn-bg-strong);
-  border-color: var(--bn-border-strong);
+  border-color: var(--bn-bg-strong);
   color: #ffffff;
+}
+
+.pagina-login-admin .boton-login-admin:hover {
+  background: var(--bn-accent);
+  border-color: var(--bn-accent);
 }
 
 .pagina-login-admin .login-admin-volver {
@@ -981,9 +1021,153 @@
 .panel-asignacion-lectura {
   margin-bottom: 20px;
   padding: 20px;
-  border: 1px solid var(--bn-border, #e2e8f0);
-  border-radius: var(--bn-radius, 12px);
-  background: var(--bn-surface, #fff);
+  border: 1px solid var(--bn-border);
+  border-top: 3px solid var(--bn-accent);
+  border-radius: var(--bn-radius);
+  background: var(--bn-bg);
+}
+
+/* —— Anular conflictos heredados de App.css —— */
+.pagina-panel-interno .encabezado-admin {
+  background: var(--bn-bg) !important;
+  border-bottom: 1px solid var(--bn-border) !important;
+  backdrop-filter: none !important;
+}
+
+.pagina-panel-interno.pagina-admin,
+.pagina-panel-interno.pagina-fontanero {
+  background: var(--bn-bg-soft) !important;
+}
+
+.pagina-panel-interno .hero-admin {
+  background: linear-gradient(135deg, var(--bn-accent) 0%, #4a9de8 100%) !important;
+  background-size: auto !important;
+}
+
+.pagina-panel-interno .banda-actividades,
+.pagina-panel-interno .banda-averias-fontanero {
+  background: var(--bn-bg-soft) !important;
+  background-size: auto !important;
+}
+
+.pagina-panel-interno .dashboard-interno-encabezado {
+  background: var(--bn-bg) !important;
+  border: 1px solid var(--bn-border) !important;
+  box-shadow: var(--bn-shadow) !important;
+}
+
+.pagina-panel-interno .sidebar-panel {
+  border-color: var(--bn-border) !important;
+  box-shadow: var(--bn-shadow) !important;
+}
+
+.pagina-panel-interno .sidebar-panel-nav a:hover,
+.pagina-panel-interno .sidebar-panel-nav a.activo {
+  border-color: var(--bn-border-accent) !important;
+  background: var(--bn-accent-soft) !important;
+  color: var(--bn-bg-strong) !important;
+}
+
+.pagina-panel-interno .panel-formulario,
+.pagina-panel-interno .panel-detalle-modulo,
+.pagina-panel-interno .panel-actividades,
+.pagina-panel-interno .panel-gestion-averias,
+.pagina-panel-interno .tarjeta-actividad,
+.pagina-panel-interno .tarjeta-modulo-dashboard {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.pagina-panel-interno .panel-formulario::before,
+.pagina-panel-interno .panel-reportes::before {
+  content: none !important;
+  display: none !important;
+}
+
+.pagina-panel-interno .boton,
+.pagina-panel-interno .panel-actividades .boton,
+.pagina-panel-interno .tarjeta-modulo-dashboard .boton {
+  background: var(--bn-bg-strong) !important;
+  border-color: var(--bn-bg-strong) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.pagina-panel-interno .boton:hover,
+.pagina-panel-interno .panel-actividades .boton:hover,
+.pagina-panel-interno .tarjeta-modulo-dashboard .boton:hover {
+  background: var(--bn-accent) !important;
+  border-color: var(--bn-accent) !important;
+}
+
+.pagina-panel-interno .boton.secundario,
+.pagina-panel-interno .boton.claro,
+.pagina-panel-interno .panel-actividades .boton.secundario,
+.pagina-panel-interno .panel-actividades .boton.claro {
+  background: var(--bn-bg) !important;
+  border-color: var(--bn-border-accent) !important;
+  color: var(--bn-bg-strong) !important;
+}
+
+.pagina-panel-interno .boton.secundario:hover,
+.pagina-panel-interno .boton.claro:hover,
+.pagina-panel-interno .panel-actividades .boton.secundario:hover,
+.pagina-panel-interno .panel-actividades .boton.claro:hover {
+  background: var(--bn-accent-soft) !important;
+  border-color: var(--bn-accent) !important;
+  color: var(--bn-bg-strong) !important;
+}
+
+.pagina-panel-interno .badge-usuario-interno,
+.pagina-panel-interno .badge-rol-usuario {
+  background: var(--bn-accent-soft) !important;
+  color: var(--bn-bg-strong) !important;
+  border-color: var(--bn-border-accent) !important;
+}
+
+.pagina-panel-interno .boton-admin-secundario {
+  border: 1px solid var(--bn-border-accent) !important;
+  background: var(--bn-bg) !important;
+  color: var(--bn-bg-strong) !important;
+}
+
+.pagina-panel-interno .boton-admin-secundario:hover {
+  border-color: var(--bn-accent) !important;
+  background: var(--bn-accent-soft) !important;
+  color: var(--bn-bg-strong) !important;
+}
+
+.pagina-fontanero .sidebar-panel-etiqueta,
+.pagina-fontanero .tarjeta-modulo-etiqueta,
+.pagina-fontanero .dashboard-interno-encabezado .etiqueta {
+  color: var(--bn-accent) !important;
+}
+
+.pagina-login-admin .login-admin-formulario input:focus {
+  border-color: var(--bn-accent) !important;
+  box-shadow: 0 0 0 3px rgba(89, 174, 242, 0.2) !important;
+}
+
+.pagina-login-admin {
+  background: var(--bn-bg-soft) !important;
+  background-size: auto !important;
+}
+
+.pagina-login-admin .login-admin-panel {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.pagina-login-admin .login-admin-formulario input {
+  background: var(--bn-bg) !important;
+  border: 1px solid var(--bn-border) !important;
+  color: var(--bn-text) !important;
+}
+
+.pagina-login-admin .login-admin-error {
+  border: 1px solid var(--bn-border-accent) !important;
+  background: var(--bn-bg-muted) !important;
+  color: var(--bn-text) !important;
 }
 
 .panel-historial-encabezado {

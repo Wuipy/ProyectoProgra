@@ -1,29 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
-  --accent: #0a74d9;
-  --accent-strong: #39c9f4;
-  --accent-soft: #d9f6ff;
-  --accent-warm: #0c6b78;
-  --surface-0: #f7fcff;
-  --surface-1: rgba(255, 255, 255, 0.84);
-  --surface-2: rgba(234, 248, 255, 0.72);
-  --surface-3: rgba(221, 244, 252, 0.78);
-  --text-0: #062f3a;
-  --text-1: #234e5b;
-  --text-2: #5d7d88;
-  --line: rgba(10, 116, 217, 0.18);
-  --line-strong: rgba(57, 201, 244, 0.48);
-  --glow: rgba(57, 201, 244, 0.24);
-  --glow-strong: rgba(57, 201, 244, 0.38);
-  --shadow-soft: 0 22px 70px rgba(6, 47, 58, 0.12);
-  --shadow-glow: 0 18px 46px rgba(57, 201, 244, 0.24);
+  /* Paleta ASADA San Juan (logo oficial) */
+  --asada-blanco: #ffffff;
+  --asada-celeste: #59aef2;
+  --asada-azul: #17679f;
+  --asada-azul-anel: #256c95;
+
+  --accent: var(--asada-celeste);
+  --accent-strong: var(--asada-celeste);
+  --accent-soft: #e8f4fd;
+  --accent-warm: var(--asada-azul-anel);
+  --surface-0: var(--asada-blanco);
+  --surface-1: var(--asada-blanco);
+  --surface-2: #f4f9fd;
+  --surface-3: #eef6fc;
+  --text-0: var(--asada-azul);
+  --text-1: var(--asada-azul-anel);
+  --text-2: #4a7f9e;
+  --line: rgba(37, 108, 149, 0.18);
+  --line-strong: rgba(89, 174, 242, 0.45);
+  --glow: rgba(89, 174, 242, 0.2);
+  --glow-strong: rgba(89, 174, 242, 0.32);
+  --shadow-soft: 0 22px 70px rgba(23, 103, 159, 0.1);
+  --shadow-glow: 0 18px 46px rgba(89, 174, 242, 0.2);
 
   --sky: var(--accent);
-  --sky-light: rgba(121, 242, 232, 0.34);
-  --navy: #062f3a;
+  --sky-light: rgba(89, 174, 242, 0.2);
+  --navy: var(--asada-azul);
   --azul-profundo: var(--text-0);
   --azul: var(--accent);
   --celeste: var(--accent-soft);
@@ -110,7 +116,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--surface-0);
+  background: #ffffff;
 }
 
 button,

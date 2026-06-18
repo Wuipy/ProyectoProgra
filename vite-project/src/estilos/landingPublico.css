@@ -1,0 +1,791 @@
+/**
+ * Portal publico — base administrativa + acentos celeste ASADA (#59aef2 / #17679f)
+ */
+.pagina.pagina-landing {
+  --bn-bg: #ffffff;
+  --bn-bg-soft: #f8fbfd;
+  --bn-bg-muted: #eef6fc;
+  --bn-bg-strong: #17679f;
+  --bn-accent: #59aef2;
+  --bn-accent-soft: #d9ecfb;
+  --bn-text: #111111;
+  --bn-text-soft: #444444;
+  --bn-text-muted: #667788;
+  --bn-border: #dddddd;
+  --bn-border-accent: rgba(89, 174, 242, 0.45);
+  --bn-shadow: 0 4px 18px rgba(23, 103, 159, 0.07);
+  --bn-radius: 10px;
+
+  /* Anular prefers-color-scheme: dark de index.css dentro del portal publico */
+  --surface-0: #ffffff;
+  --surface-1: #ffffff;
+  --surface-2: #f4f9fd;
+  --surface-3: #eef6fc;
+  --text-0: #17679f;
+  --text-1: #256c95;
+  --text-2: #4a7f9e;
+  --line: rgba(37, 108, 149, 0.18);
+  --line-strong: rgba(89, 174, 242, 0.45);
+  --shadow-soft: var(--bn-shadow);
+  --shadow-glow: 0 6px 20px rgba(89, 174, 242, 0.15);
+  --accent: #59aef2;
+  --accent-strong: #59aef2;
+  --accent-soft: #d9ecfb;
+  --accent-warm: #256c95;
+
+  color-scheme: only light;
+  background: var(--bn-bg-soft) !important;
+  color: var(--bn-text);
+}
+
+/* Anular decoraciones heredadas de App.css */
+.pagina.pagina-landing::before,
+.pagina.pagina-landing::after,
+.pagina.pagina-landing main .seccion::before,
+.pagina.pagina-landing .banda-formularios::before,
+.pagina.pagina-landing .hero-principal::before,
+.pagina.pagina-landing .hero-principal::after,
+.pagina.pagina-landing .encabezado::after,
+.pagina.pagina-landing .pie-pagina::before,
+.pagina.pagina-landing .tarjeta::before,
+.pagina.pagina-landing .panel-formulario::before,
+.pagina.pagina-landing .formulario-consulta::before,
+.pagina.pagina-landing .panel-reportes::before,
+.pagina.pagina-landing #quienes-somos .quienes-titulo::after,
+.pagina.pagina-landing #quienes-somos .indicadores-asada div::before,
+.pagina.pagina-landing .campo span::before {
+  content: none !important;
+  display: none !important;
+}
+
+.pagina.pagina-landing .tarjeta,
+.pagina.pagina-landing .panel-formulario,
+.pagina.pagina-landing .formulario-consulta,
+.pagina.pagina-landing .panel-reportes,
+.pagina.pagina-landing .datos-contacto,
+.pagina.pagina-landing .consulta-contenido,
+.pagina.pagina-landing .contacto-contenido > div:first-child,
+.pagina.pagina-landing .bloque-quienes > div,
+.pagina.pagina-landing .indicadores-asada div,
+.pagina.pagina-landing .metricas-reportes div,
+.pagina.pagina-landing .tarjeta-reporte-averia,
+.pagina.pagina-landing .sin-reportes,
+.pagina.pagina-landing #quienes-somos .quienes-titulo,
+.pagina.pagina-landing #quienes-somos .quienes-detalle {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* —— Encabezado —— */
+.pagina.pagina-landing .encabezado {
+  background: var(--bn-bg) !important;
+  border-bottom: 1px solid var(--bn-border);
+  box-shadow: none !important;
+}
+
+.pagina.pagina-landing .marca strong {
+  color: var(--bn-text);
+}
+
+.pagina.pagina-landing .marca small {
+  color: var(--bn-accent);
+}
+
+.pagina.pagina-landing .enlaces-navegacion a {
+  color: var(--bn-text-soft);
+}
+
+.pagina.pagina-landing .enlaces-navegacion a:hover {
+  color: var(--bn-bg-strong);
+}
+
+.pagina.pagina-landing .boton-login {
+  border: 1px solid var(--bn-bg-strong);
+  background: var(--bn-bg-strong);
+  color: #ffffff;
+}
+
+.pagina.pagina-landing .boton-login:hover {
+  background: var(--bn-accent);
+  border-color: var(--bn-accent);
+}
+
+/* —— Hero —— */
+.pagina.pagina-landing .hero-principal {
+  background: linear-gradient(135deg, var(--bn-accent) 0%, #4a9de8 100%) !important;
+  border-bottom: 1px solid var(--bn-border-accent);
+  color: #ffffff;
+}
+
+.pagina.pagina-landing .hero-principal .etiqueta {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.pagina.pagina-landing .hero-texto h1,
+.pagina.pagina-landing .hero-texto h1 span {
+  color: #ffffff;
+}
+
+.pagina.pagina-landing .hero-texto > p:not(.etiqueta) {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.pagina.pagina-landing .hero-puntos span {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.pagina.pagina-landing .hero-principal .boton {
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: none !important;
+  transform: none !important;
+  backdrop-filter: none !important;
+}
+
+.pagina.pagina-landing .hero-principal .boton.primario {
+  border: 1px solid #ffffff;
+  background: #ffffff;
+  color: var(--bn-bg-strong);
+}
+
+.pagina.pagina-landing .hero-principal .boton.primario:hover {
+  background: var(--bn-bg-muted);
+  color: var(--bn-bg-strong);
+}
+
+.pagina.pagina-landing .hero-principal .boton.secundario,
+.pagina.pagina-landing .hero-principal .boton.claro {
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: transparent;
+  color: #ffffff;
+}
+
+.pagina.pagina-landing .hero-principal .boton.secundario:hover,
+.pagina.pagina-landing .hero-principal .boton.claro:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.pagina.pagina-landing .tarjeta-operativa {
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: none !important;
+}
+
+.pagina.pagina-landing .lectura-acueducto {
+  background: var(--bn-bg-strong);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.pagina.pagina-landing .lectura-acueducto span {
+  color: var(--bn-accent-soft);
+}
+
+.pagina.pagina-landing .panel-hero {
+  background: var(--bn-bg) !important;
+  border-top: 1px solid var(--bn-border);
+  border-bottom: 1px solid var(--bn-border);
+}
+
+.pagina.pagina-landing .panel-hero-contenido div {
+  border-right: 1px solid var(--bn-border);
+  background: var(--bn-bg-soft);
+}
+
+.pagina.pagina-landing .panel-hero span {
+  color: var(--bn-bg-strong);
+}
+
+.pagina.pagina-landing .panel-hero p {
+  color: var(--bn-text-muted);
+}
+
+/* —— Secciones generales —— */
+.pagina.pagina-landing main .seccion,
+.pagina.pagina-landing .banda-formularios,
+.pagina.pagina-landing .seccion-suave,
+.pagina.pagina-landing .seccion-dividida,
+.pagina.pagina-landing .servicios,
+.pagina.pagina-landing .consulta-publica,
+.pagina.pagina-landing .contacto,
+.pagina.pagina-landing .seccion-reportes-averia {
+  background: var(--bn-bg-soft) !important;
+  border: none;
+}
+
+.pagina.pagina-landing .etiqueta {
+  color: var(--bn-accent);
+  letter-spacing: 0.1em;
+}
+
+.pagina.pagina-landing h2,
+.pagina.pagina-landing h3 {
+  color: var(--bn-text);
+}
+
+.pagina.pagina-landing .encabezado-seccion {
+  border-left: 3px solid var(--bn-accent);
+  padding-left: 16px;
+  text-align: left;
+  margin-inline: 0;
+}
+
+.pagina.pagina-landing .encabezado-seccion h2 {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+}
+
+.pagina.pagina-landing .encabezado-seccion p:last-child,
+.pagina.pagina-landing .tarjeta p,
+.pagina.pagina-landing .meta-tarjeta span {
+  color: var(--bn-text-soft);
+}
+
+/* —— QUIENES SOMOS (anula #quienes-somos oscuro de App.css) —— */
+.pagina.pagina-landing #quienes-somos,
+.pagina.pagina-landing #quienes-somos.seccion-dividida {
+  background: var(--bn-bg-soft) !important;
+  border-bottom: 1px solid var(--bn-border);
+}
+
+.pagina.pagina-landing #quienes-somos .quienes-titulo,
+.pagina.pagina-landing #quienes-somos .quienes-detalle {
+  background: var(--bn-bg) !important;
+  border: 1px solid var(--bn-border) !important;
+  border-radius: var(--bn-radius) !important;
+  box-shadow: var(--bn-shadow) !important;
+  min-height: auto;
+  padding: clamp(24px, 4vw, 36px) !important;
+  padding-top: clamp(24px, 4vw, 36px) !important;
+}
+
+.pagina.pagina-landing #quienes-somos .quienes-titulo::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--bn-accent), var(--bn-accent-soft)) !important;
+  border-radius: var(--bn-radius) var(--bn-radius) 0 0;
+}
+
+.pagina.pagina-landing #quienes-somos .quienes-logo {
+  position: absolute;
+  top: clamp(20px, 3vw, 32px);
+  right: clamp(20px, 3vw, 32px);
+  width: clamp(72px, 9vw, 96px);
+  height: clamp(72px, 9vw, 96px);
+  border: 1px solid var(--bn-border-accent);
+  border-radius: 50%;
+  background: var(--bn-bg);
+  box-shadow: var(--bn-shadow) !important;
+  object-fit: contain;
+  padding: 6px;
+}
+
+.pagina.pagina-landing #quienes-somos .quienes-titulo .etiqueta {
+  color: var(--bn-accent) !important;
+}
+
+.pagina.pagina-landing #quienes-somos .quienes-titulo h2 {
+  color: var(--bn-text) !important;
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem) !important;
+  max-width: 100%;
+}
+
+.pagina.pagina-landing #quienes-somos .quienes-titulo > span {
+  border: 1px solid var(--bn-border-accent) !important;
+  background: var(--bn-bg-muted) !important;
+  color: var(--bn-bg-strong) !important;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
+.pagina.pagina-landing #quienes-somos .quienes-detalle > p {
+  color: var(--bn-text-soft) !important;
+  font-weight: 400;
+}
+
+.pagina.pagina-landing #quienes-somos .indicadores-asada div {
+  background: var(--bn-bg) !important;
+  border: 1px solid var(--bn-border) !important;
+  border-left: 4px solid var(--bn-accent) !important;
+  border-radius: var(--bn-radius) !important;
+  box-shadow: none !important;
+  min-height: auto;
+  transform: none !important;
+}
+
+.pagina.pagina-landing #quienes-somos .indicadores-asada div:hover {
+  border-color: var(--bn-accent) !important;
+  background: var(--bn-bg-muted) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.pagina.pagina-landing #quienes-somos .indicadores-asada strong {
+  color: var(--bn-text) !important;
+}
+
+.pagina.pagina-landing #quienes-somos .indicadores-asada span {
+  color: var(--bn-text-soft) !important;
+}
+
+/* —— Servicios —— */
+.pagina.pagina-landing .tarjeta {
+  background: var(--bn-bg) !important;
+  border: 1px solid var(--bn-border) !important;
+  border-radius: var(--bn-radius) !important;
+  box-shadow: var(--bn-shadow) !important;
+  transform: none !important;
+}
+
+.pagina.pagina-landing .tarjeta:hover {
+  border-color: var(--bn-accent) !important;
+  box-shadow: 0 6px 20px rgba(89, 174, 242, 0.15) !important;
+  transform: none !important;
+}
+
+.pagina.pagina-landing .grilla-tarjetas .tarjeta:nth-child(2),
+.pagina.pagina-landing .proyectos .tarjeta:nth-child(even) {
+  transform: none !important;
+}
+
+.pagina.pagina-landing .icono-servicio {
+  background: var(--bn-bg-muted) !important;
+  border: 1px solid var(--bn-border-accent) !important;
+  color: var(--bn-bg-strong) !important;
+  box-shadow: none !important;
+}
+
+.pagina.pagina-landing .enlace-accion {
+  border: 1px solid var(--bn-accent) !important;
+  background: var(--bn-accent) !important;
+  color: #ffffff !important;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.pagina.pagina-landing .enlace-accion:hover {
+  background: var(--bn-bg-strong) !important;
+  border-color: var(--bn-bg-strong) !important;
+  color: #ffffff !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.pagina.pagina-landing .meta-tarjeta strong {
+  background: var(--bn-bg-muted);
+  color: var(--bn-bg-strong);
+  border: 1px solid var(--bn-border-accent);
+}
+
+/* —— Formularios publicos (Reportar averia / Solicitar servicio) —— */
+.pagina.pagina-landing .banda-formularios {
+  background: var(--bn-bg-soft) !important;
+}
+
+.pagina.pagina-landing .grilla-formularios .panel-formulario,
+.pagina.pagina-landing .banda-formularios .panel-formulario {
+  background: var(--bn-bg) !important;
+  border: 1px solid var(--bn-border) !important;
+  border-top: 3px solid var(--bn-accent) !important;
+  border-radius: var(--bn-radius) !important;
+  box-shadow: var(--bn-shadow) !important;
+  padding: clamp(20px, 3vw, 28px);
+  transform: none !important;
+}
+
+.pagina.pagina-landing .encabezado-formulario h2 {
+  color: var(--bn-text) !important;
+  margin-bottom: 8px;
+}
+
+.pagina.pagina-landing .encabezado-formulario p:last-child {
+  color: var(--bn-text-soft) !important;
+}
+
+.pagina.pagina-landing .encabezado-formulario .etiqueta {
+  color: var(--bn-accent) !important;
+}
+
+.pagina.pagina-landing .campo-foto {
+  border: 1px dashed var(--bn-border-accent) !important;
+  border-radius: var(--bn-radius) !important;
+  background: var(--bn-bg-muted) !important;
+  padding: 14px;
+}
+
+.pagina.pagina-landing .campo-foto input {
+  border: 1px solid var(--bn-border) !important;
+  background: var(--bn-bg) !important;
+}
+
+.pagina.pagina-landing .preview-foto {
+  border: 1px solid var(--bn-border) !important;
+  background: var(--bn-bg-soft) !important;
+}
+
+.pagina.pagina-landing .campo span {
+  color: var(--bn-text);
+  font-weight: 700;
+}
+
+.pagina.pagina-landing input,
+.pagina.pagina-landing select,
+.pagina.pagina-landing textarea {
+  background: var(--bn-bg) !important;
+  border: 1px solid var(--bn-border) !important;
+  color: var(--bn-text) !important;
+  box-shadow: none !important;
+}
+
+.pagina.pagina-landing input:focus,
+.pagina.pagina-landing select:focus,
+.pagina.pagina-landing textarea:focus {
+  border-color: var(--bn-accent) !important;
+  background: var(--bn-bg) !important;
+  box-shadow: 0 0 0 3px rgba(89, 174, 242, 0.2) !important;
+}
+
+.pagina.pagina-landing .mensaje-exito {
+  background: var(--bn-bg-muted);
+  border: 1px solid var(--bn-border-accent);
+  color: var(--bn-text);
+}
+
+.pagina.pagina-landing .boton {
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: none !important;
+  transform: none !important;
+  backdrop-filter: none !important;
+}
+
+.pagina.pagina-landing .panel-formulario .boton,
+.pagina.pagina-landing .panel-formulario .boton.primario,
+.pagina.pagina-landing .formulario-consulta .boton,
+.pagina.pagina-landing .formulario-consulta .boton.primario {
+  border: 1px solid var(--bn-bg-strong) !important;
+  background: var(--bn-bg-strong) !important;
+  color: #ffffff !important;
+}
+
+.pagina.pagina-landing .panel-formulario .boton:hover,
+.pagina.pagina-landing .panel-formulario .boton.primario:hover,
+.pagina.pagina-landing .formulario-consulta .boton:hover,
+.pagina.pagina-landing .formulario-consulta .boton.primario:hover {
+  background: var(--bn-accent) !important;
+  border-color: var(--bn-accent) !important;
+  color: #ffffff !important;
+}
+
+.pagina.pagina-landing .boton.whatsapp {
+  background: #1f8f5b !important;
+  border-color: #1f8f5b !important;
+  color: #ffffff !important;
+}
+
+/* —— Consulta publica —— */
+.pagina.pagina-landing #consulta-publica .encabezado-seccion,
+.pagina.pagina-landing .consulta-publica .encabezado-seccion {
+  margin-bottom: 24px;
+}
+
+.pagina.pagina-landing .consulta-contenido {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 20px !important;
+  max-width: 920px;
+  margin-inline: auto;
+  border: 1px solid var(--bn-border) !important;
+  border-radius: var(--bn-radius) !important;
+  background: var(--bn-bg) !important;
+  box-shadow: var(--bn-shadow) !important;
+  padding: clamp(20px, 3vw, 28px) !important;
+}
+
+.pagina.pagina-landing .consulta-resumen {
+  order: 2;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 10px;
+}
+
+.pagina.pagina-landing .consulta-resumen span {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px !important;
+  width: 100% !important;
+  border: 1px solid var(--bn-border-accent) !important;
+  border-radius: var(--bn-radius) !important;
+  background: var(--bn-bg-muted) !important;
+  color: var(--bn-bg-strong) !important;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: center;
+  place-items: center;
+}
+
+.pagina.pagina-landing .formulario-consulta {
+  order: 1;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 14px !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.pagina.pagina-landing .formulario-consulta .boton {
+  width: 100%;
+  min-height: 46px;
+  align-self: stretch;
+}
+
+.pagina.pagina-landing .consulta-ejemplos {
+  order: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pagina.pagina-landing .consulta-ejemplos button {
+  border: 1px solid var(--bn-border) !important;
+  background: var(--bn-bg) !important;
+  color: var(--bn-text-soft) !important;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+.pagina.pagina-landing .consulta-ejemplos button:hover {
+  border-color: var(--bn-accent) !important;
+  background: var(--bn-bg-muted) !important;
+  color: var(--bn-bg-strong) !important;
+  transform: none !important;
+}
+
+.pagina.pagina-landing .resultado-consulta {
+  order: 4;
+  grid-column: 1 / -1;
+  background: var(--bn-bg-muted) !important;
+  border: 1px solid var(--bn-border-accent) !important;
+  color: var(--bn-text) !important;
+  padding: 16px;
+  border-radius: var(--bn-radius);
+}
+
+.pagina.pagina-landing .resultado-consulta strong,
+.pagina.pagina-landing .resultado-consulta span {
+  color: var(--bn-text-soft) !important;
+}
+
+/* —— Reportes de averia —— */
+.pagina.pagina-landing .seccion-reportes-averia .encabezado-seccion h2 {
+  color: var(--bn-text) !important;
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem) !important;
+}
+
+.pagina.pagina-landing .seccion-reportes-averia .encabezado-seccion p:not(.etiqueta) {
+  color: var(--bn-text-soft) !important;
+}
+
+.pagina.pagina-landing .panel-reportes {
+  background: var(--bn-bg) !important;
+  border: 1px solid var(--bn-border) !important;
+  border-radius: var(--bn-radius) !important;
+  box-shadow: var(--bn-shadow) !important;
+  padding: clamp(20px, 3vw, 28px);
+}
+
+.pagina.pagina-landing .metricas-reportes div {
+  background: var(--bn-bg) !important;
+  border: 1px solid var(--bn-border) !important;
+  border-left: 4px solid var(--bn-accent) !important;
+  border-radius: var(--bn-radius) !important;
+  box-shadow: none !important;
+}
+
+.pagina.pagina-landing .metricas-reportes strong {
+  color: var(--bn-text) !important;
+}
+
+.pagina.pagina-landing .metricas-reportes span {
+  color: var(--bn-text-muted) !important;
+}
+
+.pagina.pagina-landing .busqueda-reportes span {
+  color: var(--bn-text);
+}
+
+.pagina.pagina-landing .filtros-reportes button {
+  border: 1px solid var(--bn-border) !important;
+  background: var(--bn-bg) !important;
+  color: var(--bn-text-soft) !important;
+  border-radius: 999px;
+  min-height: 40px;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.pagina.pagina-landing .filtros-reportes button.activo,
+.pagina.pagina-landing .filtros-reportes button:hover {
+  border-color: var(--bn-accent) !important;
+  background: var(--bn-accent) !important;
+  color: #ffffff !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.pagina.pagina-landing .seccion-reportes-averia .reportes-averia {
+  background: var(--bn-bg-muted) !important;
+  border: 1px solid var(--bn-border) !important;
+  border-radius: var(--bn-radius);
+  padding: 20px;
+}
+
+.pagina.pagina-landing .reportes-averia-encabezado h3 {
+  color: var(--bn-text);
+}
+
+.pagina.pagina-landing .reportes-averia-encabezado span {
+  background: var(--bn-bg);
+  color: var(--bn-bg-strong);
+  border: 1px solid var(--bn-border-accent);
+}
+
+.pagina.pagina-landing .sin-reportes {
+  border: 1px dashed var(--bn-border-accent) !important;
+  border-radius: var(--bn-radius) !important;
+  background: var(--bn-bg) !important;
+  color: var(--bn-text-soft) !important;
+  box-shadow: none !important;
+  padding: 20px;
+}
+
+.pagina.pagina-landing .tarjeta-reporte-averia {
+  background: var(--bn-bg) !important;
+  border: 1px solid var(--bn-border) !important;
+  box-shadow: none !important;
+}
+
+.pagina.pagina-landing .tarjeta-reporte-averia strong {
+  color: var(--bn-text) !important;
+}
+
+.pagina.pagina-landing .tarjeta-reporte-averia span {
+  color: var(--bn-accent) !important;
+}
+
+.pagina.pagina-landing .tarjeta-reporte-averia p,
+.pagina.pagina-landing .tarjeta-reporte-averia small {
+  color: var(--bn-text-soft) !important;
+}
+
+/* —— Contacto —— */
+.pagina.pagina-landing #contacto .contacto-contenido > div:first-child,
+.pagina.pagina-landing .contacto .contacto-contenido > div:first-child {
+  background: var(--bn-bg-muted) !important;
+  border: 1px solid var(--bn-border-accent) !important;
+  border-radius: var(--bn-radius) !important;
+  box-shadow: var(--bn-shadow) !important;
+  padding: 28px !important;
+}
+
+.pagina.pagina-landing .contacto-contenido > div:first-child h2 {
+  color: var(--bn-text);
+}
+
+.pagina.pagina-landing .contacto-contenido > div:first-child p {
+  color: var(--bn-text-soft) !important;
+}
+
+.pagina.pagina-landing .datos-contacto {
+  border-top: 3px solid var(--bn-accent) !important;
+}
+
+.pagina.pagina-landing .identidad-contacto {
+  background: var(--bn-bg-muted);
+  border: 1px solid var(--bn-border);
+}
+
+.pagina.pagina-landing .datos-contacto strong {
+  color: var(--bn-text);
+}
+
+.pagina.pagina-landing .datos-contacto p {
+  color: var(--bn-text-soft);
+}
+
+/* —— Pie de pagina —— */
+.pagina.pagina-landing .pie-pagina {
+  background: var(--bn-bg) !important;
+  border-top: 3px solid var(--bn-accent);
+  color: var(--bn-text);
+}
+
+.pagina.pagina-landing .pie-pagina h2 {
+  color: var(--bn-text);
+}
+
+.pagina.pagina-landing .pie-pagina p,
+.pagina.pagina-landing .pie-pagina small {
+  color: var(--bn-text-muted);
+}
+
+.pagina.pagina-landing .pie-pagina a {
+  border: 1px solid var(--bn-bg-strong);
+  background: var(--bn-bg-strong);
+  color: #ffffff;
+}
+
+.pagina.pagina-landing .pie-pagina a:hover {
+  background: var(--bn-accent);
+  border-color: var(--bn-accent);
+}
+
+@media (max-width: 900px) {
+  .pagina.pagina-landing .hero-contenido {
+    grid-template-columns: 1fr;
+  }
+
+  .pagina.pagina-landing .grilla-formularios,
+  .pagina.pagina-landing .contacto-contenido,
+  .pagina.pagina-landing #quienes-somos .bloque-quienes,
+  .pagina.pagina-landing .barra-reportes,
+  .pagina.pagina-landing .metricas-reportes,
+  .pagina.pagina-landing .consulta-resumen {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pagina.pagina-landing .panel-hero-contenido {
+    grid-template-columns: 1fr;
+  }
+
+  .pagina.pagina-landing .panel-hero-contenido div {
+    border-right: none;
+    border-bottom: 1px solid var(--bn-border);
+  }
+
+  .pagina.pagina-landing .panel-hero-contenido div:last-child {
+    border-bottom: none;
+  }
+
+  .pagina.pagina-landing #quienes-somos .quienes-logo {
+    left: clamp(20px, 3vw, 32px);
+    right: auto;
+  }
+}

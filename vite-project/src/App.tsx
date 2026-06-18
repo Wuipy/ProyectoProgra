@@ -1,5 +1,6 @@
 import './App.css'
 import './estilos/modulosInternos.css'
+import './estilos/landingPublico.css'
 import { AppRouter } from './routing/AppRouter'
 
 function App() {

@@ -4,7 +4,7 @@ import { PiePagina } from '../../componentes/PiePagina'
 
 export function PaginaReportarAveria() {
   return (
-    <div className="pagina">
+    <div className="pagina pagina-landing">
       <Encabezado />
       <main className="contenedor pagina-reportar-averia">
         <section className="encabezado-seccion">

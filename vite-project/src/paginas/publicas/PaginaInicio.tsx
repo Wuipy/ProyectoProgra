@@ -49,7 +49,7 @@ export function PaginaInicio() {
   }
 
   return (
-    <div className="pagina">
+    <div className="pagina pagina-landing">
       <Encabezado />
       <main>
         <HeroPrincipal />
