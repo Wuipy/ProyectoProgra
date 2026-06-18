@@ -49,6 +49,7 @@ export type AveriaHistorialItem = {
 }
 
 export type FontaneroResumen = {
+  id: number
   usuario: string
 }
 
@@ -127,28 +128,84 @@ export type ActividadFontaneroForm = {
 export type LecturaMedidorItem = {
   id: number
   nombreAbonado: string
+  numeroAbonado?: string | null
   numeroMedidor: string
   cedulaAbonado?: string | null
+  ubicacion?: string | null
   lecturaAnterior: number
   lecturaActual: number
   consumo: number
   consumoMesAnterior?: number | null
   alertaConsumoAlto: boolean
+  consumoAlto: boolean
   fechaLectura: string
+  horaLectura?: string | null
   observaciones?: string | null
+  observacionAdmin?: string | null
+  motivoVisita?: string | null
+  resultadoInspeccion?: string | null
   estado: string
+  estadoMedidor?: string | null
+  evidenciaNombre?: string | null
+  evidenciaBase64?: string | null
   fontanero: string
+  revisadaPorAdmin?: string | null
   fechaRegistro: string
+  fechaActualizacion?: string | null
 }
 
 export type LecturaMedidorForm = {
   nombreAbonado: string
+  numeroAbonado?: string
   numeroMedidor: string
   cedulaAbonado?: string
+  ubicacion?: string
   lecturaAnterior: number
   lecturaActual: number
   fechaLectura: string
+  horaLectura?: string
   observaciones?: string
+  estadoMedidor?: string
+  motivoVisita?: string
+  resultadoInspeccion?: string
+  evidenciaNombre?: string
+  evidenciaBase64?: string
+}
+
+export type AsignarLecturaMedidorForm = {
+  nombreAbonado: string
+  numeroAbonado?: string
+  numeroMedidor: string
+  ubicacion?: string
+  lecturaAnterior: number
+  fechaLectura: string
+  fontaneroId: number
+  observaciones?: string
+}
+
+export type ResumenLecturasMedidor = {
+  totalMes: number
+  pendientes: number
+  registradasHoy: number
+  validadas: number
+  conInconsistencia: number
+  consumosAltos: number
+}
+
+export type HistorialLecturaCambio = {
+  id: number
+  accion: string
+  estadoAnterior?: string | null
+  estadoNuevo?: string | null
+  observacion?: string | null
+  usuario?: string | null
+  fecha: string
+}
+
+export type ReporteLecturasMedidor = {
+  tipo: string
+  totalRegistros: number
+  registros: LecturaMedidorItem[]
 }
 
 export type RegistroResponse = {
@@ -306,8 +363,23 @@ export async function listarLecturasMedidorAdmin(): Promise<LecturaMedidorItem[]
   return data
 }
 
+export async function resumenLecturasMedidorAdmin(): Promise<ResumenLecturasMedidor> {
+  const { data } = await apiClient.get<ResumenLecturasMedidor>('/lecturas-medidor/resumen')
+  return data
+}
+
 export async function listarMisLecturasMedidor(): Promise<LecturaMedidorItem[]> {
   const { data } = await apiClient.get<LecturaMedidorItem[]>('/lecturas-medidor/mis-lecturas')
+  return data
+}
+
+export async function resumenMisLecturasMedidor(): Promise<ResumenLecturasMedidor> {
+  const { data } = await apiClient.get<ResumenLecturasMedidor>('/lecturas-medidor/mis-lecturas/resumen')
+  return data
+}
+
+export async function listarLecturasPendientesMedidor(): Promise<LecturaMedidorItem[]> {
+  const { data } = await apiClient.get<LecturaMedidorItem[]>('/lecturas-medidor/pendientes')
   return data
 }
 
@@ -318,14 +390,47 @@ export async function historialLecturasMedidor(numeroMedidor: string): Promise<L
   return data
 }
 
+export async function historialLecturasPorAbonado(numeroAbonado: string): Promise<LecturaMedidorItem[]> {
+  const { data } = await apiClient.get<LecturaMedidorItem[]>(
+    `/lecturas-medidor/historial-abonado/${encodeURIComponent(numeroAbonado)}`,
+  )
+  return data
+}
+
+export async function historialCambiosLectura(id: number): Promise<HistorialLecturaCambio[]> {
+  const { data } = await apiClient.get<HistorialLecturaCambio[]>(`/lecturas-medidor/${id}/historial-cambios`)
+  return data
+}
+
+export async function reporteLecturasMedidor(tipo: string): Promise<ReporteLecturasMedidor> {
+  const { data } = await apiClient.get<ReporteLecturasMedidor>(`/lecturas-medidor/reportes/${encodeURIComponent(tipo)}`)
+  return data
+}
+
 export async function crearLecturaMedidor(formulario: LecturaMedidorForm): Promise<LecturaMedidorItem> {
   const { data } = await apiClient.post<LecturaMedidorItem>('/lecturas-medidor', formulario)
   return data
 }
 
+export async function asignarLecturaMedidor(formulario: AsignarLecturaMedidorForm): Promise<LecturaMedidorItem> {
+  const { data } = await apiClient.post<LecturaMedidorItem>('/lecturas-medidor/asignar', formulario)
+  return data
+}
+
 export async function actualizarLecturaMedidor(
   id: number,
-  payload: { lecturaActual?: number; observaciones?: string; estado?: string },
+  payload: {
+    lecturaActual?: number
+    observaciones?: string
+    observacionAdmin?: string
+    estado?: string
+    estadoMedidor?: string
+    horaLectura?: string
+    motivoVisita?: string
+    resultadoInspeccion?: string
+    evidenciaNombre?: string
+    evidenciaBase64?: string
+  },
 ): Promise<LecturaMedidorItem> {
   const { data } = await apiClient.patch<LecturaMedidorItem>(`/lecturas-medidor/${id}`, payload)
   return data
