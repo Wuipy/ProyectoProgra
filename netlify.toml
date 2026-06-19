@@ -4,12 +4,13 @@
 
 [build]
   base = "vite-project"
-  command = "npm install && npm run build"
+  command = "npm ci && npm run build"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
   NPM_FLAGS = "--no-audit"
+  NETLIFY_USE_YARN = "false"
 
 # Frontend HTTPS -> backend HTTP (MonsterASP). Mismo origen en Netlify.
 [[redirects]]

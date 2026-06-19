@@ -63,7 +63,16 @@ O manual: **Deploys → Trigger deploy → Deploy site**
 | `/login` | Login admin (no 404) |
 | `/api/health` | `{"status":"ok",...}` desde MonsterASP |
 
-En el deploy log debe verse `npm install && npm run build` dentro de `vite-project`.
+En el deploy log debe verse `npm ci && npm run build` y `✓ built`.
+
+## Si falla en "Initializing"
+
+| Causa | Solucion |
+|-------|----------|
+| Deploy viejo (`9828465` o anterior) | Hacer deploy de `main` mas reciente |
+| `pnpm-lock.yaml` + `package-lock.json` juntos | Ya corregido — solo queda `package-lock.json` |
+| Base directory duplicado | Ver Paso 2 arriba |
+| Build command manual en UI | Borrarlo — dejar vacio |
 
 En **Deploy file browser**: `index.html`, `404.html`, `_redirects`.
 
