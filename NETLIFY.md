@@ -11,9 +11,11 @@ Frontend en **Netlify** (desde el repo) · Backend en **MonsterASP** · Repo: `W
 3. **Link repository** → GitHub → `Wuipy/ProyectoProgra`
 4. Rama de produccion: **`main`**
 
-## Paso 2 — Limpiar settings manuales (importante)
+## Paso 2 — Build settings (elegir UNA opcion)
 
-**Site configuration → Build & deploy → Build settings → Edit**
+**Site configuration → Build & deploy → Build settings**
+
+### Opcion A — Base directory vacio (recomendada)
 
 | Campo | Valor |
 |-------|--------|
@@ -21,7 +23,19 @@ Frontend en **Netlify** (desde el repo) · Backend en **MonsterASP** · Repo: `W
 | Build command | *(vacío)* |
 | Publish directory | *(vacío)* |
 
-Netlify debe leer **`netlify.toml`** en la raiz del repo. Si hay valores manuales, los ignora o falla.
+Netlify usa `netlify.toml` en la **raiz** del repo (con `base = "vite-project"`).
+
+### Opcion B — Base directory = vite-project
+
+| Campo | Valor |
+|-------|--------|
+| Base directory | `vite-project` |
+| Build command | *(vacío)* |
+| Publish directory | *(vacío)* |
+
+Netlify usa `vite-project/netlify.toml` (sin `base` duplicado).
+
+**Error comun:** Base directory = `vite-project` **y** ademas valores manuales en Build/Publish, o `base` duplicado → build falla o publica carpeta vacia.
 
 ## Paso 3 — Variables de entorno
 

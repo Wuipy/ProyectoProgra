@@ -1,0 +1,21 @@
+# Usar cuando Netlify UI tiene Base directory = vite-project
+# (sin base= aqui — evita ruta vite-project/vite-project)
+
+[build]
+  command = "npm install && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--no-audit"
+
+[[redirects]]
+  from = "/api/*"
+  to = "http://sigasj.runasp.net/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
