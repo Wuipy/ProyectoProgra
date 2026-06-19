@@ -1,51 +1,74 @@
-# Netlify — SIGASJ Frontend
+# Netlify + GitHub + MonsterASP — SIGASJ
 
-Sitio: **sigasjiv** · Repo: `github.com/Wuipy/ProyectoProgra` · Rama: `main`
-
-## Problema comun
-
-Si la raiz da **404**, el sitio Netlify esta vacio o apunta a la carpeta incorrecta.
-El build correcto vive en `vite-project/dist/` (no subir `vite-project` entero).
+Frontend en **Netlify** (desde el repo) · Backend en **MonsterASP** · Repo: `Wuipy/ProyectoProgra` · Rama: `main`
 
 ---
 
-## Opcion A — Script automatico (recomendada en PC de Wuipy)
+## Paso 1 — Conectar el repo en Netlify (Wuipy, una sola vez)
 
-```powershell
-cd ProyectoProgra
-# Una sola vez: npx netlify-cli login
-# Site ID: Netlify -> Site configuration -> General -> Site ID
-$env:NETLIFY_SITE_ID = "PEGAR-SITE-ID-AQUI"
-.\scripts\deploy-netlify.ps1
-```
+1. [app.netlify.com](https://app.netlify.com) → sitio **sigasjiv**
+2. **Site configuration → Build & deploy → Continuous deployment**
+3. **Link repository** → GitHub → `Wuipy/ProyectoProgra`
+4. Rama de produccion: **`main`**
 
-## Opcion B — Subir ZIP manual
+## Paso 2 — Limpiar settings manuales (importante)
 
-```powershell
-cd ProyectoProgra
-.\scripts\deploy-netlify.ps1 -SoloZip
-```
-
-Luego en Netlify: **Deploys → Deploy manually →** arrastrar `vite-project/netlify-deploy.zip`
-
-## Opcion C — GitHub conectado
-
-En Netlify **borrar** Base directory, Build command y Publish directory (dejar vacios).
-Netlify usara `netlify.toml` de la raiz del repo.
+**Site configuration → Build & deploy → Build settings → Edit**
 
 | Campo | Valor |
 |-------|--------|
-| Branch | `main` |
-| Base / Build / Publish | *(vacios)* |
+| Base directory | *(vacío)* |
+| Build command | *(vacío)* |
+| Publish directory | *(vacío)* |
 
-No definir `VITE_API_BASE_URL`. El proxy `/api` va al backend MonsterASP.
+Netlify debe leer **`netlify.toml`** en la raiz del repo. Si hay valores manuales, los ignora o falla.
+
+## Paso 3 — Variables de entorno
+
+**No agregar** `VITE_API_BASE_URL`.
+
+El archivo `netlify.toml` ya envia `/api/*` al backend:
+
+```
+http://sigasj.runasp.net/api/*
+```
+
+## Paso 4 — Deploy
+
+Cada **push a `main`** dispara un build automatico.
+
+O manual: **Deploys → Trigger deploy → Deploy site**
 
 ---
 
-## Verificar despues del deploy
+## Verificar
 
-- `/` — landing SIGASJ
-- `/login` — pagina de login (no 404)
-- `/api/health` — respuesta JSON del backend
+| URL | Esperado |
+|-----|----------|
+| `/` | Landing SIGASJ |
+| `/login` | Login admin (no 404) |
+| `/api/health` | `{"status":"ok",...}` desde MonsterASP |
 
-En Deploy file browser deben existir: `index.html`, `404.html`, `_redirects`
+En el deploy log debe verse `npm install && npm run build` dentro de `vite-project`.
+
+En **Deploy file browser**: `index.html`, `404.html`, `_redirects`.
+
+---
+
+## Backend MonsterASP (CORS)
+
+El backend debe permitir el origen de Netlify. En MonsterASP o GitHub Secrets:
+
+```
+Cors__AllowedOrigins__0 = https://sigasjiv.netlify.app
+```
+
+Health del backend: `http://sigasj.runasp.net/api/health`
+
+---
+
+## Alternativa: GitHub Actions
+
+Si prefieren deploy via Actions en lugar del build nativo de Netlify, ver **NETLIFY-SECRETS.md** (requiere `NETLIFY_AUTH_TOKEN` y `NETLIFY_SITE_ID`).
+
+Usar **una** opcion: build nativo de Netlify **o** GitHub Actions, no ambas a la vez.

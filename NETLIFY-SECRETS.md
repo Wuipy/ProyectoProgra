@@ -1,28 +1,30 @@
-# Netlify — secrets para GitHub Actions
+# GitHub Actions → Netlify (opcional)
 
-Repo: **Wuipy/ProyectoProgra** → Settings → Secrets and variables → Actions
+Solo si **no** usan el build nativo de Netlify con repo conectado.
 
-| Secret | Como obtenerlo |
-|--------|----------------|
-| `NETLIFY_AUTH_TOKEN` | Netlify → User settings → Applications → Personal access tokens → New token |
-| `NETLIFY_SITE_ID` | Netlify → sitio **sigasjiv** → Site configuration → General → **Site ID** |
+## Secrets en GitHub
 
-Con esos dos secrets, cada push a `main` despliega automaticamente via `.github/workflows/deploy-netlify.yml`.
+**ProyectoProgra → Settings → Secrets and variables → Actions**
 
-Tambien se puede ejecutar manualmente: **Actions → Deploy frontend to Netlify → Run workflow**.
+| Secret | Donde obtenerlo |
+|--------|-----------------|
+| `NETLIFY_AUTH_TOKEN` | Netlify → User settings → Applications → Personal access tokens |
+| `NETLIFY_SITE_ID` | Netlify → sigasjiv → Site configuration → General → Site ID |
 
-## Deploy manual (sin secrets)
+## Ejecutar
 
-```powershell
-cd ProyectoProgra
-.\scripts\deploy-netlify.ps1 -SoloZip
+Push a `main` (si cambia `vite-project/` o `netlify.toml`) **o**
+
+**Actions → Deploy frontend to Netlify → Run workflow**
+
+El workflow compila desde el repo y publica `vite-project/dist` — sin ZIP.
+
+## Backend
+
+El frontend en Netlify llama al API via proxy en `netlify.toml`:
+
+```
+/api/*  →  http://sigasj.runasp.net/api/*
 ```
 
-Subir `vite-project/netlify-deploy.zip` en Netlify → Deploys → Deploy manually.
-
-## Configuracion del sitio en Netlify
-
-Si conecta GitHub al sitio, dejar **vacios** Base directory, Build command y Publish directory.
-El archivo `netlify.toml` en la raiz del repo define todo.
-
-No agregar `VITE_API_BASE_URL` — el proxy `/api` apunta a MonsterASP.
+No hace falta `VITE_API_BASE_URL` en Netlify.

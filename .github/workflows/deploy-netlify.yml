@@ -1,13 +1,13 @@
 name: Deploy frontend to Netlify
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "vite-project/**"
-      - "netlify.toml"
-      - ".github/workflows/deploy-netlify.yml"
   workflow_dispatch:
+  # Descomentar solo si NO usan build nativo de Netlify con repo conectado:
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - "vite-project/**"
+  #     - "netlify.toml"
 
 jobs:
   deploy:

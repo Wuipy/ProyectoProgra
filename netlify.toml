@@ -1,20 +1,24 @@
 # Repo: github.com/Wuipy/ProyectoProgra
-# El proyecto Vite esta en vite-project/ — Netlify debe leer ESTE archivo en la raiz.
+# Deploy automatico desde GitHub — NO usar ZIP manual.
+# Backend: MonsterASP (proxy /api abajo).
+
 [build]
   base = "vite-project"
-  command = "npm ci && npm run build"
+  command = "npm install && npm run build"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
   NPM_FLAGS = "--no-audit"
 
+# Frontend HTTPS -> backend HTTP (MonsterASP). Mismo origen en Netlify.
 [[redirects]]
   from = "/api/*"
   to = "http://sigasj.runasp.net/api/:splat"
   status = 200
   force = true
 
+# React Router (SPA)
 [[redirects]]
   from = "/*"
   to = "/index.html"
