@@ -13,7 +13,8 @@ Push-Location $projectDir
 try {
     Write-Host "Build SIGASJ frontend..." -ForegroundColor Cyan
     if (Test-Path "package-lock.json") {
-        npm ci
+        npm ci 2>$null
+        if ($LASTEXITCODE -ne 0) { npm install }
     } else {
         npm install
     }
