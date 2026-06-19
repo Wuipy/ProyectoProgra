@@ -2,8 +2,12 @@
 # El proyecto Vite esta en vite-project/ — Netlify debe leer ESTE archivo en la raiz.
 [build]
   base = "vite-project"
-  command = "npm run build"
+  command = "npm ci && npm run build"
   publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--no-audit"
 
 [[redirects]]
   from = "/api/*"
